@@ -1,4 +1,4 @@
-console.log("Diário WaveRise funcionando 🌊");
+console.log("🌊 Diário WaveRise funcionando!");
 
 // ==========================
 // Elementos
@@ -36,7 +36,7 @@ function carregarPranchas() {
         option.value = item.id;
 
         option.textContent =
-            `${item.modelo} - ${item.tamanho}`;
+            `${item.modelo || "Prancha"} - ${item.tamanho || ""}`;
 
         prancha.appendChild(option);
 
@@ -44,15 +44,16 @@ function carregarPranchas() {
 
 }
 
-carregarPranchas();
-
 // ==========================
 // Salvar Sessão
 // ==========================
 
-botaoSalvar.addEventListener("click", salvarSessao);
-
 function salvarSessao() {
+
+    if (!praia || !data) {
+        console.error("Elementos do formulário não encontrados.");
+        return;
+    }
 
     if (
         praia.value.trim() === "" ||
@@ -62,26 +63,31 @@ function salvarSessao() {
         alert("Preencha a praia e a data.");
 
         return;
-
     }
 
     const sessao = {
 
         id: Date.now(),
 
-        praia: praia.value,
+        praia: praia.value.trim(),
 
         data: data.value,
 
-        tempo: tempo.value,
+        tempo: tempo ? tempo.value : "",
 
         prancha: prancha ? prancha.value : "",
 
-        ondas: Number(ondas.value) || 0,
+        ondas: ondas
+            ? Number(ondas.value) || 0
+            : 0,
 
-        nota: Number(nota.value) || 0,
+        nota: nota
+            ? Number(nota.value) || 0
+            : 0,
 
-        observacoes: observacoes.value
+        observacoes: observacoes
+            ? observacoes.value.trim()
+            : ""
 
     };
 
@@ -96,8 +102,10 @@ function salvarSessao() {
         JSON.stringify(historico)
     );
 
+    // Atualiza quantidade de sessões da prancha
     atualizarPrancha(sessao.prancha);
 
+    // Limpa formulário
     limparFormulario();
 
     alert("🌊 Sessão salva com sucesso!");
@@ -120,16 +128,17 @@ function atualizarPrancha(idPrancha) {
         p => String(p.id) === String(idPrancha)
     );
 
-    if (encontrada) {
+    if (!encontrada) return;
 
-        encontrada.sessoes++;
+    encontrada.sessoes =
+        Number(encontrada.sessoes) || 0;
 
-        localStorage.setItem(
-            "pranchasWaveRise",
-            JSON.stringify(pranchas)
-        );
+    encontrada.sessoes++;
 
-    }
+    localStorage.setItem(
+        "pranchasWaveRise",
+        JSON.stringify(pranchas)
+    );
 
 }
 
@@ -139,22 +148,55 @@ function atualizarPrancha(idPrancha) {
 
 function limparFormulario() {
 
-    praia.value = "";
-
-    data.value = "";
-
-    tempo.value = "";
-
-    if (prancha) {
-
-        prancha.selectedIndex = 0;
-
+    if (praia) {
+        praia.value = "";
     }
 
-    ondas.value = "";
+    if (data) {
+        data.value = "";
+    }
 
-    nota.value = "";
+    if (tempo) {
+        tempo.value = "";
+    }
 
-    observacoes.value = "";
+    if (prancha) {
+        prancha.selectedIndex = 0;
+    }
+
+    if (ondas) {
+        ondas.value = "";
+    }
+
+    if (nota) {
+        nota.value = "";
+    }
+
+    if (observacoes) {
+        observacoes.value = "";
+    }
 
 }
+
+// ==========================
+// Inicialização
+// ==========================
+
+carregarPranchas();
+
+if (botaoSalvar) {
+
+    botaoSalvar.addEventListener(
+        "click",
+        salvarSessao
+    );
+
+} else {
+
+    console.error(
+        "Botão #salvarSessao não encontrado."
+    );
+
+}
+
+console.log("✅ Diário WaveRise carregado sem erros.");
