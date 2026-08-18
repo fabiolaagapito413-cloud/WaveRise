@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>WaveRise • Mar Premium</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../style.css">
+
+<link rel="stylesheet" href="mar.css">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="heroMar">
+
+<div class="heroOverlay">
+
+<div class="topBar">
+
+<button class="btnVoltar" onclick="history.back()">
+
+←
+
+</button>
+
+<div class="logoWave">
+
+🌊 WaveRise
+
+</div>
+
+</div>
+
+<h1 id="heroPraia">
+
+Maresias
+
+</h1>
+
+<p id="heroCondicao">
+
+Excelente para surfar hoje
+
+</p>
+
+<div class="heroGrid">
+
+<div class="surfScore">
+
+<div class="scoreCircle">
+
+<span id="heroNota">
+
+95
+
+</span>
+
+</div>
+
+<div class="scoreText">
+
+<h2>
+
+Surf Score
+
+</h2>
+
+<p>
+
+Baseado em ondas, vento e swell.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="heroInfo">
+
+<div class="heroItem">
+
+🌊
+
+<strong id="heroOnda">
+
+1.5m
+
+</strong>
+
+<small>
+
+Onda
+
+</small>
+
+</div>
+
+<div class="heroItem">
+
+💨
+
+<strong id="heroVento">
+
+8 km/h
+
+</strong>
+
+<small>
+
+Vento
+
+</small>
+
+</div>
+
+<div class="heroItem">
+
+🌡
+
+<strong id="heroAgua">
+
+22°
+
+</strong>
+
+<small>
+
+Água
+
+</small>
+
+</div>
+
+<div class="heroItem">
+
+🏄
+
+<strong id="heroPrancha">
+
+--
+
+</strong>
+
+<small>
+
+Prancha
+
+</small>
+
+</div>
+
+<div class="heroItem">
+
+🕒
+
+<strong id="heroHorario">
+
+--
+
+</strong>
+
+<small>
+
+Melhor horário
+
+</small>
+
+</div>
+
+<div class="heroItem">
+
+⭐
+
+<strong>
+
+Premium
+
+</strong>
+
+<small>
+
+WaveRise
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+<section class="card">
+
+<h2>
+
+🔎 Buscar Praia
+
+</h2>
+
+<input
+id="praiaInput"
+class="inputWave"
+placeholder="Digite uma praia...">
+
+<div class="acoesMar">
+
+<button id="buscarMar">
+
+🌊 Buscar
+
+</button>
+
+<button id="gps">
+
+📍 GPS
+
+</button>
+
+<button id="favoritar">
+
+❤️ Favoritar
+
+</button>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+📍 Localização
+
+</h2>
+
+<p id="localMar">
+
+Selecione uma praia
+
+</p>
+
+<div id="mapa"></div>
+
+</section>
+<!-- ===================================== -->
+<!-- PREVISÃO HORÁRIA -->
+<!-- ===================================== -->
+
+<section class="card">
+
+<h2>
+
+📈 Melhor Horário para Surfar
+
+</h2>
+
+<p>
+
+Deslize para ver as próximas horas.
+
+</p>
+
+<div id="timelineSurf" class="timelineSurf">
+
+<div class="horaCard">
+
+<div class="hora">06:00</div>
+
+<div class="onda">🌊 1.2m</div>
+
+<div class="periodo">⏱ 11 s</div>
+
+<div class="vento">💨 6 km/h</div>
+
+<div class="direcao">↗ Terral</div>
+
+<div class="score excelente">⭐94</div>
+
+</div>
+
+<div class="horaCard">
+
+<div class="hora">09:00</div>
+
+<div class="onda">🌊 1.5m</div>
+
+<div class="periodo">⏱ 13 s</div>
+
+<div class="vento">💨 7 km/h</div>
+
+<div class="direcao">⬆ Norte</div>
+
+<div class="score excelente">⭐97</div>
+
+</div>
+
+<div class="horaCard">
+
+<div class="hora">12:00</div>
+
+<div class="onda">🌊 1.8m</div>
+
+<div class="periodo">⏱ 14 s</div>
+
+<div class="vento">💨 10 km/h</div>
+
+<div class="direcao">↘ Sudeste</div>
+
+<div class="score bom">⭐90</div>
+
+</div>
+
+<div class="horaCard">
+
+<div class="hora">15:00</div>
+
+<div class="onda">🌊 1.6m</div>
+
+<div class="periodo">⏱ 13 s</div>
+
+<div class="vento">💨 8 km/h</div>
+
+<div class="direcao">↗ Nordeste</div>
+
+<div class="score bom">⭐91</div>
+
+</div>
+
+<div class="horaCard">
+
+<div class="hora">18:00</div>
+
+<div class="onda">🌊 1.3m</div>
+
+<div class="periodo">⏱ 11 s</div>
+
+<div class="vento">💨 6 km/h</div>
+
+<div class="direcao">⬅ Oeste</div>
+
+<div class="score regular">⭐84</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- CONDIÇÕES -->
+<!-- ===================================== -->
+
+<section class="card">
+
+<h2>
+
+🌊 Condições do Mar
+
+</h2>
+
+<div class="condicoesGrid">
+
+<div class="infoCard destaque">
+
+<span class="icone">🌊</span>
+
+<h3>Onda</h3>
+
+<strong id="ondasMar">--</strong>
+
+<small>Altura</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">🌊</span>
+
+<h3>Swell</h3>
+
+<strong id="swellMar">--</strong>
+
+<small>Ondulação</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">💨</span>
+
+<h3>Vento</h3>
+
+<strong id="ventoMar">--</strong>
+
+<small>Velocidade</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">🌡</span>
+
+<h3>Água</h3>
+
+<strong id="aguaMar">--</strong>
+
+<small>Temperatura</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">🧭</span>
+
+<h3>Direção</h3>
+
+<strong id="direcaoMar">--</strong>
+
+<small>Ondas</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">⏱</span>
+
+<h3>Período</h3>
+
+<strong id="periodoMar">--</strong>
+
+<small>Segundos</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">🌬</span>
+
+<h3>Tipo</h3>
+
+<strong id="tipoVento">--</strong>
+
+<small>Vento</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">☀️</span>
+
+<h3>Ar</h3>
+
+<strong id="temperaturaAr">--</strong>
+
+<small>Temperatura</small>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- MARÉ • SOL • LUA -->
+<!-- ===================================== -->
+
+<section class="card">
+
+<h2>
+
+🌙 Maré • Sol • Lua
+
+</h2>
+
+<div class="condicoesGrid">
+
+<div class="infoCard">
+
+<span class="icone">🌊</span>
+
+<h3>Maré</h3>
+
+<strong id="mareMar">--</strong>
+
+<small>Situação</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">📈</span>
+
+<h3>Próxima</h3>
+
+<strong id="proximaMare">--</strong>
+
+<small>Maré</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">📏</span>
+
+<h3>Altura</h3>
+
+<strong id="alturaMare">--</strong>
+
+<small>metros</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">🌅</span>
+
+<h3>Nascer</h3>
+
+<strong id="nascerSol">--</strong>
+
+<small>Sol</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">🌇</span>
+
+<h3>Pôr</h3>
+
+<strong id="porSol">--</strong>
+
+<small>Sol</small>
+
+</div>
+
+<div class="infoCard">
+
+<span class="icone">🌙</span>
+
+<h3>Lua</h3>
+
+<strong id="faseLua">--</strong>
+
+<small>Fase</small>
+
+</div>
+
+</div>
+
+</section>
+<!-- ===================================== -->
+<!-- SURF SCORE -->
+<!-- ===================================== -->
+
+<section class="card scoreCard">
+
+<h2>
+
+⭐ Surf Score
+
+</h2>
+
+<div class="scoreBox">
+
+<h1 id="notaGrande">
+
+--
+
+</h1>
+
+<p id="condicaoMar">
+
+Aguardando previsão...
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- COACH IA -->
+<!-- ===================================== -->
+
+<section class="card coachCard">
+
+<div class="coachHeader">
+
+<div>
+
+<h2>
+
+🤖 Coach WaveRise IA
+
+</h2>
+
+<p>
+
+Sua análise personalizada baseada nas condições do mar.
+
+</p>
+
+</div>
+
+<div class="coachIcon">
+
+🤖
+
+</div>
+
+</div>
+
+<p id="coachTexto">
+
+Buscando as melhores condições...
+
+</p>
+
+<button id="analisarCoach" class="primaryButton">
+
+✨ Analisar sessão
+
+</button>
+
+</section>
+
+<!-- ===================================== -->
+<!-- PREVISÃO 7 DIAS -->
+<!-- ===================================== -->
+
+<section class="card">
+
+<h2>
+
+📅 Próximos 7 dias
+
+</h2>
+
+<div id="previsao7dias" class="previsaoGrid">
+
+<p>
+
+Carregando previsão...
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- FAVORITOS -->
+<!-- ===================================== -->
+
+<section class="card">
+
+<div class="tituloCard">
+
+<h2>
+
+❤️ Praias Favoritas
+
+</h2>
+
+<button id="limparFavoritos">
+
+Limpar
+
+</button>
+
+</div>
+
+<div id="favoritos">
+
+<p>
+
+Nenhuma praia salva.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- MENU -->
+<!-- ===================================== -->
+
+<nav class="menuBottom">
+
+<a href="../index.html">
+
+🏠
+
+<small>Início</small>
+
+</a>
+
+<a href="mar.html" class="ativo">
+
+🌊
+
+<small>Mar</small>
+
+</a>
+
+<a href="diario.html">
+
+📖
+
+<small>Diário</small>
+
+</a>
+
+<a href="coach.html">
+
+🤖
+
+<small>Coach</small>
+
+</a>
+
+<a href="perfil.html">
+
+👤
+
+<small>Perfil</small>
+
+</a>
+
+</nav>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script type="module" src="mar.js"></script>
+
+</body>
+
+</html>

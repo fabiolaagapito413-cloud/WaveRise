@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Evolução - WaveRise</title>
+
+<link rel="stylesheet" href="../style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<header class="topo">
+
+<button class="voltar" onclick="history.back()">
+← Voltar
+</button>
+
+<h1>📈 Evolução</h1>
+
+</header>
+
+
+<section class="card">
+
+<h2>Minha Performance</h2>
+
+
+<div class="estatisticas">
+
+
+<div class="card">
+
+<p>Sessões</p>
+<strong id="totalSessoes">0</strong>
+
+</div>
+
+
+<div class="card">
+
+<p>Ondas</p>
+<strong id="totalOndas">0</strong>
+
+</div>
+
+
+<div class="card">
+
+<p>Média</p>
+<strong id="mediaNota">0</strong>
+
+</div>
+
+
+<div class="card">
+
+<p>XP</p>
+<strong id="xp">0</strong>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<section class="card">
+
+<h2>🏄 Próxima evolução</h2>
+<section class="card">
+
+<h2>📊 Evolução das Sessões</h2>
+
+<canvas id="graficoSurf"></canvas>
+
+</section>
+<p id="mensagem">
+Continue surfando para evoluir!
+</p>
+
+
+</section>
+<nav class="menu">
+
+<a href="../index.html">
+🏠
+<span>Início</span>
+</a>
+
+
+<a href="diario.html">
+🌊
+<span>Surf</span>
+</a>
+
+
+<a href="coach.html">
+🤖
+<span>Coach</span>
+</a>
+
+
+<a href="evolucao.html">
+📈
+<span>Evolução</span>
+</a>
+
+
+<a href="perfil.html">
+👤
+<span>Perfil</span>
+</a>
+
+</nav>
+
+</div>
+
+
+<script type="module" src="evolucao.js"></script>
+
+
+</body>
+
+</html>

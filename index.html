@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>WaveRise</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<div id="splash-screen">
+
+    <img src="assets/waverise_logo.png" class="splash-logo">
+
+    <h1>WaveRise</h1>
+
+    <p>Seu melhor surf, todos os dias.</p>
+
+</div>
+
+<div id="app">
+
+<body>
+
+<div class="app">
+
+<header class="hero">
+
+<div class="heroTop">
+
+<button id="menu" class="iconButton">
+
+☰
+
+</button>
+
+<h2>
+
+🌊 WaveRise
+
+</h2>
+
+<button id="notificacoes" class="iconButton">
+
+🔔
+
+</button>
+
+</div>
+
+<div class="heroBody">
+
+<div>
+
+<h1 id="saudacao">
+
+Olá, Surfista!
+
+</h1>
+
+<p id="fraseDia">
+
+Cada onda é uma oportunidade para evoluir.
+
+</p>
+
+</div>
+
+<div class="fotoPerfil">
+
+<img
+id="fotoPerfil"
+src="assets/perfil.png"
+alt="Perfil">
+
+</div>
+
+</div>
+
+</header>
+
+<section class="card scoreCard">
+
+<div>
+
+<p>
+
+Surf Score
+
+</p>
+
+<h2 id="homeScore">
+
+--
+
+</h2>
+
+<span id="scoreTexto">
+
+Aguardando previsão...
+
+</span>
+
+</div>
+
+<div class="scoreCircle">
+
+🌊
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+🌊 Mar de Hoje
+
+</h2>
+
+<div class="dadosMar">
+
+<div>
+
+<strong id="homePraia">
+
+Nenhuma praia
+
+</strong>
+
+</div>
+
+<div>
+
+🌊
+
+<span id="homeOnda">
+
+--
+
+</span>
+
+</div>
+
+<div>
+
+💨
+
+<span id="homeVento">
+
+--
+
+</span>
+
+</div>
+
+</div>
+
+<button id="abrirMar">
+
+Abrir Mar Premium
+
+</button>
+
+</section>
+<section class="card">
+
+<h2>
+
+🤖 Coach IA
+
+</h2>
+
+<div id="homeCoach">
+
+Bem-vindo ao WaveRise! Pesquise uma praia para receber recomendações.
+
+</div>
+
+<button id="abrirCoach">
+
+Abrir Coach
+
+</button>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+📈 Evolução
+
+</h2>
+
+<div class="statsGrid">
+
+<div class="statBox">
+
+<strong id="nivelHome">
+
+1
+
+</strong>
+
+<span>Nível</span>
+
+</div>
+
+<div class="statBox">
+
+<strong id="xpTexto">
+
+0 / 15000 XP
+
+</strong>
+
+<span>Experiência</span>
+
+</div>
+
+<div class="statBox">
+
+<strong id="totalSessoes">
+
+0
+
+</strong>
+
+<span>Sessões</span>
+
+</div>
+
+<div class="statBox">
+
+<strong id="totalOndas">
+
+0
+
+</strong>
+
+<span>Ondas</span>
+
+</div>
+
+<div class="statBox">
+
+<strong id="tempoTotal">
+
+0 h
+
+</strong>
+
+<span>Tempo</span>
+
+</div>
+
+<div class="statBox">
+
+<strong id="totalConquistas">
+
+0
+
+</strong>
+
+<span>Conquistas</span>
+
+</div>
+
+</div>
+
+<div class="barraXP">
+
+<div id="barraXP"></div>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+📖 Última Sessão
+
+</h2>
+
+<p>
+
+🌊 Praia:
+<strong id="ultimaPraia">--</strong>
+
+</p>
+
+<p>
+
+🏄 Prancha:
+<strong id="ultimaPrancha">--</strong>
+
+</p>
+
+<p>
+
+⭐ Nota:
+<strong id="ultimaNota">--</strong>
+
+</p>
+
+<p>
+
+📅 Data:
+<strong id="ultimaData">--</strong>
+
+</p>
+
+<button id="abrirDiario">
+
+Abrir Diário
+
+</button>
+
+</section>
+<section class="card">
+
+<h2>
+
+❤️ Favoritos
+
+</h2>
+
+<div id="favoritosHome">
+
+<p>
+
+Nenhuma praia favoritada.
+
+</p>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+🌊 Condições do Mar
+
+</h2>
+
+<div class="condicoesGrid">
+
+<div class="condItem">
+
+<span>🌊 Onda</span>
+
+<strong id="condOnda">--</strong>
+
+</div>
+
+<div class="condItem">
+
+<span>💨 Vento</span>
+
+<strong id="condVento">--</strong>
+
+</div>
+
+<div class="condItem">
+
+<span>🌡 Água</span>
+
+<strong id="condAgua">--</strong>
+
+</div>
+
+<div class="condItem">
+
+<span>⭐ Score</span>
+
+<strong id="condScore">--</strong>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="card destaquePraia">
+
+<h2>
+
+🏖 Praia em Destaque
+
+</h2>
+
+<h3 id="praiaDestaque">
+
+Nenhuma praia
+
+</h3>
+
+<p id="condicaoPraia">
+
+Pesquise uma praia no Mar Premium.
+
+</p>
+
+<div class="scorePraia">
+
+⭐ <strong id="praiaScore">--</strong>
+
+</div>
+
+<button id="abrirMar">
+
+Ver previsão
+
+</button>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+⚡ Acesso Rápido
+
+</h2>
+
+<div class="atalhos">
+
+<button id="btnMar">
+
+🌊 Mar
+
+</button>
+
+<button id="btnDiario">
+
+📖 Diário
+
+</button>
+
+<button id="btnCoach">
+
+🤖 Coach
+
+</button>
+
+<button id="btnPerfil">
+
+👤 Perfil
+
+</button>
+
+</div>
+
+</section>
+
+<nav class="menuBottom">
+
+<a class="ativo" href="index.html">
+
+🏠
+
+<small>Home</small>
+
+</a>
+
+<a href="pages/mar.html">
+
+🌊
+
+<small>Mar</small>
+
+</a>
+
+<a href="pages/diario.html">
+
+📖
+
+<small>Diário</small>
+
+</a>
+
+<a href="pages/coach.html">
+
+🤖
+
+<small>Coach</small>
+
+</a>
+
+<a href="pages/perfil.html">
+
+👤
+
+<small>Perfil</small>
+
+</a>
+
+</nav>
+
+</div>
+
+<script type="module" src="main.js"></script>
+</div>
+
+<script>
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+
+document.getElementById("splash-screen").style.opacity="0";
+
+setTimeout(()=>{
+
+document.getElementById("splash-screen").remove();
+
+},600);
+
+},2500);
+
+});
+
+</script>
+
+</body>
+
+</html>

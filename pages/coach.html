@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Coach IA - WaveRise</title>
+
+<link rel="stylesheet" href="../style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="topoCoach">
+
+<button
+class="btnVoltar"
+onclick="location.href='../index.html'">
+
+←
+
+</button>
+
+<div>
+
+<h1>🤖 Coach IA</h1>
+
+<p>Seu treinador digital de surf</p>
+
+</div>
+
+</header>
+
+<section class="banner coach-banner">
+
+<div class="overlay">
+
+<h2>
+
+Treine como um profissional.
+
+</h2>
+
+<p>
+
+Receba recomendações inteligentes para evoluir no surf.
+
+</p>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+👋 Bem-vindo
+
+</h2>
+
+<p>
+
+O Coach IA analisa suas sessões e fornece recomendações baseadas nas condições reais do mar.
+
+</p>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+⭐ Surf Score
+
+</h2>
+
+<div class="notaGrande">
+
+<div id="notaGrande">
+
+--
+
+</div>
+
+<p id="condicaoMar">
+
+Aguardando análise...
+
+</p>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+💬 Recomendações do Coach
+
+</h2>
+
+<div id="coachTexto">
+
+Pesquise uma praia no Mar Premium para receber uma análise completa.
+
+</div>
+
+</section>
+<section class="card">
+
+<h2>
+
+📊 Seu Desempenho
+
+</h2>
+
+<div class="tecnico">
+
+<p>Velocidade</p>
+
+<div class="barra">
+<div style="width:90%"></div>
+</div>
+
+<p>Equilíbrio</p>
+
+<div class="barra">
+<div style="width:85%"></div>
+</div>
+
+<p>Bottom Turn</p>
+
+<div class="barra">
+<div style="width:88%"></div>
+</div>
+
+<p>Cutback</p>
+
+<div class="barra">
+<div style="width:72%"></div>
+</div>
+
+<p>Aéreo</p>
+
+<div class="barra">
+<div style="width:30%"></div>
+</div>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+🎯 Missão do Dia
+
+</h2>
+
+<h3 id="missaoDia">
+
+Treinar Bottom Turn
+
+</h3>
+
+<p id="descricaoMissao">
+
+Faça 15 ondas focando em compressão, velocidade e saída da manobra.
+
+</p>
+
+<div class="barra">
+
+<div style="width:60%"></div>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+📈 Evolução
+
+</h2>
+
+<div class="statsGrid">
+
+<div class="statBox">
+
+<strong id="nivelCoach">
+
+1
+
+</strong>
+
+<span>Nível</span>
+
+</div>
+
+<div class="statBox">
+
+<strong id="xpCoach">
+
+0
+
+</strong>
+
+<span>XP</span>
+
+</div>
+
+<div class="statBox">
+
+<strong id="ondasCoach">
+
+0
+
+</strong>
+
+<span>Ondas</span>
+
+</div>
+
+<div class="statBox">
+
+<strong id="tempoCoach">
+
+0 h
+
+</strong>
+
+<span>Treino</span>
+
+</div>
+
+</div>
+
+</section>
+<section class="card">
+
+<h2>
+
+📷 Analisar Foto
+
+</h2>
+
+<p>
+
+Envie uma foto da sua manobra para receber uma análise do Coach IA.
+
+</p>
+
+<input
+type="file"
+id="fotoSurf"
+accept="image/*">
+
+<button id="analisarFoto">
+
+🤖 Analisar Foto
+
+</button>
+
+<div id="resultadoFoto">
+
+Nenhuma foto analisada.
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+🎥 Analisar Vídeo
+
+</h2>
+
+<p>
+
+Envie um vídeo da sua sessão para receber sugestões de melhoria.
+
+</p>
+
+<input
+type="file"
+id="videoSurf"
+accept="video/*">
+
+<button id="analisarVideo">
+
+🎬 Analisar Vídeo
+
+</button>
+
+<div id="resultadoVideo">
+
+Nenhum vídeo analisado.
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+🏆 Relatório IA
+
+</h2>
+
+<div id="relatorioIA">
+
+<p>
+
+Nenhuma análise realizada ainda.
+
+</p>
+
+</div>
+
+</section>
+
+<nav class="menuBottom">
+
+<a href="../index.html">
+
+🏠
+
+<small>Home</small>
+
+</a>
+
+<a href="mar.html">
+
+🌊
+
+<small>Mar</small>
+
+</a>
+
+<a href="diario.html">
+
+📖
+
+<small>Diário</small>
+
+</a>
+
+<a class="ativo" href="coach.html">
+
+🤖
+
+<small>Coach</small>
+
+</a>
+
+<a href="perfil.html">
+
+👤
+
+<small>Perfil</small>
+
+</a>
+
+</nav>
+
+</div>
+
+<script type="module" src="coach.js"></script>
+
+</body>
+
+</html>

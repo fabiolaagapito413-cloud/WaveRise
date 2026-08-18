@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Calendário - WaveRise</title>
+
+<link rel="stylesheet" href="../style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="topo">
+
+<button class="voltar" onclick="history.back()">
+
+← Voltar
+
+</button>
+
+<h1>📅 Calendário</h1>
+
+</header>
+
+
+<section class="card">
+
+<div class="calendario-topo">
+
+<button id="mesAnterior">
+
+◀
+
+</button>
+
+<h2 id="tituloMes">
+
+Julho 2026
+
+</h2>
+
+<button id="proximoMes">
+
+▶
+
+</button>
+
+</div>
+
+
+<div class="dias-semana">
+
+<div>Dom</div>
+
+<div>Seg</div>
+
+<div>Ter</div>
+
+<div>Qua</div>
+
+<div>Qui</div>
+
+<div>Sex</div>
+
+<div>Sáb</div>
+
+</div>
+
+
+<div id="calendario"
+
+class="grade-calendario">
+
+</div>
+
+</section>
+
+
+
+<section class="card">
+
+<h2>
+
+📊 Estatísticas
+
+</h2>
+
+<p>
+
+Sessões:
+
+<strong id="totalMes">
+
+0
+
+</strong>
+
+</p>
+
+<p>
+
+Ondas:
+
+<strong id="ondasMes">
+
+0
+
+</strong>
+
+</p>
+
+<p>
+
+Média:
+
+<strong id="mediaMes">
+
+0
+
+</strong>
+
+</p>
+
+</section>
+
+
+
+<section class="card">
+
+<h2>
+
+🌊 Sessão selecionada
+
+</h2>
+
+<div id="detalhes">
+
+<p>
+
+Toque em um dia com 🌊.
+
+</p>
+
+</div>
+
+</section>
+
+
+<nav class="menu">
+
+<a href="../index.html">
+
+🏠
+
+<span>Início</span>
+
+</a>
+
+<a href="diario.html">
+
+🌊
+
+<span>Diário</span>
+
+</a>
+
+<a href="coach.html">
+
+🤖
+
+<span>Coach</span>
+
+</a>
+
+<a href="evolucao.html">
+
+📈
+
+<span>Evolução</span>
+
+</a>
+
+<a href="perfil.html">
+
+👤
+
+<span>Perfil</span>
+
+</a>
+
+</nav>
+
+</div>
+
+<script type="module" src="calendario.js"></script>
+
+</body>
+
+</html>
