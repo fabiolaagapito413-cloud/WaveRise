@@ -51,18 +51,19 @@ const praiaScore = document.getElementById("praiaScore");
 // ======================================================
 
 const perfil =
-JSON.parse(localStorage.getItem("perfilWaveRise")) || {};
+    JSON.parse(localStorage.getItem("perfilWaveRise")) || {};
 
 const historico =
-JSON.parse(localStorage.getItem("historicoSurfWaveRise")) || [];
+    JSON.parse(localStorage.getItem("historicoSurfWaveRise")) || [];
 
 const favoritos =
-JSON.parse(localStorage.getItem("praiasFavoritasWaveRise")) || [];
+    JSON.parse(localStorage.getItem("praiasFavoritasWaveRise")) || [];
 
 const marHoje =
-JSON.parse(localStorage.getItem("marHojeWaveRise"));
+    JSON.parse(localStorage.getItem("marHojeWaveRise")) || null;
 
 const nome = perfil.nome || "Surfista";
+
 // ======================================================
 // SAUDAÇÃO
 // ======================================================
@@ -72,24 +73,16 @@ const hora = new Date().getHours();
 let saudacaoTexto = "Olá";
 
 if (hora >= 5 && hora < 12) {
-
     saudacaoTexto = "Bom dia";
-
 } else if (hora >= 12 && hora < 18) {
-
     saudacaoTexto = "Boa tarde";
-
 } else {
-
     saudacaoTexto = "Boa noite";
-
 }
 
 if (saudacao) {
-
     saudacao.textContent =
         `${saudacaoTexto}, ${nome}! 👋`;
-
 }
 
 // ======================================================
@@ -97,29 +90,16 @@ if (saudacao) {
 // ======================================================
 
 const frases = [
-
     "🌊 O mar recompensa quem nunca desiste.",
-
     "🏄 Toda onda é uma oportunidade para evoluir.",
-
     "🔥 Grandes surfistas treinam todos os dias.",
-
     "💙 Respeite o mar e ele sempre ensinará algo novo.",
-
     "🌅 Cada sessão é um novo começo."
-
 ];
 
 if (fraseDia) {
-
     fraseDia.textContent =
-
-        frases[
-            Math.floor(
-                Math.random() * frases.length
-            )
-        ];
-
+        frases[Math.floor(Math.random() * frases.length)];
 }
 
 // ======================================================
@@ -127,37 +107,26 @@ if (fraseDia) {
 // ======================================================
 
 let xp = 0;
-
 let ondas = 0;
-
 let horas = 0;
-
 let melhorNota = 0;
 
 historico.forEach(sessao => {
 
     const qtdOndas = Number(sessao.ondas) || 0;
-
     const tempo = parseFloat(sessao.tempo) || 0;
-
     const nota = Number(sessao.nota) || 0;
 
     ondas += qtdOndas;
-
     horas += tempo;
 
     xp += 50;
-
     xp += qtdOndas * 5;
-
     xp += tempo * 20;
 
     if (nota > melhorNota) {
-
         melhorNota = nota;
-
     }
-
 });
 
 // ======================================================
@@ -177,21 +146,22 @@ if (xp >= 12000) nivel = 9;
 if (xp >= 15000) nivel = 10;
 
 if (nivelHome) {
-
     nivelHome.textContent = nivel;
-
 }
+
 // ======================================================
 // XP
 // ======================================================
 
 const xpNivel = 15000;
 
-const porcentagem = Math.min((xp / xpNivel) * 100, 100);
+const porcentagem =
+    Math.min((xp / xpNivel) * 100, 100);
 
 if (barraXP) {
 
-    barraXP.style.width = porcentagem + "%";
+    barraXP.style.width =
+        porcentagem + "%";
 
     if (porcentagem < 30) {
 
@@ -207,30 +177,32 @@ if (barraXP) {
 
         barraXP.style.background =
             "linear-gradient(90deg,#ffb300,#ffd54f)";
-
     }
-
 }
 
 if (xpTexto) {
-
     xpTexto.textContent =
         `${Math.round(xp)} / ${xpNivel} XP`;
-
 }
 
 // ======================================================
 // ESTATÍSTICAS
 // ======================================================
 
-if (totalSessoes)
-    totalSessoes.textContent = historico.length;
+if (totalSessoes) {
+    totalSessoes.textContent =
+        historico.length;
+}
 
-if (totalOndas)
-    totalOndas.textContent = ondas;
+if (totalOndas) {
+    totalOndas.textContent =
+        ondas;
+}
 
-if (tempoTotal)
-    tempoTotal.textContent = horas.toFixed(1) + " h";
+if (tempoTotal) {
+    tempoTotal.textContent =
+        horas.toFixed(1) + " h";
+}
 
 if (totalConquistas) {
 
@@ -241,8 +213,8 @@ if (totalConquistas) {
     if (historico.length >= 50) conquistas++;
     if (xp >= 5000) conquistas++;
 
-    totalConquistas.textContent = conquistas;
-
+    totalConquistas.textContent =
+        conquistas;
 }
 
 // ======================================================
@@ -251,30 +223,35 @@ if (totalConquistas) {
 
 if (historico.length) {
 
-    const ultima = historico[historico.length - 1];
+    const ultima =
+        historico[historico.length - 1];
 
-    if (ultimaPraia)
+    if (ultimaPraia) {
         ultimaPraia.textContent =
             ultima.praia || "--";
+    }
 
-    if (ultimaPrancha)
+    if (ultimaPrancha) {
         ultimaPrancha.textContent =
             ultima.prancha || "--";
+    }
 
-    if (ultimaNota)
+    if (ultimaNota) {
         ultimaNota.textContent =
             ultima.nota || "--";
+    }
 
-    if (ultimaData)
+    if (ultimaData) {
         ultimaData.textContent =
             ultima.data || "--";
+    }
 
 } else {
 
-    if (ultimaPraia)
+    if (ultimaPraia) {
         ultimaPraia.textContent =
             "Nenhuma sessão registrada";
-
+    }
 }
 
 // ======================================================
@@ -292,175 +269,237 @@ if (favoritosHome) {
 
         favoritosHome.innerHTML = "";
 
-        favoritos.forEach((praia) => {
+        favoritos.forEach(praia => {
 
             favoritosHome.innerHTML += `
                 <div class="favoritoHome">
                     🌊 ${praia.nome}
                 </div>
             `;
-
         });
-
     }
-
 }
+
 // ======================================================
 // MAR DE HOJE
 // ======================================================
 
 if (marHoje) {
 
-    if (homePraia)
-        homePraia.textContent = marHoje.praia;
+    if (homePraia) {
+        homePraia.textContent =
+            marHoje.praia || "--";
+    }
 
-    if (homeOnda)
+    if (homeOnda) {
         homeOnda.textContent =
-            `${marHoje.onda.toFixed(1)} m`;
+            `${Number(marHoje.onda || 0).toFixed(1)} m`;
+    }
 
-    if (homeVento)
+    if (homeVento) {
         homeVento.textContent =
-            `${(marHoje.vento * 3.6).toFixed(0)} km/h`;
+            `${(Number(marHoje.vento || 0) * 3.6).toFixed(0)} km/h`;
+    }
 
-    if (homeScore)
-        homeScore.textContent = marHoje.score;
+    if (homeScore) {
+        homeScore.textContent =
+            marHoje.score ?? "--";
+    }
 
-    if (scoreTexto)
-        scoreTexto.textContent = marHoje.condicao;
+    if (scoreTexto) {
+        scoreTexto.textContent =
+            marHoje.condicao || "Condições disponíveis";
+    }
 
-    if (condOnda)
+    if (condOnda) {
         condOnda.textContent =
-            `${marHoje.onda.toFixed(1)} m`;
+            `${Number(marHoje.onda || 0).toFixed(1)} m`;
+    }
 
-    if (condVento)
+    if (condVento) {
         condVento.textContent =
-            `${(marHoje.vento * 3.6).toFixed(0)} km/h`;
+            `${(Number(marHoje.vento || 0) * 3.6).toFixed(0)} km/h`;
+    }
 
-    if (condAgua)
+    if (condAgua) {
         condAgua.textContent =
-            `${marHoje.agua.toFixed(1)} °C`;
+            `${Number(marHoje.agua || 0).toFixed(1)} °C`;
+    }
 
-    if (condScore)
-        condScore.textContent = marHoje.score;
+    if (condScore) {
+        condScore.textContent =
+            marHoje.score ?? "--";
+    }
 
-    if (praiaDestaque)
-        praiaDestaque.textContent = marHoje.praia;
+    if (praiaDestaque) {
+        praiaDestaque.textContent =
+            marHoje.praia || "--";
+    }
 
-    if (condicaoPraia)
-        condicaoPraia.textContent = marHoje.condicao;
+    if (condicaoPraia) {
+        condicaoPraia.textContent =
+            marHoje.condicao || "--";
+    }
 
-    if (praiaScore)
-        praiaScore.textContent = marHoje.score;
+    if (praiaScore) {
+        praiaScore.textContent =
+            marHoje.score ?? "--";
+    }
 
-// ======================================================
-// COACH IA
-// ======================================================
+    // ==================================================
+    // COACH IA
+    // ==================================================
 
     if (homeCoach) {
 
-        if (marHoje.score >= 90) {
+        const score =
+            Number(marHoje.score) || 0;
+
+        if (score >= 90) {
 
             homeCoach.innerHTML = `
-🌊 <strong>Condições excelentes!</strong><br><br>
-🏄 Praia: ${marHoje.praia}<br>
-⭐ Surf Score: ${marHoje.score}<br>
-🕒 ${marHoje.horario}<br><br>
-Aproveite o mar hoje!
-`;
+                🌊 <strong>Condições excelentes!</strong><br><br>
+                🏄 Praia: ${marHoje.praia}<br>
+                ⭐ Surf Score: ${score}<br>
+                🕒 ${marHoje.horario || "--"}<br><br>
+                Aproveite o mar hoje!
+            `;
 
-        } else if (marHoje.score >= 70) {
+        } else if (score >= 70) {
 
             homeCoach.innerHTML = `
-🏄 <strong>Boas condições para o surf.</strong><br><br>
-🌊 Praia: ${marHoje.praia}<br>
-⭐ Surf Score: ${marHoje.score}<br><br>
-Vale a pena entrar no mar.
-`;
+                🏄 <strong>Boas condições para o surf.</strong><br><br>
+                🌊 Praia: ${marHoje.praia}<br>
+                ⭐ Surf Score: ${score}<br><br>
+                Vale a pena entrar no mar.
+            `;
 
         } else {
 
             homeCoach.innerHTML = `
-💨 <strong>Condições fracas hoje.</strong><br><br>
-⭐ Surf Score: ${marHoje.score}<br><br>
-Talvez seja um bom dia para treinar técnica ou preparar os equipamentos.
-`;
-
+                💨 <strong>Condições fracas hoje.</strong><br><br>
+                ⭐ Surf Score: ${score}<br><br>
+                Talvez seja um bom dia para treinar técnica ou preparar os equipamentos.
+            `;
         }
-
     }
 
 } else {
 
-    if (homePraia)
-        homePraia.textContent = "Pesquise uma praia";
+    if (homePraia) {
+        homePraia.textContent =
+            "Pesquise uma praia";
+    }
 
-    if (homeOnda)
-        homeOnda.textContent = "--";
+    if (homeOnda) {
+        homeOnda.textContent =
+            "--";
+    }
 
-    if (homeVento)
-        homeVento.textContent = "--";
+    if (homeVento) {
+        homeVento.textContent =
+            "--";
+    }
 
-    if (homeScore)
-        homeScore.textContent = "--";
+    if (homeScore) {
+        homeScore.textContent =
+            "--";
+    }
 
-    if (scoreTexto)
+    if (scoreTexto) {
         scoreTexto.textContent =
             "Abra o Mar Premium e pesquise uma praia.";
+    }
 
     if (homeCoach) {
 
         homeCoach.innerHTML = `
-👋 Bem-vindo ao WaveRise!<br><br>
-Pesquise uma praia no Mar Premium para receber recomendações do Coach IA.
-`;
-
+            👋 Bem-vindo ao WaveRise!<br><br>
+            Pesquise uma praia no Mar Premium para receber recomendações do Coach IA.
+        `;
     }
-
 }
 
 console.log("✅ Home Premium carregada.");
+
+// ======================================================
+// NAVEGAÇÃO
+// ======================================================
+
+function abrirPagina(caminho) {
+    window.location.href = caminho;
+}
+
 // ======================================================
 // BOTÕES DA HOME
 // ======================================================
 
-document.getElementById("abrirMar")?.addEventListener("click", () => {
-    location.href = "pages/mar.html";
-});
+document
+    .getElementById("abrirMar")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/mar.html");
+    });
 
-document.getElementById("abrirDiario")?.addEventListener("click", () => {
-    location.href = "pages/diario.html";
-});
+document
+    .getElementById("abrirDiario")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/diario.html");
+    });
 
-document.getElementById("abrirCoach")?.addEventListener("click", () => {
-    location.href = "pages/coach.html";
-});
+document
+    .getElementById("abrirCoach")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/coach.html");
+    });
 
-document.getElementById("abrirPerfil")?.addEventListener("click", () => {
-    location.href = "pages/perfil.html";
-});
+document
+    .getElementById("abrirPerfil")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/perfil.html");
+    });
 
-document.getElementById("abrirConquistas")?.addEventListener("click", () => {
-    location.href = "pages/conquistas.html";
-});
+document
+    .getElementById("abrirConquistas")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/conquistas.html");
+    });
 
-document.getElementById("abrirEvolucao")?.addEventListener("click", () => {
-    location.href = "pages/evolucao.html";
-});
+document
+    .getElementById("abrirEvolucao")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/evolucao.html");
+    });
 
-// Atalhos
+// ======================================================
+// ATALHOS
+// ======================================================
 
-document.getElementById("btnMar")?.addEventListener("click", () => {
-    location.href = "pages/mar.html";
-});
+document
+    .getElementById("btnMar")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/mar.html");
+    });
 
-document.getElementById("btnDiario")?.addEventListener("click", () => {
-    location.href = "pages/diario.html";
-});
+document
+    .getElementById("btnDiario")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/diario.html");
+    });
 
-document.getElementById("btnCoach")?.addEventListener("click", () => {
-    location.href = "pages/coach.html";
-});
+document
+    .getElementById("btnPranchas")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/pranchas.html");
+    });
 
-document.getElementById("btnPerfil")?.addEventListener("click", () => {
-    location.href = "pages/perfil.html";
-});
+document
+    .getElementById("btnCoach")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/coach.html");
+    });
+
+document
+    .getElementById("btnPerfil")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/perfil.html");
+    });
