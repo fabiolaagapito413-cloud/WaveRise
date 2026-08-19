@@ -3,117 +3,297 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>WaveRise • Diário</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<link rel="stylesheet" href="../style.css">
+    <title>WaveRise • Diário</title>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="diario.css">
 
 </head>
+
 
 <body>
 
 <div class="app">
 
-<header class="heroPequeno">
 
-<button class="btnVoltar" onclick="history.back()">
-←
-</button>
+    <!-- ==================================================
+         CABEÇALHO
+    =================================================== -->
 
-<div>
+    <header class="heroPequeno">
 
-<h1>🌊 Diário de Surf</h1>
+        <button
+            class="btnVoltar"
+            onclick="history.back()"
+            type="button"
+        >
+            ←
+        </button>
 
-<p>Registre todas as suas sessões</p>
+        <div>
+
+            <h1>
+                🌊 Diário de Surf
+            </h1>
+
+            <p>
+                Registre todas as suas sessões
+            </p>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==================================================
+         REGISTRAR SESSÃO
+    =================================================== -->
+
+    <section class="card diario-card">
+
+        <h2>
+            🏄 Registrar Sessão
+        </h2>
+
+
+        <div class="diario-form">
+
+
+            <label for="praia">
+                📍 Praia
+            </label>
+
+            <input
+                id="praia"
+                class="inputWave"
+                type="text"
+                placeholder="Ex: Santos"
+            >
+
+
+            <label for="data">
+                📅 Data
+            </label>
+
+            <input
+                id="data"
+                class="inputWave"
+                type="date"
+            >
+
+
+            <label for="tempo">
+                ⏱ Tempo no mar
+            </label>
+
+            <input
+                id="tempo"
+                class="inputWave"
+                type="text"
+                placeholder="Ex: 2 horas"
+            >
+
+
+            <label for="pranchaUsada">
+                🏄 Prancha utilizada
+            </label>
+
+            <select
+                id="pranchaUsada"
+                class="inputWave"
+            >
+
+                <option value="">
+                    Selecione uma prancha
+                </option>
+
+            </select>
+
+
+            <label for="ondas">
+                🌊 Ondas pegadas
+            </label>
+
+            <input
+                id="ondas"
+                class="inputWave"
+                type="number"
+                min="0"
+                placeholder="Ex: 5"
+            >
+
+
+            <label for="nota">
+                ⭐ Nota da sessão
+            </label>
+
+            <input
+                id="nota"
+                class="inputWave"
+                type="number"
+                min="0"
+                max="10"
+                step="0.1"
+                placeholder="0 a 10"
+            >
+
+
+            <label for="observacoes">
+                📝 Observações
+            </label>
+
+            <textarea
+                id="observacoes"
+                class="inputWave"
+                rows="5"
+                placeholder="Como foi sua sessão?"
+            ></textarea>
+
+
+            <button
+                id="salvarSessao"
+                class="botaoPrincipal"
+                type="button"
+            >
+                🌊 Salvar Sessão
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         ÚLTIMAS SESSÕES
+    =================================================== -->
+
+    <section class="card diario-card">
+
+        <h2>
+            📖 Últimas Sessões
+        </h2>
+
+
+        <div id="listaSessoes">
+
+            <p>
+                Nenhuma sessão registrada.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         MENU INFERIOR
+    =================================================== -->
+
+    <nav class="menuBottom">
+
+        <a href="../index.html">
+
+            <span>
+                🏠
+            </span>
+
+            <small>
+                Início
+            </small>
+
+        </a>
+
+
+        <a href="pranchas.html">
+
+            <span>
+                🏄
+            </span>
+
+            <small>
+                Pranchas
+            </small>
+
+        </a>
+
+
+        <a href="mar.html">
+
+            <span>
+                🌊
+            </span>
+
+            <small>
+                Mar
+            </small>
+
+        </a>
+
+
+        <a
+            class="ativo"
+            href="diario.html"
+        >
+
+            <span>
+                📖
+            </span>
+
+            <small>
+                Diário
+            </small>
+
+        </a>
+
+
+        <a href="coach.html">
+
+            <span>
+                🤖
+            </span>
+
+            <small>
+                Coach
+            </small>
+
+        </a>
+
+
+        <a href="perfil.html">
+
+            <span>
+                👤
+            </span>
+
+            <small>
+                Perfil
+            </small>
+
+        </a>
+
+    </nav>
+
 
 </div>
 
-</header>
 
-<section class="card">
+<script
+    type="module"
+    src="diario.js"
+></script>
 
-<h2>Registrar Sessão</h2>
-
-<label>📍 Praia</label>
-<input id="praia" class="inputWave" placeholder="Ex: Santos">
-
-<label>📅 Data</label>
-<input id="data" class="inputWave" type="date">
-
-<label>⏱ Tempo no mar</label>
-<input id="tempo" class="inputWave" placeholder="Ex: 2 horas">
-
-<label>🏄 Prancha utilizada</label>
-<select id="pranchaUsada" class="inputWave">
-<option value="">Selecione uma prancha</option>
-</select>
-
-<label>🌊 Ondas pegadas</label>
-<input id="ondas" class="inputWave" type="number">
-
-<label>⭐ Nota da sessão</label>
-<input id="nota" class="inputWave" type="number" min="0" max="10">
-
-<label>📝 Observações</label>
-<textarea
-id="observacoes"
-class="inputWave"
-rows="5"
-placeholder="Como foi sua sessão?">
-</textarea>
-
-<button id="salvarSessao" class="botaoPrincipal">
-🌊 Salvar Sessão
-</button>
-
-</section>
-
-<section class="card">
-
-<h2>📖 Últimas Sessões</h2>
-
-<div id="listaSessoes">
-
-<p>Nenhuma sessão registrada.</p>
-
-</div>
-
-</section>
-
-<nav class="menuBottom">
-
-<a href="../index.html">
-<span>🏠</span>
-<small>Início</small>
-</a>
-
-<a href="mar.html">
-<span>🌊</span>
-<small>Mar</small>
-</a>
-
-<a class="ativo" href="diario.html">
-<span>📖</span>
-<small>Diário</small>
-</a>
-
-<a href="coach.html">
-<span>🤖</span>
-<small>Coach</small>
-</a>
-
-<a href="perfil.html">
-<span>👤</span>
-<small>Perfil</small>
-</a>
-
-</nav>
-
-</div>
-
-<script type="module" src="diario.js"></script>
 
 </body>
+
 </html>

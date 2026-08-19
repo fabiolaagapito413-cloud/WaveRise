@@ -1,0 +1,248 @@
+/* ==================================================
+   WaveRise • Diário
+================================================== */
+
+.diario-card {
+    margin-bottom: 20px;
+}
+
+.diario-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+/* ==========================
+   FORMULÁRIO
+========================== */
+
+.diario-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.diario-form label {
+    margin-top: 8px;
+    color: #D9E9F7;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.inputWave {
+    width: 100%;
+    min-height: 52px;
+    padding: 13px 15px;
+
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 16px;
+
+    background: #0B2340;
+    color: #FFFFFF;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    outline: none;
+    transition: .25s;
+}
+
+.inputWave:focus {
+    border-color: #39B8FF;
+    box-shadow: 0 0 0 3px rgba(57,184,255,.12);
+}
+
+.inputWave::placeholder {
+    color: #7FA2BF;
+}
+
+select.inputWave {
+    appearance: auto;
+}
+
+textarea.inputWave {
+    min-height: 120px;
+    resize: vertical;
+}
+
+
+/* ==========================
+   BOTÃO SALVAR
+========================== */
+
+#salvarSessao {
+    margin-top: 16px;
+
+    height: 56px;
+
+    border: none;
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2AAEFF,
+            #54D2FF
+        );
+
+    color: white;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+
+    box-shadow:
+        0 8px 20px
+        rgba(42,174,255,.25);
+}
+
+#salvarSessao:hover {
+    transform: translateY(-2px);
+}
+
+#salvarSessao:active {
+    transform: scale(.98);
+}
+
+
+/* ==========================
+   ÚLTIMAS SESSÕES
+========================== */
+
+#listaSessoes {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+#listaSessoes > p {
+    margin: 0;
+    padding: 18px;
+
+    border-radius: 16px;
+
+    background: #0B2340;
+
+    color: #BFD4E8;
+
+    text-align: center;
+}
+
+
+/* Cards criados pelo diario.js */
+
+#listaSessoes .card {
+    margin: 0;
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #12365E,
+            #0D2746
+        );
+
+    border-radius: 20px;
+}
+
+#listaSessoes .card h3 {
+    color: #62E4FF;
+    font-size: 19px;
+    margin-bottom: 12px;
+}
+
+#listaSessoes .card p {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+#listaSessoes .card p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ==========================
+   TOPO DO DIÁRIO
+========================== */
+
+.heroPequeno {
+    background:
+        linear-gradient(
+            180deg,
+            #1A5B93,
+            #123D67
+        );
+
+    border-radius: 28px;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    box-shadow:
+        0 12px 30px
+        rgba(0,0,0,.30);
+}
+
+.heroPequeno h1 {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.heroPequeno p {
+    color: #D9E9F7;
+    font-size: 13px;
+}
+
+.btnVoltar {
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.12);
+
+    color: white;
+
+    font-size: 22px;
+}
+
+.btnVoltar:hover {
+    background:
+        rgba(255,255,255,.22);
+}
+
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width: 430px) {
+
+    .heroPequeno {
+        padding: 17px;
+        border-radius: 24px;
+    }
+
+    .heroPequeno h1 {
+        font-size: 21px;
+    }
+
+    .heroPequeno p {
+        font-size: 12px;
+    }
+
+    .inputWave {
+        min-height: 50px;
+    }
+
+}
