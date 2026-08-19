@@ -64,6 +64,19 @@ const marHoje =
 
 const nome = perfil.nome || "Surfista";
 
+
+// ======================================================
+// FOTO DO PERFIL NA HOME
+// ======================================================
+
+const fotoPerfilHome =
+    document.getElementById("fotoPerfil");
+
+if (fotoPerfilHome && perfil.foto) {
+
+    fotoPerfilHome.src = perfil.foto;
+
+}
 // ======================================================
 // SAUDAÇÃO
 // ======================================================
@@ -500,6 +513,43 @@ document
 
 document
     .getElementById("btnPerfil")
+    ?.addEventListener("click", () => {
+        abrirPagina("pages/perfil.html");
+    });
+    // ======================================================
+// PARTE DE CIMA DA HOME
+// ======================================================
+
+// ☰ Menu
+document
+    .getElementById("menu")
+    ?.addEventListener("click", () => {
+
+        abrirPagina("pages/perfil.html");
+
+    });
+
+
+// 🔔 Notificações
+document
+    .getElementById("notificacoes")
+    ?.addEventListener("click", () => {
+
+        alert("🔔 Você não tem novas notificações.");
+
+    });
+
+
+// 👤 Foto do perfil
+document
+    .getElementById("fotoPerfil")
+    ?.addEventListener("click", () => {
+
+        abrirPagina("pages/perfil.html");
+
+    });
+document
+    .getElementById("fotoPerfil")
     ?.addEventListener("click", () => {
         abrirPagina("pages/perfil.html");
     });
