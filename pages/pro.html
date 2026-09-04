@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>WaveRise PRO</title>
+
+<style>
+
+/* ======================================================
+   BASE
+====================================================== */
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+
+    margin:0;
+
+    min-height:100vh;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #12385b 0%,
+            #071522 45%,
+            #030a11 100%
+        );
+
+    color:#ffffff;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+}
+
+
+/* ======================================================
+   PÁGINA
+====================================================== */
+
+.proPage{
+
+    width:100%;
+
+    max-width:650px;
+
+    margin:auto;
+
+    padding:24px 18px 50px;
+
+}
+
+
+/* ======================================================
+   HERO
+====================================================== */
+
+.proHero{
+
+    text-align:center;
+
+    padding:32px 20px;
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,95,145,.65),
+            rgba(8,30,50,.92)
+        );
+
+    border:
+        1px solid
+        rgba(100,220,255,.22);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
+
+}
+
+.proHeroIcon{
+
+    width:82px;
+    height:82px;
+
+    margin:0 auto 18px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    font-size:42px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #159fe0,
+            #6b63ff
+        );
+
+    box-shadow:
+        0 0 35px
+        rgba(65,205,255,.35);
+
+}
+
+.proTag{
+
+    display:inline-block;
+
+    padding:7px 14px;
+
+    border-radius:30px;
+
+    background:
+        rgba(75,205,255,.12);
+
+    border:
+        1px solid
+        rgba(75,205,255,.3);
+
+    color:#5ddcff;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+}
+
+.proHero h1{
+
+    margin:18px 0 10px;
+
+    font-size:29px;
+
+    line-height:1.15;
+
+}
+
+.proHero p{
+
+    margin:0;
+
+    color:#b8d3e8;
+
+    font-size:15px;
+
+    line-height:1.6;
+
+}
+
+
+/* ======================================================
+   BENEFÍCIOS
+====================================================== */
+
+.proBenefits{
+
+    margin-top:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.proBenefit{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    background:
+        rgba(11,32,50,.82);
+
+    border:
+        1px solid
+        rgba(100,200,255,.12);
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.proBenefit:hover{
+
+    transform:translateY(-2px);
+
+    border-color:
+        rgba(80,210,255,.35);
+
+}
+
+.proBenefit:active{
+
+    transform:scale(.98);
+
+}
+
+.benefitIcon{
+
+    width:48px;
+    height:48px;
+
+    min-width:48px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:
+        rgba(40,185,255,.10);
+
+    font-size:24px;
+
+}
+
+.benefitText{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+}
+
+.benefitText strong{
+
+    color:white;
+
+    font-size:15px;
+
+}
+
+.benefitText span{
+
+    color:#88a8bf;
+
+    font-size:12px;
+
+    line-height:1.4;
+
+}
+
+
+/* ======================================================
+   OFERTA
+====================================================== */
+
+.proOffer{
+
+    margin-top:22px;
+
+    padding:24px 20px;
+
+    border-radius:24px;
+
+    text-align:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18,62,92,.95),
+            rgba(8,28,45,.98)
+        );
+
+    border:
+        1px solid
+        rgba(80,210,255,.3);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.28);
+
+}
+
+.proOffer h2{
+
+    color:white;
+
+    margin:0 0 8px;
+
+    font-size:23px;
+
+}
+
+.proOffer > p{
+
+    color:#b5d0e5;
+
+    margin:0 0 20px;
+
+}
+
+
+/* ======================================================
+   PLANOS
+====================================================== */
+
+.planos{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    margin:20px 0;
+
+}
+
+.plano{
+
+    position:relative;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:
+        rgba(5,20,34,.8);
+
+    border:
+        1px solid
+        rgba(120,200,255,.18);
+
+    cursor:pointer;
+
+    text-align:left;
+
+    transition:.2s;
+
+}
+
+.plano:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#43d6ff;
+
+}
+
+.plano.selecionado{
+
+    border:
+        2px solid
+        #48d9ff;
+
+    background:
+        rgba(20,90,125,.28);
+
+    box-shadow:
+        0 0 25px
+        rgba(60,210,255,.12);
+
+}
+
+.planoTop{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.planoNome{
+
+    font-size:16px;
+
+    font-weight:800;
+
+}
+
+.planoPreco{
+
+    color:#55d9ff;
+
+    font-size:23px;
+
+    font-weight:900;
+
+}
+
+.planoInfo{
+
+    margin-top:7px;
+
+    color:#8eafc7;
+
+    font-size:12px;
+
+}
+
+.planoBadge{
+
+    position:absolute;
+
+    top:-10px;
+
+    right:15px;
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    background:#55d9ff;
+
+    color:#05233a;
+
+    font-size:10px;
+
+    font-weight:900;
+
+}
+
+
+/* ======================================================
+   TESTE GRÁTIS
+====================================================== */
+
+.trial{
+
+    margin:14px 0;
+
+    padding:14px;
+
+    border-radius:15px;
+
+    background:
+        rgba(72,214,255,.07);
+
+    border:
+        1px solid
+        rgba(72,214,255,.15);
+
+    color:#b9d8e9;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+}
+
+
+/* ======================================================
+   BOTÃO PRO
+====================================================== */
+
+.proSubscribe{
+
+    width:100%;
+
+    border:0;
+
+    border-radius:18px;
+
+    padding:17px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #28baff,
+            #55dfff
+        );
+
+    color:#06203a;
+
+    font-family:inherit;
+
+    font-size:18px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 30px
+        rgba(50,205,255,.18);
+
+}
+
+.proSubscribe:active{
+
+    transform:scale(.98);
+
+}
+
+.proSubscribe:disabled{
+
+    cursor:default;
+
+}
+
+
+/* ======================================================
+   STATUS PRO
+====================================================== */
+
+.proStatus{
+
+    display:none;
+
+    margin-top:16px;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    background:
+        rgba(60,210,130,.10);
+
+    border:
+        1px solid
+        rgba(60,220,150,.25);
+
+    color:#91f0b7;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+}
+
+.proStatus.ativo{
+
+    display:block;
+
+}
+
+
+/* ======================================================
+   VOLTAR
+====================================================== */
+
+.proBack{
+
+    width:100%;
+
+    margin-top:14px;
+
+    padding:14px;
+
+    border:
+        1px solid
+        rgba(120,200,255,.25);
+
+    border-radius:16px;
+
+    background:transparent;
+
+    color:#b8d3e8;
+
+    font-family:inherit;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+}
+
+
+/* ======================================================
+   OBSERVAÇÃO
+====================================================== */
+
+.proNote{
+
+    text-align:center;
+
+    color:#718da5;
+
+    font-size:11px;
+
+    margin-top:18px;
+
+    line-height:1.5;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<main class="proPage">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="proHero">
+
+    <div class="proHeroIcon">
+        ⭐
+    </div>
+
+    <span class="proTag">
+        WAVERISE PRO
+    </span>
+
+    <h1>
+        Seu treinador de surf inteligente
+    </h1>
+
+    <p>
+        Evolua no surf com análises personalizadas,
+        inteligência artificial e recomendações feitas
+        para você.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     RECURSOS PRO
+===================================================== -->
+
+<section class="proBenefits">
+
+
+    <!-- 1. FOTO -->
+
+    <div class="proBenefit">
+
+        <div class="benefitIcon">
+            📸
+        </div>
+
+        <div class="benefitText">
+
+            <strong>
+                Análise de foto
+            </strong>
+
+            <span>
+                Envie uma foto e receba uma análise
+                da sua postura e técnica.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- 2. VÍDEO -->
+
+    <div class="proBenefit">
+
+        <div class="benefitIcon">
+            🎥
+        </div>
+
+        <div class="benefitText">
+
+            <strong>
+                Análise de vídeo
+            </strong>
+
+            <span>
+                Descubra seus pontos fortes e o que
+                pode melhorar no surf.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- 3. COACH IA -->
+
+    <div class="proBenefit">
+
+        <div class="benefitIcon">
+            🤖
+        </div>
+
+        <div class="benefitText">
+
+            <strong>
+                Coach IA avançado
+            </strong>
+
+            <span>
+                Recomendações personalizadas para
+                sua evolução.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- 4. PRANCHA -->
+
+    <div class="proBenefit">
+
+        <div class="benefitIcon">
+            🏄
+        </div>
+
+        <div class="benefitText">
+
+            <strong>
+                Prancha ideal
+            </strong>
+
+            <span>
+                Saiba qual prancha levar de acordo
+                com as condições do mar.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- 5. MELHOR HORÁRIO -->
+
+    <div class="proBenefit">
+
+        <div class="benefitIcon">
+            ⏰
+        </div>
+
+        <div class="benefitText">
+
+            <strong>
+                Melhor horário
+            </strong>
+
+            <span>
+                Descubra a melhor janela para entrar
+                no mar.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- 6. EVOLUÇÃO -->
+
+    <div class="proBenefit">
+
+        <div class="benefitIcon">
+            📊
+        </div>
+
+        <div class="benefitText">
+
+            <strong>
+                Minha evolução
+            </strong>
+
+            <span>
+                Acompanhe estatísticas avançadas
+                do seu surf.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- 7. PLANO -->
+
+    <div class="proBenefit">
+
+        <div class="benefitIcon">
+            🧠
+        </div>
+
+        <div class="benefitText">
+
+            <strong>
+                Plano de evolução
+            </strong>
+
+            <span>
+                Metas e missões personalizadas
+                para você.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- 8. COMPARAR PRAIAS -->
+
+    <div class="proBenefit">
+
+        <div class="benefitIcon">
+            🌊
+        </div>
+
+        <div class="benefitText">
+
+            <strong>
+                Comparar praias
+            </strong>
+
+            <span>
+                Descubra qual praia está melhor
+                para o seu perfil.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- 9. SCORE -->
+
+    <div class="proBenefit">
+
+        <div class="benefitIcon">
+            🔥
+        </div>
+
+        <div class="benefitText">
+
+            <strong>
+                WaveRise Score pessoal
+            </strong>
+
+            <span>
+                Descubra quais condições combinam
+                melhor com seu surf.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- 10. ALERTAS -->
+
+    <div class="proBenefit">
+
+        <div class="benefitIcon">
+            🔔
+        </div>
+
+        <div class="benefitText">
+
+            <strong>
+                Alertas personalizados
+            </strong>
+
+            <span>
+                Seja avisado quando o mar estiver
+                perfeito para você.
+            </span>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     OFERTA PRO
+===================================================== -->
+
+<section class="proOffer">
+
+
+    <h2>
+        ⭐ Desbloqueie o WaveRise PRO
+    </h2>
+
+
+    <p>
+        Tenha seu próprio treinador de surf
+        inteligente.
+    </p>
+
+
+    <!-- PLANOS -->
+
+    <div class="planos">
+
+
+        <!-- MENSAL -->
+
+        <div
+            class="plano selecionado"
+            id="planoMensal"
+            data-plano="mensal"
+        >
+
+            <div class="planoTop">
+
+                <div class="planoNome">
+                    ⭐ Plano Mensal
+                </div>
+
+                <div class="planoPreco">
+                    R$ 19,90
+                </div>
+
+            </div>
+
+            <div class="planoInfo">
+                Cobrança mensal
+            </div>
+
+        </div>
+
+
+        <!-- ANUAL -->
+
+        <div
+            class="plano"
+            id="planoAnual"
+            data-plano="anual"
+        >
+
+            <span class="planoBadge">
+                MELHOR VALOR
+            </span>
+
+            <div class="planoTop">
+
+                <div class="planoNome">
+                    🏆 Plano Anual
+                </div>
+
+                <div class="planoPreco">
+                    R$ 149,90
+                </div>
+
+            </div>
+
+            <div class="planoInfo">
+                Aproximadamente R$ 12,49 por mês
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- TESTE GRÁTIS -->
+
+    <div class="trial">
+
+        🎁 <strong>7 dias grátis</strong><br>
+
+        Experimente todos os recursos do WaveRise PRO
+        antes da assinatura.
+
+    </div>
+
+
+    <!-- BOTÃO -->
+
+    <button
+        id="btnAssinarPro"
+        class="proSubscribe"
+        type="button"
+    >
+
+        ⭐ Quero ser PRO
+
+    </button>
+
+
+    <!-- STATUS -->
+
+    <div
+        id="proStatus"
+        class="proStatus"
+    >
+
+        ⭐ <strong>WaveRise PRO ativo!</strong>
+
+        <br><br>
+
+        Todas as funções PRO estão desbloqueadas
+        neste dispositivo.
+
+    </div>
+
+
+    <!-- VOLTAR -->
+
+    <button
+        id="btnVoltar"
+        class="proBack"
+        type="button"
+    >
+
+        ← Voltar
+
+    </button>
+
+
+    <!-- AVISO -->
+
+    <div class="proNote">
+
+        🧪 Modo de teste ativado.<br>
+
+        A assinatura real pelo Google Play será
+        conectada posteriormente.
+
+    </div>
+
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     JAVASCRIPT PRINCIPAL DO PRO
+===================================================== -->
+
+<script type="module" src="./pro.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WaveRise — Login</title>
+
+    <link rel="stylesheet" href="./login.css">
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <section class="login-card">
+
+            <div class="logo-area">
+                <div class="logo-wave">🌊</div>
+                <h1>WaveRise</h1>
+                <p>Seu surf. Sua evolução.</p>
+            </div>
+
+            <div class="tabs">
+
+                <button
+                    type="button"
+                    id="tabLogin"
+                    class="tab active">
+                    Entrar
+                </button>
+
+                <button
+                    type="button"
+                    id="tabCadastro"
+                    class="tab">
+                    Criar conta
+                </button>
+
+            </div>
+
+
+            <!-- ==============================
+                 LOGIN
+            =============================== -->
+
+            <form id="formLogin" class="auth-form">
+
+                <h2>Bem-vindo de volta 🌊</h2>
+
+                <label for="loginEmail">
+                    E-mail
+                </label>
+
+                <input
+                    id="loginEmail"
+                    type="email"
+                    placeholder="seu@email.com"
+                    autocomplete="email"
+                    required
+                >
+
+
+                <label for="loginSenha">
+                    Senha
+                </label>
+
+                <input
+                    id="loginSenha"
+                    type="password"
+                    placeholder="Sua senha"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                    id="btnLogin">
+                    Entrar
+                </button>
+
+                <button
+                    type="button"
+                    class="forgot-password"
+                    id="btnEsqueciSenha">
+                    Esqueci minha senha
+                </button>
+
+            </form>
+
+
+            <!-- ==============================
+                 CADASTRO
+            =============================== -->
+
+            <form
+                id="formCadastro"
+                class="auth-form hidden">
+
+                <h2>Crie sua conta 🏄</h2>
+
+                <label for="cadastroNome">
+                    Nome
+                </label>
+
+                <input
+                    id="cadastroNome"
+                    type="text"
+                    placeholder="Seu nome"
+                    autocomplete="name"
+                    required
+                >
+
+
+                <label for="cadastroEmail">
+                    E-mail
+                </label>
+
+                <input
+                    id="cadastroEmail"
+                    type="email"
+                    placeholder="seu@email.com"
+                    autocomplete="email"
+                    required
+                >
+
+
+                <label for="cadastroSenha">
+                    Senha
+                </label>
+
+                <input
+                    id="cadastroSenha"
+                    type="password"
+                    placeholder="Mínimo de 6 caracteres"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
+
+
+                <label for="cadastroSenhaConfirmacao">
+                    Confirmar senha
+                </label>
+
+                <input
+                    id="cadastroSenhaConfirmacao"
+                    type="password"
+                    placeholder="Digite a senha novamente"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                    id="btnCadastro">
+                    Criar minha conta
+                </button>
+
+            </form>
+
+
+            <!-- ==============================
+                 LOGIN SOCIAL
+            =============================== -->
+
+            <div class="divider">
+                <span>ou continue com</span>
+            </div>
+
+            <button
+                type="button"
+                class="btn-social"
+                id="btnGoogle">
+                <span>G</span>
+                Continuar com Google
+            </button>
+
+            <button
+                type="button"
+                class="btn-social facebook"
+                id="btnFacebook">
+                <span>f</span>
+                Continuar com Facebook
+            </button>
+
+
+            <div
+                id="mensagem"
+                class="mensagem"
+                role="alert">
+            </div>
+
+        </section>
+
+    </main>
+
+    <script type="module" src="./login.js"></script>
+
+</body>
+</html>

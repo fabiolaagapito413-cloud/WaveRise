@@ -1,0 +1,428 @@
+/* ======================================================
+   WaveRise — Login
+   ====================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+        linear-gradient(
+            180deg,
+            #071c2c 0%,
+            #0b3048 45%,
+            #082238 100%
+        );
+
+    color: #ffffff;
+}
+
+
+/* ======================================================
+   PÁGINA
+   ====================================================== */
+
+.login-page {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+}
+
+
+/* ======================================================
+   CARD
+   ====================================================== */
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 32px 28px;
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.35);
+
+    backdrop-filter: blur(18px);
+}
+
+
+/* ======================================================
+   LOGO
+   ====================================================== */
+
+.logo-area {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.logo-wave {
+    font-size: 42px;
+    margin-bottom: 4px;
+}
+
+.logo-area h1 {
+    margin: 0;
+
+    font-size: 32px;
+    font-weight: 800;
+
+    letter-spacing: -0.8px;
+}
+
+.logo-area p {
+    margin: 7px 0 0;
+
+    font-size: 14px;
+
+    color: rgba(255, 255, 255, 0.68);
+}
+
+
+/* ======================================================
+   ABAS
+   ====================================================== */
+
+.tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 6px;
+
+    padding: 5px;
+
+    margin-bottom: 25px;
+
+    border-radius: 12px;
+
+    background: rgba(0, 0, 0, 0.18);
+}
+
+.tab {
+    border: 0;
+
+    padding: 11px;
+
+    border-radius: 9px;
+
+    background: transparent;
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.tab.active {
+    background: rgba(255, 255, 255, 0.14);
+
+    color: #ffffff;
+}
+
+
+/* ======================================================
+   FORMULÁRIO
+   ====================================================== */
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-form h2 {
+    margin: 0 0 22px;
+
+    font-size: 21px;
+    font-weight: 750;
+}
+
+.auth-form label {
+    margin: 0 0 7px;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.auth-form input {
+    width: 100%;
+
+    height: 48px;
+
+    margin-bottom: 16px;
+
+    padding: 0 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+
+    border-radius: 11px;
+
+    outline: none;
+
+    background: rgba(0, 0, 0, 0.18);
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.auth-form input::placeholder {
+    color: rgba(255, 255, 255, 0.38);
+}
+
+.auth-form input:focus {
+    border-color: rgba(100, 200, 255, 0.65);
+
+    background: rgba(0, 0, 0, 0.24);
+}
+
+
+/* ======================================================
+   BOTÃO PRINCIPAL
+   ====================================================== */
+
+.btn-primary {
+    width: 100%;
+
+    min-height: 49px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #28b9f2,
+            #147ec4
+        );
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 24px rgba(20, 126, 196, 0.25);
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+
+/* ======================================================
+   ESQUECI SENHA
+   ====================================================== */
+
+.forgot-password {
+    margin-top: 14px;
+
+    border: 0;
+
+    background: transparent;
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.forgot-password:hover {
+    color: #ffffff;
+}
+
+
+/* ======================================================
+   DIVISOR
+   ====================================================== */
+
+.divider {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 24px 0 17px;
+
+    color: rgba(255, 255, 255, 0.42);
+
+    font-size: 12px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: rgba(255, 255, 255, 0.12);
+}
+
+
+/* ======================================================
+   LOGIN SOCIAL
+   ====================================================== */
+
+.btn-social {
+    width: 100%;
+
+    min-height: 47px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 10px;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+
+    border-radius: 11px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+.btn-social:hover {
+    background: rgba(255, 255, 255, 0.13);
+
+    transform: translateY(-1px);
+}
+
+.btn-social span {
+    width: 22px;
+    height: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 800;
+    font-size: 16px;
+}
+
+.btn-social.facebook {
+    margin-bottom: 4px;
+}
+
+
+/* ======================================================
+   MENSAGEM
+   ====================================================== */
+
+.mensagem {
+    min-height: 20px;
+
+    margin-top: 18px;
+
+    text-align: center;
+
+    font-size: 13px;
+
+    line-height: 1.45;
+
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.mensagem.erro {
+    color: #ffb4b4;
+}
+
+.mensagem.sucesso {
+    color: #a9f1cf;
+}
+
+
+/* ======================================================
+   UTILITÁRIO
+   ====================================================== */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ======================================================
+   CELULAR
+   ====================================================== */
+
+@media (max-width: 480px) {
+
+    .login-page {
+        padding: 14px;
+    }
+
+    .login-card {
+        padding: 27px 20px;
+
+        border-radius: 20px;
+    }
+
+    .logo-area h1 {
+        font-size: 29px;
+    }
+
+}

@@ -1,12 +1,16 @@
 // ======================================================
-// WaveRise 4.0
+// WaveRise 5.0
 // Mar Premium
 // ======================================================
 
-import { iniciarMapa, moverMapa } from "./mapa.js";
+import {
+    iniciarMapa,
+    moverMapa
+} from "./mapa.js";
 
 import {
     buscarCondicoes,
+    buscarMare,
     atualizarTela
 } from "./stormglass.js";
 
@@ -14,10 +18,6 @@ import {
     buscarPrevisao,
     buscarSol
 } from "./previsao.js";
-
-import {
-    buscarMare
-} from "./mare.js";
 
 import {
     calcularLua
@@ -38,6 +38,7 @@ import {
     atualizarTimeline
 } from "./timeline.js";
 
+
 // ======================================================
 // VARIÁVEIS
 // ======================================================
@@ -50,241 +51,347 @@ let latitudeAtual = 0;
 
 let longitudeAtual = 0;
 
+
 // ======================================================
 // INICIAR
 // ======================================================
 
 window.addEventListener(
-
     "DOMContentLoaded",
-
     iniciar
-
 );
 
-async function iniciar(){
 
-    mapa = iniciarMapa("mapa");
+async function iniciar() {
+
+    mapa =
+        iniciarMapa("mapa");
 
     configurarEventos();
 
-    mostrarFavoritos(abrirFavorito);
+    mostrarFavoritos(
+        abrirFavorito
+    );
 
     restaurarUltimaPraia();
 
-    console.log("🌊 WaveRise iniciado.");
+    console.log(
+        "🌊 WaveRise iniciado."
+    );
 
 }
+
+
 // ======================================================
 // EVENTOS
 // ======================================================
 
-function configurarEventos(){
+function configurarEventos() {
 
     document
         .getElementById("buscarMar")
-        ?.addEventListener("click", pesquisarPraia);
+        ?.addEventListener(
+            "click",
+            pesquisarPraia
+        );
+
 
     document
         .getElementById("gps")
-        ?.addEventListener("click", usarGPS);
+        ?.addEventListener(
+            "click",
+            usarGPS
+        );
+
 
     document
         .getElementById("favoritar")
-        ?.addEventListener("click", favoritarPraia);
+        ?.addEventListener(
+            "click",
+            favoritarPraia
+        );
+
 
     document
         .getElementById("limparFavoritos")
-        ?.addEventListener("click", ()=>{
+        ?.addEventListener(
+            "click",
+            () => {
 
-            limparFavoritos();
+                limparFavoritos();
 
-            mostrarFavoritos(abrirFavorito);
+                mostrarFavoritos(
+                    abrirFavorito
+                );
 
-        });
+            }
+        );
+
 
     document
         .getElementById("analisarCoach")
-        ?.addEventListener("click", ()=>{
+        ?.addEventListener(
+            "click",
+            () => {
 
-            alert("🤖 Coach IA analisando as condições...");
+                alert(
+                    "🤖 Coach IA analisando as condições..."
+                );
 
-        });
-
-}
-
-// ======================================================
-// RESTAURA ÚLTIMA PRAIA
-// ======================================================
-
-function restaurarUltimaPraia(){
-
-    const ultima = localStorage.getItem("ultimaPraia");
-
-    if(!ultima) return;
-
-    const input = document.getElementById("praiaInput");
-
-    if(input){
-
-        input.value = ultima;
-
-    }
+            }
+        );
 
 }
 
+
 // ======================================================
-// ATUALIZA TEXTO
-// ======================================================
-
-function atualizarTexto(id, valor){
-
-    const elemento = document.getElementById(id);
-
-    if(elemento){
-
-        elemento.textContent = valor;
-
-    }
-
-}
-// ======================================================
-// PESQUISAR PRAIA
+// RESTAURAR ÚLTIMA PRAIA
 // ======================================================
 
-async function pesquisarPraia(){
+function restaurarUltimaPraia() {
 
-    const input = document.getElementById("praiaInput");
+    const ultima =
+        localStorage.getItem(
+            "ultimaPraia"
+        );
 
-    if(!input) return;
 
-    const praia = input.value.trim();
-
-    if(!praia){
-
-        alert("Digite uma praia.");
+    if (!ultima) {
 
         return;
 
     }
 
-    try{
 
-        const resposta = await fetch(
-
-            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(praia)}`
-
+    const input =
+        document.getElementById(
+            "praiaInput"
         );
 
-        const locais = await resposta.json();
 
-        if(!locais.length){
+    if (input) {
 
-            alert("Praia não encontrada.");
+        input.value =
+            ultima;
+
+    }
+
+}
+
+
+// ======================================================
+// ATUALIZAR TEXTO
+// ======================================================
+
+function atualizarTexto(
+    id,
+    valor
+) {
+
+    const elemento =
+        document.getElementById(
+            id
+        );
+
+
+    if (elemento) {
+
+        elemento.textContent =
+            valor;
+
+    }
+
+}
+
+
+// ======================================================
+// PESQUISAR PRAIA
+// ======================================================
+
+async function pesquisarPraia() {
+
+    const input =
+        document.getElementById(
+            "praiaInput"
+        );
+
+
+    if (!input) {
+
+        return;
+
+    }
+
+
+    const praia =
+        input.value.trim();
+
+
+    if (!praia) {
+
+        alert(
+            "Digite uma praia."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const resposta =
+            await fetch(
+
+                `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(praia)}`
+
+            );
+
+
+        if (!resposta.ok) {
+
+            throw new Error(
+                "Erro ao localizar a praia."
+            );
+
+        }
+
+
+        const locais =
+            await resposta.json();
+
+
+        if (!locais.length) {
+
+            alert(
+                "Praia não encontrada."
+            );
 
             return;
 
         }
 
-        praiaAtual = praia;
 
-        latitudeAtual = Number(locais[0].lat);
+        praiaAtual =
+            praia;
 
-        longitudeAtual = Number(locais[0].lon);
+
+        latitudeAtual =
+            Number(
+                locais[0].lat
+            );
+
+
+        longitudeAtual =
+            Number(
+                locais[0].lon
+            );
+
 
         localStorage.setItem(
-
             "ultimaPraia",
-
             praiaAtual
-
         );
+
 
         moverMapa(
-
             mapa,
-
             latitudeAtual,
-
             longitudeAtual,
-
             praiaAtual
-
         );
+
 
         atualizarTexto(
-
             "localMar",
-
             praiaAtual
-
         );
+
 
         await carregarDados();
 
     }
 
-    catch(erro){
+    catch (erro) {
 
-        console.error(erro);
+        console.error(
+            erro
+        );
 
-        alert("Erro ao localizar a praia.");
+
+        alert(
+            "Erro ao localizar a praia."
+        );
 
     }
 
 }
 
+
 // ======================================================
 // GPS
 // ======================================================
 
-function usarGPS(){
+function usarGPS() {
 
-    if(!navigator.geolocation){
+    if (
+        !navigator.geolocation
+    ) {
 
-        alert("Seu navegador não suporta GPS.");
+        alert(
+            "Seu navegador não suporta GPS."
+        );
 
         return;
 
     }
 
+
     navigator.geolocation.getCurrentPosition(
 
-        async(posicao)=>{
+        async (posicao) => {
 
-            latitudeAtual = posicao.coords.latitude;
+            latitudeAtual =
+                posicao.coords.latitude;
 
-            longitudeAtual = posicao.coords.longitude;
 
-            praiaAtual = "Minha localização";
+            longitudeAtual =
+                posicao.coords.longitude;
+
+
+            praiaAtual =
+                "Minha localização";
+
 
             moverMapa(
-
                 mapa,
-
                 latitudeAtual,
-
                 longitudeAtual,
-
                 praiaAtual
-
             );
+
 
             atualizarTexto(
-
                 "localMar",
-
                 praiaAtual
-
             );
+
 
             await carregarDados();
 
         },
 
-        ()=>{
+        (erro) => {
 
-            alert("Não foi possível obter sua localização.");
+            console.error(
+                "GPS:",
+                erro
+            );
+
+
+            alert(
+                "Não foi possível obter sua localização."
+            );
 
         }
 
@@ -292,181 +399,294 @@ function usarGPS(){
 
 }
 
+
 // ======================================================
 // FAVORITOS
 // ======================================================
 
-function favoritarPraia(){
+function favoritarPraia() {
 
-    if(!praiaAtual){
+    if (!praiaAtual) {
 
-        alert("Pesquise uma praia primeiro.");
+        alert(
+            "Pesquise uma praia primeiro."
+        );
 
         return;
 
     }
 
+
     salvarFavorito(
-
         praiaAtual,
-
         latitudeAtual,
-
         longitudeAtual
-
     );
 
+
     mostrarFavoritos(
-
         abrirFavorito
-
     );
 
 }
+
 
 // ======================================================
 // ABRIR FAVORITO
 // ======================================================
 
-async function abrirFavorito(favorito){
+async function abrirFavorito(
+    favorito
+) {
 
-    praiaAtual = favorito.nome;
+    praiaAtual =
+        favorito.nome;
 
-    latitudeAtual = favorito.latitude;
 
-    longitudeAtual = favorito.longitude;
+    latitudeAtual =
+        Number(
+            favorito.latitude
+        );
+
+
+    longitudeAtual =
+        Number(
+            favorito.longitude
+        );
+
 
     moverMapa(
-
         mapa,
-
         latitudeAtual,
-
         longitudeAtual,
-
         praiaAtual
-
     );
+
 
     atualizarTexto(
-
         "localMar",
-
         praiaAtual
-
     );
+
 
     await carregarDados();
 
 }
+
+
 // ======================================================
 // CARREGAR DADOS
 // ======================================================
 
-async function carregarDados(){
+async function carregarDados() {
 
-    try{
+    try {
+
+        if (
+            !Number.isFinite(
+                latitudeAtual
+            ) ||
+            !Number.isFinite(
+                longitudeAtual
+            )
+        ) {
+
+            throw new Error(
+                "Coordenadas inválidas."
+            );
+
+        }
+
+
+        console.log(
+            "🌊 Carregando dados do Mar..."
+        );
+
 
         // =====================================
         // STORMGLASS
         // =====================================
 
-        const dados = await buscarCondicoes(
+        const dados =
+            await buscarCondicoes(
 
-            latitudeAtual,
+                latitudeAtual,
+                longitudeAtual
 
-            longitudeAtual
+            );
 
-        );
 
         // =====================================
-        // MARÉ
+        // MARÉ REAL - STORMGLASS
         // =====================================
 
-        const mare = await buscarMare(
+        try {
 
-            latitudeAtual,
+            const mare =
+                await buscarMare(
 
-            longitudeAtual
+                    latitudeAtual,
+                    longitudeAtual
 
-        );
+                );
 
-        dados.mare = mare.estado;
-        dados.proximaMare = mare.proxima;
-        dados.alturaMare = mare.altura;
+
+            dados.mare =
+                mare.proximaMare || "--";
+
+
+            dados.proximaMare =
+                mare.horarioMare || "--";
+
+
+            dados.alturaMare =
+                mare.alturaMare || "--";
+
+
+            dados.proximaMareSeguinte =
+                mare.proximaMareSeguinte ||
+                "--";
+
+
+            dados.horarioMareSeguinte =
+                mare.horarioMareSeguinte ||
+                "--";
+
+
+            dados.alturaMareSeguinte =
+                mare.alturaMareSeguinte ||
+                "--";
+
+
+            dados.estacaoMare =
+                mare.estacao ||
+                "--";
+
+
+            console.log(
+                "🌊 Maré real carregada:",
+                mare
+            );
+
+        }
+
+        catch (erroMare) {
+
+            console.warn(
+                "⚠️ Não foi possível carregar a maré:",
+                erroMare
+            );
+
+
+            // Não derruba o restante
+            // do Mar se a maré falhar.
+
+            dados.mare =
+                "--";
+
+
+            dados.proximaMare =
+                "--";
+
+
+            dados.alturaMare =
+                "--";
+
+
+            dados.proximaMareSeguinte =
+                "--";
+
+
+            dados.horarioMareSeguinte =
+                "--";
+
+
+            dados.alturaMareSeguinte =
+                "--";
+
+
+            dados.estacaoMare =
+                "--";
+
+        }
+
 
         // =====================================
         // SOL
         // =====================================
 
-        const sol = await buscarSol(
+        const sol =
+            await buscarSol(
 
-            latitudeAtual,
+                latitudeAtual,
+                longitudeAtual
 
-            longitudeAtual
+            );
 
-        );
 
-        dados.nascer = sol.nascer;
-        dados.por = sol.por;
+        dados.nascer =
+            sol.nascer;
+
+
+        dados.por =
+            sol.por;
+
 
         // =====================================
         // LUA
         // =====================================
 
-        dados.lua = calcularLua();
+        dados.lua =
+            calcularLua();
+
 
         // =====================================
         // HERO
         // =====================================
 
         atualizarHero(
-
             praiaAtual,
-
             dados
-
         );
+
 
         // =====================================
         // CONDIÇÕES
         // =====================================
 
         atualizarTela(
-
             dados
-
         );
+
 
         // =====================================
         // COACH
         // =====================================
 
         atualizarCoach(
-
             dados
-
         );
+
 
         atualizarNota(
-
             dados
-
         );
+
 
         // =====================================
         // TIMELINE
         // =====================================
 
-        if(dados.hours){
+        if (
+            dados.hours
+        ) {
 
             atualizarTimeline(
-
                 dados.hours
-
             );
 
         }
+
 
         // =====================================
         // PREVISÃO
@@ -475,10 +695,10 @@ async function carregarDados(){
         await buscarPrevisao(
 
             latitudeAtual,
-
             longitudeAtual
 
         );
+
 
         // =====================================
         // HOME
@@ -490,53 +710,89 @@ async function carregarDados(){
 
             JSON.stringify({
 
-                praia: praiaAtual,
+                praia:
+                    praiaAtual,
 
-                onda: dados.onda,
+                onda:
+                    dados.onda,
 
-                swell: dados.swell,
+                swell:
+                    dados.swell,
 
-                periodo: dados.periodo,
+                periodo:
+                    dados.periodo,
 
-                vento: dados.vento,
+                vento:
+                    dados.vento,
 
-                agua: dados.agua,
+                agua:
+                    dados.agua,
 
-                score: dados.surfScore,
+                score:
+                    dados.surfScore,
 
-                condicao: dados.condicao,
+                condicao:
+                    dados.condicao,
 
-                prancha: dados.prancha,
+                prancha:
+                    dados.prancha,
 
-                horario: dados.horario,
+                horario:
+                    dados.horario,
 
-                mare: dados.mare,
+                mare:
+                    dados.mare,
 
-                proximaMare: dados.proximaMare,
+                proximaMare:
+                    dados.proximaMare,
 
-                alturaMare: dados.alturaMare,
+                alturaMare:
+                    dados.alturaMare,
 
-                nascer: dados.nascer,
+                proximaMareSeguinte:
+                    dados.proximaMareSeguinte,
 
-                por: dados.por,
+                horarioMareSeguinte:
+                    dados.horarioMareSeguinte,
 
-                lua: dados.lua,
+                alturaMareSeguinte:
+                    dados.alturaMareSeguinte,
 
-                data: Date.now()
+                estacaoMare:
+                    dados.estacaoMare,
+
+                nascer:
+                    dados.nascer,
+
+                por:
+                    dados.por,
+
+                lua:
+                    dados.lua,
+
+                data:
+                    Date.now()
 
             })
 
         );
 
-        console.log("✅ Dados carregados com sucesso.");
+
+        console.log(
+            "✅ Dados carregados com sucesso."
+        );
 
     }
 
-catch(erro){
+    catch (erro) {
 
-    console.error(erro);
+        console.error(
+            "❌ Erro ao carregar dados:",
+            erro
+        );
 
-    alert(`
+
+        alert(`
 ERRO WAVERISE
 
 Mensagem:
@@ -544,54 +800,106 @@ ${erro.message}
 
 Stack:
 ${erro.stack}
-    `);
+        `);
+
+    }
 
 }
-}
+
+
 // ======================================================
 // HERO
 // ======================================================
 
-function atualizarHero(praia, dados){
+function atualizarHero(
+    praia,
+    dados
+) {
 
-    atualizarTexto("heroPraia", praia);
+    atualizarTexto(
+        "heroPraia",
+        praia
+    );
 
-    atualizarTexto("heroCondicao", dados.condicao);
 
-    atualizarTexto("heroNota", dados.surfScore);
+    atualizarTexto(
+        "heroCondicao",
+        dados.condicao
+    );
 
-    atualizarTexto("heroOnda", `${dados.onda.toFixed(1)} m`);
 
-    atualizarTexto("heroVento", `${(dados.vento * 3.6).toFixed(0)} km/h`);
+    atualizarTexto(
+        "heroNota",
+        dados.surfScore
+    );
 
-    atualizarTexto("heroAgua", `${dados.agua.toFixed(1)} °C`);
 
-    atualizarTexto("heroPrancha", dados.prancha);
+    atualizarTexto(
+        "heroOnda",
+        `${dados.onda.toFixed(1)} m`
+    );
 
-    atualizarTexto("heroHorario", dados.horario);
+
+    atualizarTexto(
+        "heroVento",
+        `${(
+            dados.vento * 3.6
+        ).toFixed(0)} km/h`
+    );
+
+
+    atualizarTexto(
+        "heroAgua",
+        `${dados.agua.toFixed(1)} °C`
+    );
+
+
+    atualizarTexto(
+        "heroPrancha",
+        dados.prancha
+    );
+
+
+    atualizarTexto(
+        "heroHorario",
+        dados.horario
+    );
 
 }
+
 
 // ======================================================
 // STORAGE
 // ======================================================
 
-window.addEventListener("storage", () => {
+window.addEventListener(
+    "storage",
+    () => {
 
-    mostrarFavoritos(abrirFavorito);
+        mostrarFavoritos(
+            abrirFavorito
+        );
 
-});
+    }
+);
+
 
 // ======================================================
 // EXPORTA
 // ======================================================
 
-window.pesquisarPraia = pesquisarPraia;
+window.pesquisarPraia =
+    pesquisarPraia;
 
-window.usarGPS = usarGPS;
+
+window.usarGPS =
+    usarGPS;
+
 
 // ======================================================
 // FINAL
 // ======================================================
 
-console.log("🌊 Mar Premium carregado com sucesso.");
+console.log(
+    "🌊 Mar Premium carregado com sucesso."
+);

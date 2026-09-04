@@ -1,6 +1,7 @@
 // ======================================================
-// WaveRise 4.0
+// WaveRise 5.0
 // Stormglass API
+// Mar + Maré Real
 // ======================================================
 
 import {
@@ -13,38 +14,285 @@ import {
     calcularSurfScore
 } from "./score.js";
 
+
 // ======================================================
 // CONFIGURAÇÃO
 // ======================================================
 
-const API_KEY = import.meta.env.VITE_STORMGLASS_API_KEY;
+const API_KEY =
+    import.meta.env.VITE_STORMGLASS_API_KEY;
+
 
 const PARAMS = [
-
     "waveHeight",
     "wavePeriod",
     "waveDirection",
-
     "windSpeed",
     "windDirection",
-
     "waterTemperature",
     "airTemperature",
-
     "swellHeight",
     "swellDirection",
     "swellPeriod"
-
 ].join(",");
 
+
 console.log("🌊 Stormglass iniciado.");
+
+console.log(
+    "API configurada:",
+    Boolean(API_KEY),
+    "Tamanho:",
+    API_KEY ? API_KEY.length : 0
+);
+
+
 // ======================================================
 // BUSCAR CONDIÇÕES
 // ======================================================
 
-export async function buscarCondicoes(latitude, longitude){
+export async function buscarCondicoes(
+    latitude,
+    longitude
+) {
 
-    if(!API_KEY){
+    if (!API_KEY) {
+
+        throw new Error(
+            "API da Stormglass não configurada. " +
+            "Verifique VITE_STORMGLASS_API_KEY no .env."
+        );
+
+    }
+
+
+    if (
+        !Number.isFinite(latitude) ||
+        !Number.isFinite(longitude)
+    ) {
+
+        throw new Error(
+            "Latitude ou longitude inválida."
+        );
+
+    }
+
+
+    const parametros =
+        new URLSearchParams({
+
+            lat:
+                String(latitude),
+
+            lng:
+                String(longitude),
+
+            params:
+                PARAMS
+
+        });
+
+
+    const url =
+        `https://api.stormglass.io/v2/weather/point?${parametros}`;
+
+
+    console.log(
+        "🌍 Consultando Stormglass..."
+    );
+
+    console.log(
+        "Latitude:",
+        latitude
+    );
+
+    console.log(
+        "Longitude:",
+        longitude
+    );
+
+
+    let resposta;
+
+
+    try {
+
+        resposta =
+            await fetch(
+
+                url,
+
+                {
+
+                    method:
+                        "GET",
+
+                    headers: {
+
+                        "Authorization":
+                            API_KEY,
+
+                        "Accept":
+                            "application/json"
+
+                    }
+
+                }
+
+            );
+
+    }
+
+    catch (erro) {
+
+        console.error(
+            "❌ Falha de conexão com Stormglass:",
+            erro
+        );
+
+        throw new Error(
+            "Não foi possível conectar à Stormglass."
+        );
+
+    }
+
+
+    console.log(
+        "Stormglass status:",
+        resposta.status
+    );
+
+
+    const texto =
+        await resposta.text();
+
+
+    let json =
+        null;
+
+
+    try {
+
+        json =
+            texto
+                ? JSON.parse(texto)
+                : null;
+
+    }
+
+    catch {
+
+        json =
+            null;
+
+    }
+
+
+    // ==================================================
+    // ERRO
+    // ==================================================
+
+    if (!resposta.ok) {
+
+        console.error(
+            "❌ Resposta Stormglass:",
+            texto
+        );
+
+
+        if (
+            resposta.status === 401
+        ) {
+
+            throw new Error(
+                "Stormglass 401: API Key inválida ou não autorizada."
+            );
+
+        }
+
+
+        if (
+            resposta.status === 403
+        ) {
+
+            throw new Error(
+                "Stormglass 403: a Stormglass recusou a requisição. " +
+                "Verifique o status da API Key e as permissões da conta."
+            );
+
+        }
+
+
+        if (
+            resposta.status === 429
+        ) {
+
+            throw new Error(
+                "Stormglass 429: limite de requisições atingido."
+            );
+
+        }
+
+
+        const mensagem =
+            json?.errors?.join?.(", ") ||
+            json?.message ||
+            texto ||
+            "Erro desconhecido na Stormglass.";
+
+
+        throw new Error(
+            `Stormglass ${resposta.status}: ${mensagem}`
+        );
+
+    }
+
+
+    if (!json) {
+
+        throw new Error(
+            "A Stormglass respondeu sem dados."
+        );
+
+    }
+
+
+    console.log(
+        "✅ Resposta Stormglass recebida."
+    );
+
+
+    if (
+        !json.hours ||
+        !Array.isArray(json.hours) ||
+        json.hours.length === 0
+    ) {
+
+        throw new Error(
+            "A Stormglass não retornou previsão para esta localização."
+        );
+
+    }
+
+
+    return interpretar(
+        json.hours[0],
+        json.hours
+    );
+
+}
+
+
+// ======================================================
+// BUSCAR MARÉ REAL
+// ======================================================
+
+export async function buscarMare(
+    latitude,
+    longitude
+) {
+
+    if (!API_KEY) {
 
         throw new Error(
             "API da Stormglass não configurada."
@@ -52,288 +300,724 @@ export async function buscarCondicoes(latitude, longitude){
 
     }
 
+
+    if (
+        !Number.isFinite(latitude) ||
+        !Number.isFinite(longitude)
+    ) {
+
+        throw new Error(
+            "Latitude ou longitude inválida."
+        );
+
+    }
+
+
+    const agora =
+        new Date();
+
+
+    const inicio =
+        agora.toISOString();
+
+
+    const fim =
+        new Date(
+            agora.getTime() +
+            48 * 60 * 60 * 1000
+        ).toISOString();
+
+
+    const parametros =
+        new URLSearchParams({
+
+            lat:
+                String(latitude),
+
+            lng:
+                String(longitude),
+
+            start:
+                inicio,
+
+            end:
+                fim
+
+        });
+
+
     const url =
-`https://api.stormglass.io/v2/weather/point?lat=${latitude}&lng=${longitude}&params=${PARAMS}`;
+        `https://api.stormglass.io/v2/tide/extremes/point?${parametros}`;
 
-    console.log("🌍 Consultando Stormglass...");
-    console.log("Latitude:", latitude);
-    console.log("Longitude:", longitude);
 
-    const resposta = await fetch(
+    console.log(
+        "🌊 Consultando maré real..."
+    );
 
-        url,
 
-        {
+    let resposta;
 
-            headers:{
 
-                Authorization: API_KEY
+    try {
 
-            }
+        resposta =
+            await fetch(
+
+                url,
+
+                {
+
+                    method:
+                        "GET",
+
+                    headers: {
+
+                        "Authorization":
+                            API_KEY,
+
+                        "Accept":
+                            "application/json"
+
+                    }
+
+                }
+
+            );
+
+    }
+
+    catch (erro) {
+
+        console.error(
+            "❌ Falha ao consultar maré:",
+            erro
+        );
+
+        throw new Error(
+            "Não foi possível conectar à API de maré."
+        );
+
+    }
+
+
+    console.log(
+        "Stormglass maré status:",
+        resposta.status
+    );
+
+
+    const texto =
+        await resposta.text();
+
+
+    let json =
+        null;
+
+
+    try {
+
+        json =
+            texto
+                ? JSON.parse(texto)
+                : null;
+
+    }
+
+    catch {
+
+        json =
+            null;
+
+    }
+
+
+    if (!resposta.ok) {
+
+        console.error(
+            "❌ Resposta Stormglass maré:",
+            texto
+        );
+
+
+        if (
+            resposta.status === 401
+        ) {
+
+            throw new Error(
+                "Stormglass maré 401: API Key inválida ou não autorizada."
+            );
 
         }
 
-    );
 
-    console.log("Status:", resposta.status);
+        if (
+            resposta.status === 403
+        ) {
 
-    if(!resposta.ok){
+            throw new Error(
+                "Stormglass maré 403: acesso à API de maré recusado."
+            );
 
-        const erro = await resposta.text();
+        }
 
-        console.error("Stormglass:", erro);
+
+        if (
+            resposta.status === 429
+        ) {
+
+            throw new Error(
+                "Stormglass maré 429: limite de requisições atingido."
+            );
+
+        }
+
+
+        const mensagem =
+            json?.errors?.join?.(", ") ||
+            json?.message ||
+            texto ||
+            "Erro desconhecido na API de maré.";
+
 
         throw new Error(
-
-            `Stormglass ${resposta.status}`
-
+            `Stormglass maré ${resposta.status}: ${mensagem}`
         );
 
     }
 
-    const json = await resposta.json();
 
-    console.log("Resposta:", json);
-
-    if(!json.hours || json.hours.length === 0){
+    if (!json) {
 
         throw new Error(
-
-            "A Stormglass não retornou previsão."
-
+            "A Stormglass respondeu sem dados de maré."
         );
 
     }
 
-    return interpretar(
 
-        json.hours[0],
-
-        json.hours
-
+    console.log(
+        "✅ Dados de maré recebidos.",
+        json
     );
 
-}
-// ======================================================
-// INTERPRETA DADOS
-// ======================================================
 
-function interpretar(atual, hours){
+    if (
+        !Array.isArray(json.data)
+    ) {
 
-    const onda = valor(atual.waveHeight);
+        throw new Error(
+            "A Stormglass não retornou dados de maré."
+        );
 
-    const swell = valor(atual.swellHeight);
+    }
 
-    const periodo = valor(atual.wavePeriod);
 
-    const periodoSwell = valor(atual.swellPeriod);
+    const agoraMs =
+        Date.now();
 
-    const direcao = valor(atual.waveDirection);
 
-    const direcaoSwell = valor(atual.swellDirection);
+    const extremos =
+        json.data
 
-    const vento = valor(atual.windSpeed);
+            .filter(
+                item =>
+                    item &&
+                    item.time &&
+                    Number.isFinite(
+                        Number(item.height)
+                    ) &&
+                    new Date(
+                        item.time
+                    ).getTime() >= agoraMs
+            )
 
-    const direcaoVento = valor(atual.windDirection);
+            .sort(
+                (a, b) =>
+                    new Date(a.time) -
+                    new Date(b.time)
+            );
 
-    const agua = valor(atual.waterTemperature);
 
-    const ar = valor(atual.airTemperature);
+    const proxima =
+        extremos[0] || null;
 
-    const tipoVento = classificarVento(direcaoVento);
 
-    const surf = calcularSurfScore({
+    const seguinte =
+        extremos[1] || null;
 
-        onda,
-
-        swell,
-
-        periodo,
-
-        vento,
-
-        tipoVento,
-
-        agua
-
-    });
 
     return {
 
-        // ==========================
-        // MAR
-        // ==========================
+        proximaMare:
+            proxima
+                ? formatarTipoMare(
+                    proxima.type
+                )
+                : "--",
+
+        horarioMare:
+            proxima
+                ? formatarHora(
+                    proxima.time
+                )
+                : "--",
+
+        alturaMare:
+            proxima
+                ? formatarAltura(
+                    proxima.height
+                )
+                : "--",
+
+
+        proximaMareSeguinte:
+            seguinte
+                ? formatarTipoMare(
+                    seguinte.type
+                )
+                : "--",
+
+        horarioMareSeguinte:
+            seguinte
+                ? formatarHora(
+                    seguinte.time
+                )
+                : "--",
+
+        alturaMareSeguinte:
+            seguinte
+                ? formatarAltura(
+                    seguinte.height
+                )
+                : "--",
+
+
+        estacao:
+            json.meta?.station?.name ||
+            "--"
+
+    };
+
+}
+
+
+// ======================================================
+// INTERPRETAR DADOS
+// ======================================================
+
+function interpretar(
+    atual,
+    hours
+) {
+
+    const onda =
+        valor(
+            atual.waveHeight
+        );
+
+
+    const swell =
+        valor(
+            atual.swellHeight
+        );
+
+
+    const periodo =
+        valor(
+            atual.wavePeriod
+        );
+
+
+    const periodoSwell =
+        valor(
+            atual.swellPeriod
+        );
+
+
+    const direcao =
+        valor(
+            atual.waveDirection
+        );
+
+
+    const direcaoSwell =
+        valor(
+            atual.swellDirection
+        );
+
+
+    const vento =
+        valor(
+            atual.windSpeed
+        );
+
+
+    const direcaoVento =
+        valor(
+            atual.windDirection
+        );
+
+
+    const agua =
+        valor(
+            atual.waterTemperature
+        );
+
+
+    const ar =
+        valor(
+            atual.airTemperature
+        );
+
+
+    const tipoVento =
+        classificarVento(
+            direcaoVento
+        );
+
+
+    const surf =
+        calcularSurfScore({
+
+            onda,
+
+            swell,
+
+            periodo,
+
+            vento,
+
+            tipoVento,
+
+            agua
+
+        });
+
+
+    return {
 
         onda,
+
         swell,
+
         periodo,
+
         periodoSwell,
 
         direcao,
+
         direcaoSwell,
 
         vento,
+
         direcaoVento,
 
         agua,
+
         ar,
 
         tipoVento,
 
-        // ==========================
-        // SCORE
-        // ==========================
 
-        nota: surf.score / 10,
-
-        surfScore: surf.score,
-
-        estrelas: surf.estrelas,
-
-        nivel: surf.nivel,
-
-        corScore: surf.cor,
-
-        condicao: surf.nivel,
-
-        // ==========================
-        // COACH
-        // ==========================
-
-        prancha: recomendarPrancha(onda),
-
-        horario: analisarHorario(
-
+        nota:
             surf.score / 10,
 
-            vento,
+        surfScore:
+            surf.score,
 
-            tipoVento
+        estrelas:
+            surf.estrelas,
 
-        ),
+        nivel:
+            surf.nivel,
 
-        // ==========================
-        // TIMELINE
-        // ==========================
+        corScore:
+            surf.cor,
+
+        condicao:
+            surf.nivel,
+
+
+        prancha:
+            recomendarPrancha(
+                onda
+            ),
+
+        horario:
+            analisarHorario(
+                surf.score / 10,
+                vento,
+                tipoVento
+            ),
+
 
         hours,
 
-        // ==========================
-        // CAMPOS COMPLEMENTARES
-        // ==========================
 
-        mare: "--",
+        mare:
+            "--",
 
-        proximaMare: "--",
+        proximaMare:
+            "--",
 
-        alturaMare: "--",
+        alturaMare:
+            "--",
 
-        nascer: "--:--",
+        horarioMare:
+            "--",
 
-        por: "--:--",
+        estacaoMare:
+            "--",
 
-        lua: "--"
+
+        nascer:
+            "--:--",
+
+        por:
+            "--:--",
+
+        lua:
+            "--"
 
     };
 
 }
+
+
 // ======================================================
 // FORMATAÇÃO
 // ======================================================
 
-export function formatarDados(dados){
+export function formatarDados(
+    dados
+) {
 
-    return{
+    return {
 
-        heroOnda: `${dados.onda.toFixed(1)} m`,
+        heroOnda:
+            `${dados.onda.toFixed(1)} m`,
 
-        heroVento: `${(dados.vento * 3.6).toFixed(0)} km/h`,
+        heroVento:
+            `${(
+                dados.vento * 3.6
+            ).toFixed(0)} km/h`,
 
-        heroNota: dados.surfScore,
+        heroNota:
+            dados.surfScore,
 
-        onda: `${dados.onda.toFixed(1)} m`,
 
-        swell: `${dados.swell.toFixed(1)} m`,
+        onda:
+            `${dados.onda.toFixed(1)} m`,
 
-        periodo: `${dados.periodo.toFixed(0)} s`,
+        swell:
+            `${dados.swell.toFixed(1)} m`,
 
-        vento: `${(dados.vento * 3.6).toFixed(1)} km/h`,
+        periodo:
+            `${dados.periodo.toFixed(0)} s`,
 
-        agua: `${dados.agua.toFixed(1)} °C`,
+        vento:
+            `${(
+                dados.vento * 3.6
+            ).toFixed(1)} km/h`,
 
-        ar: `${dados.ar.toFixed(1)} °C`,
+        agua:
+            `${dados.agua.toFixed(1)} °C`,
 
-        direcao: `${setaDirecao(dados.direcaoVento)} ${dados.direcaoVento.toFixed(0)}°`,
+        ar:
+            `${dados.ar.toFixed(1)} °C`,
 
-        tipoVento: dados.tipoVento,
 
-        nota: dados.surfScore,
+        direcao:
+            `${setaDirecao(
+                dados.direcaoVento
+            )} ${
+                dados.direcaoVento.toFixed(0)
+            }°`,
 
-        condicao: dados.condicao,
 
-        prancha: dados.prancha,
+        tipoVento:
+            dados.tipoVento,
 
-        horario: dados.horario,
+        nota:
+            dados.surfScore,
 
-        mare: dados.mare,
+        condicao:
+            dados.condicao,
 
-        proximaMare: dados.proximaMare,
+        prancha:
+            dados.prancha,
 
-        alturaMare: dados.alturaMare,
+        horario:
+            dados.horario,
 
-        nascer: dados.nascer,
 
-        por: dados.por,
+        mare:
+            dados.mare,
 
-        lua: dados.lua
+        proximaMare:
+            dados.proximaMare,
+
+        alturaMare:
+            dados.alturaMare,
+
+
+        nascer:
+            dados.nascer,
+
+        por:
+            dados.por,
+
+        lua:
+            dados.lua
 
     };
 
 }
 
+
 // ======================================================
-// ATUALIZA TELA
+// ATUALIZAR TELA
 // ======================================================
 
-export function atualizarTela(dados){
+export function atualizarTela(
+    dados
+) {
 
-    const info = formatarDados(dados);
+    const info =
+        formatarDados(
+            dados
+        );
 
-    atualizar("heroOnda", info.heroOnda);
-    atualizar("heroVento", info.heroVento);
-    atualizar("heroNota", info.heroNota);
-    atualizar("heroAgua", info.agua);
-    atualizar("heroCondicao", info.condicao);
-    atualizar("heroPrancha", info.prancha);
-    atualizar("heroHorario", info.horario);
 
-    atualizar("ondasMar", info.onda);
-    atualizar("swellMar", info.swell);
-    atualizar("periodoMar", info.periodo);
-    atualizar("direcaoMar", info.direcao);
-    atualizar("ventoMar", info.vento);
-    atualizar("tipoVento", info.tipoVento);
-    atualizar("aguaMar", info.agua);
-    atualizar("temperaturaAr", info.ar);
+    atualizar(
+        "heroOnda",
+        info.heroOnda
+    );
 
-    atualizar("notaSurf", info.nota);
-    atualizar("melhorHorario", info.horario);
+    atualizar(
+        "heroVento",
+        info.heroVento
+    );
 
-    atualizar("mareMar", info.mare);
-    atualizar("proximaMare", info.proximaMare);
-    atualizar("alturaMare", info.alturaMare);
+    atualizar(
+        "heroNota",
+        info.heroNota
+    );
 
-    atualizar("nascerSol", info.nascer);
-    atualizar("porSol", info.por);
+    atualizar(
+        "heroAgua",
+        info.agua
+    );
 
-    atualizar("faseLua", info.lua);
+    atualizar(
+        "heroCondicao",
+        info.condicao
+    );
+
+    atualizar(
+        "heroPrancha",
+        info.prancha
+    );
+
+    atualizar(
+        "heroHorario",
+        info.horario
+    );
+
+
+    atualizar(
+        "ondasMar",
+        info.onda
+    );
+
+    atualizar(
+        "swellMar",
+        info.swell
+    );
+
+    atualizar(
+        "periodoMar",
+        info.periodo
+    );
+
+    atualizar(
+        "direcaoMar",
+        info.direcao
+    );
+
+    atualizar(
+        "ventoMar",
+        info.vento
+    );
+
+    atualizar(
+        "tipoVento",
+        info.tipoVento
+    );
+
+    atualizar(
+        "aguaMar",
+        info.agua
+    );
+
+    atualizar(
+        "temperaturaAr",
+        info.ar
+    );
+
+
+    atualizar(
+        "notaSurf",
+        info.nota
+    );
+
+    atualizar(
+        "melhorHorario",
+        info.horario
+    );
+
+
+    atualizar(
+        "mareMar",
+        info.mare
+    );
+
+    atualizar(
+        "proximaMare",
+        info.proximaMare
+    );
+
+    atualizar(
+        "alturaMare",
+        info.alturaMare
+    );
+
+
+    atualizar(
+        "nascerSol",
+        info.nascer
+    );
+
+    atualizar(
+        "porSol",
+        info.por
+    );
+
+    atualizar(
+        "faseLua",
+        info.lua
+    );
 
 }
+
+
 // ======================================================
-// RESUMO PARA O COACH IA
+// RESUMO PARA COACH
 // ======================================================
 
-export function gerarResumo(dados){
+export function gerarResumo(
+    dados
+) {
 
     return `
 🌊 Onda: ${dados.onda.toFixed(1)} m
@@ -356,17 +1040,46 @@ ${dados.prancha}
 
 🕒 Melhor horário:
 ${dados.horario}
+
+🌊 Próxima maré:
+${dados.proximaMare || "--"}
+
+🕐 Horário:
+${dados.horarioMare || "--"}
+
+📏 Altura:
+${dados.alturaMare || "--"}
 `;
 
 }
 
+
 // ======================================================
-// MELHOR FONTE DOS DADOS
+// ESCOLHER MELHOR FONTE
 // ======================================================
 
-function valor(objeto){
+function valor(
+    objeto
+) {
 
-    if(!objeto) return 0;
+    if (
+        objeto === null ||
+        objeto === undefined
+    ) {
+
+        return 0;
+
+    }
+
+
+    if (
+        typeof objeto === "number"
+    ) {
+
+        return objeto;
+
+    }
+
 
     const fontes = [
 
@@ -374,95 +1087,308 @@ function valor(objeto){
         "noaa",
         "icon",
         "dwd",
+        "meto",
         "meteo",
-        "smhi"
+        "smhi",
+        "yr",
+        "fmi",
+        "fcoo"
 
     ];
 
-    for(const fonte of fontes){
 
-        if(objeto[fonte] != null){
+    for (
+        const fonte of fontes
+    ) {
 
-            return objeto[fonte];
+        if (
+            objeto[fonte] !== undefined &&
+            objeto[fonte] !== null
+        ) {
+
+            return Number(
+                objeto[fonte]
+            ) || 0;
 
         }
 
     }
 
-    return Object.values(objeto)[0] ?? 0;
+
+    const primeiro =
+        Object.values(
+            objeto
+        )[0];
+
+
+    return Number(
+        primeiro
+    ) || 0;
 
 }
+
 
 // ======================================================
 // ATUALIZAR ELEMENTO
 // ======================================================
 
-function atualizar(id, valor){
+function atualizar(
+    id,
+    valorAtual
+) {
 
-    const elemento = document.getElementById(id);
+    const elemento =
+        document.getElementById(
+            id
+        );
 
-    if(elemento){
 
-        elemento.textContent = valor;
+    if (elemento) {
+
+        elemento.textContent =
+            valorAtual;
 
     }
 
 }
+
+
 // ======================================================
-// DIREÇÃO
+// DIREÇÃO DO VENTO
 // ======================================================
 
-function setaDirecao(graus){
+function setaDirecao(
+    graus
+) {
 
-    if(graus == null){
+    if (
+        graus === null ||
+        graus === undefined
+    ) {
 
         return "--";
 
     }
 
-    if(graus >= 337.5 || graus < 22.5)
+
+    if (
+        graus >= 337.5 ||
+        graus < 22.5
+    ) {
+
         return "⬆ Norte";
 
-    if(graus < 67.5)
+    }
+
+
+    if (
+        graus < 67.5
+    ) {
+
         return "↗ Nordeste";
 
-    if(graus < 112.5)
+    }
+
+
+    if (
+        graus < 112.5
+    ) {
+
         return "➡ Leste";
 
-    if(graus < 157.5)
+    }
+
+
+    if (
+        graus < 157.5
+    ) {
+
         return "↘ Sudeste";
 
-    if(graus < 202.5)
+    }
+
+
+    if (
+        graus < 202.5
+    ) {
+
         return "⬇ Sul";
 
-    if(graus < 247.5)
+    }
+
+
+    if (
+        graus < 247.5
+    ) {
+
         return "↙ Sudoeste";
 
-    if(graus < 292.5)
+    }
+
+
+    if (
+        graus < 292.5
+    ) {
+
         return "⬅ Oeste";
+
+    }
+
 
     return "↖ Noroeste";
 
 }
 
+
+// ======================================================
+// TIPO DE MARÉ
+// ======================================================
+
+function formatarTipoMare(
+    tipo
+) {
+
+    if (!tipo) {
+
+        return "--";
+
+    }
+
+
+    const texto =
+        String(
+            tipo
+        ).toLowerCase();
+
+
+    if (
+        texto.includes("high")
+    ) {
+
+        return "⬆ Maré alta";
+
+    }
+
+
+    if (
+        texto.includes("low")
+    ) {
+
+        return "⬇ Maré baixa";
+
+    }
+
+
+    return tipo;
+
+}
+
+
+// ======================================================
+// ALTURA DA MARÉ
+// ======================================================
+
+function formatarAltura(
+    altura
+) {
+
+    const numero =
+        Number(
+            altura
+        );
+
+
+    if (
+        !Number.isFinite(
+            numero
+        )
+    ) {
+
+        return "--";
+
+    }
+
+
+    return (
+        numero.toFixed(2) +
+        " m"
+    );
+
+}
+
+
+// ======================================================
+// HORÁRIO
+// ======================================================
+
+function formatarHora(
+    data
+) {
+
+    if (!data) {
+
+        return "--:--";
+
+    }
+
+
+    const resultado =
+        new Date(
+            data
+        );
+
+
+    if (
+        Number.isNaN(
+            resultado.getTime()
+        )
+    ) {
+
+        return "--:--";
+
+    }
+
+
+    return resultado.toLocaleTimeString(
+        "pt-BR",
+        {
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+
+}
+
+
 // ======================================================
 // DIAGNÓSTICO
 // ======================================================
 
-export function diagnosticoStormglass(){
+export function diagnosticoStormglass() {
 
-    return{
+    return {
 
-        apiConfigurada: !!API_KEY,
+        apiConfigurada:
+            Boolean(API_KEY),
 
-        chave: API_KEY ? "OK" : "NÃO",
+        tamanhoChave:
+            API_KEY
+                ? API_KEY.length
+                : 0,
 
-        parametros: PARAMS
+        parametros:
+            PARAMS,
+
+        mare:
+            "Stormglass Tide Extremes"
 
     };
 
 }
 
+
 // ======================================================
 
-console.log("🌊 Stormglass 4.0 carregado.");
+console.log(
+    "🌊 Stormglass 5.0 carregado."
+);

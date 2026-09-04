@@ -13,31 +13,53 @@
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
 <link rel="stylesheet" href="../style.css">
 
 <link rel="stylesheet" href="mar.css">
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+>
 
 </head>
+
 
 <body>
 
 <div class="app">
 
+
+<!-- ===================================== -->
+<!-- HERO -->
+<!-- ===================================== -->
+
 <header class="heroMar">
 
 <div class="heroOverlay">
 
+
+<!-- ===================================== -->
+<!-- TOPO -->
+<!-- ===================================== -->
+
 <div class="topBar">
 
-<button class="btnVoltar" onclick="history.back()">
+<button
+    class="btnVoltar"
+    onclick="history.back()"
+    type="button"
+>
 
 ←
 
 </button>
+
 
 <div class="logoWave">
 
@@ -45,7 +67,19 @@
 
 </div>
 
+
+<button
+    id="btnSair"
+    class="btnSair"
+    type="button"
+>
+
+Sair
+
+</button>
+
 </div>
+
 
 <h1 id="heroPraia">
 
@@ -53,13 +87,20 @@ Maresias
 
 </h1>
 
+
 <p id="heroCondicao">
 
 Excelente para surfar hoje
 
 </p>
 
+
+<!-- ===================================== -->
+<!-- HERO GRID -->
+<!-- ===================================== -->
+
 <div class="heroGrid">
+
 
 <div class="surfScore">
 
@@ -72,6 +113,7 @@ Excelente para surfar hoje
 </span>
 
 </div>
+
 
 <div class="scoreText">
 
@@ -91,7 +133,9 @@ Baseado em ondas, vento e swell.
 
 </div>
 
+
 <div class="heroInfo">
+
 
 <div class="heroItem">
 
@@ -111,6 +155,7 @@ Onda
 
 </div>
 
+
 <div class="heroItem">
 
 💨
@@ -128,6 +173,7 @@ Vento
 </small>
 
 </div>
+
 
 <div class="heroItem">
 
@@ -147,6 +193,7 @@ Vento
 
 </div>
 
+
 <div class="heroItem">
 
 🏄
@@ -164,6 +211,7 @@ Prancha
 </small>
 
 </div>
+
 
 <div class="heroItem">
 
@@ -183,6 +231,7 @@ Melhor horário
 
 </div>
 
+
 <div class="heroItem">
 
 ⭐
@@ -201,6 +250,7 @@ WaveRise
 
 </div>
 
+
 </div>
 
 </div>
@@ -208,6 +258,11 @@ WaveRise
 </div>
 
 </header>
+
+
+<!-- ===================================== -->
+<!-- BUSCAR PRAIA -->
+<!-- ===================================== -->
 
 <section class="card">
 
@@ -217,34 +272,55 @@ WaveRise
 
 </h2>
 
+
 <input
-id="praiaInput"
-class="inputWave"
-placeholder="Digite uma praia...">
+    id="praiaInput"
+    class="inputWave"
+    placeholder="Digite uma praia..."
+>
+
 
 <div class="acoesMar">
 
-<button id="buscarMar">
+
+<button
+    id="buscarMar"
+    type="button"
+>
 
 🌊 Buscar
 
 </button>
 
-<button id="gps">
+
+<button
+    id="gps"
+    type="button"
+>
 
 📍 GPS
 
 </button>
 
-<button id="favoritar">
+
+<button
+    id="favoritar"
+    type="button"
+>
 
 ❤️ Favoritar
 
 </button>
 
+
 </div>
 
 </section>
+
+
+<!-- ===================================== -->
+<!-- LOCALIZAÇÃO -->
+<!-- ===================================== -->
 
 <section class="card">
 
@@ -254,15 +330,19 @@ placeholder="Digite uma praia...">
 
 </h2>
 
+
 <p id="localMar">
 
 Selecione uma praia
 
 </p>
 
+
 <div id="mapa"></div>
 
 </section>
+
+
 <!-- ===================================== -->
 <!-- PREVISÃO HORÁRIA -->
 <!-- ===================================== -->
@@ -275,97 +355,229 @@ Selecione uma praia
 
 </h2>
 
+
 <p>
 
 Deslize para ver as próximas horas.
 
 </p>
 
-<div id="timelineSurf" class="timelineSurf">
+
+<div
+    id="timelineSurf"
+    class="timelineSurf"
+>
+
 
 <div class="horaCard">
 
-<div class="hora">06:00</div>
+<div class="hora">
 
-<div class="onda">🌊 1.2m</div>
-
-<div class="periodo">⏱ 11 s</div>
-
-<div class="vento">💨 6 km/h</div>
-
-<div class="direcao">↗ Terral</div>
-
-<div class="score excelente">⭐94</div>
+06:00
 
 </div>
+
+<div class="onda">
+
+🌊 1.2m
+
+</div>
+
+<div class="periodo">
+
+⏱ 11 s
+
+</div>
+
+<div class="vento">
+
+💨 6 km/h
+
+</div>
+
+<div class="direcao">
+
+↗ Terral
+
+</div>
+
+<div class="score excelente">
+
+⭐94
+
+</div>
+
+</div>
+
 
 <div class="horaCard">
 
-<div class="hora">09:00</div>
+<div class="hora">
 
-<div class="onda">🌊 1.5m</div>
-
-<div class="periodo">⏱ 13 s</div>
-
-<div class="vento">💨 7 km/h</div>
-
-<div class="direcao">⬆ Norte</div>
-
-<div class="score excelente">⭐97</div>
+09:00
 
 </div>
+
+<div class="onda">
+
+🌊 1.5m
+
+</div>
+
+<div class="periodo">
+
+⏱ 13 s
+
+</div>
+
+<div class="vento">
+
+💨 7 km/h
+
+</div>
+
+<div class="direcao">
+
+⬆ Norte
+
+</div>
+
+<div class="score excelente">
+
+⭐97
+
+</div>
+
+</div>
+
 
 <div class="horaCard">
 
-<div class="hora">12:00</div>
+<div class="hora">
 
-<div class="onda">🌊 1.8m</div>
-
-<div class="periodo">⏱ 14 s</div>
-
-<div class="vento">💨 10 km/h</div>
-
-<div class="direcao">↘ Sudeste</div>
-
-<div class="score bom">⭐90</div>
+12:00
 
 </div>
+
+<div class="onda">
+
+🌊 1.8m
+
+</div>
+
+<div class="periodo">
+
+⏱ 14 s
+
+</div>
+
+<div class="vento">
+
+💨 10 km/h
+
+</div>
+
+<div class="direcao">
+
+↘ Sudeste
+
+</div>
+
+<div class="score bom">
+
+⭐90
+
+</div>
+
+</div>
+
 
 <div class="horaCard">
 
-<div class="hora">15:00</div>
+<div class="hora">
 
-<div class="onda">🌊 1.6m</div>
-
-<div class="periodo">⏱ 13 s</div>
-
-<div class="vento">💨 8 km/h</div>
-
-<div class="direcao">↗ Nordeste</div>
-
-<div class="score bom">⭐91</div>
+15:00
 
 </div>
+
+<div class="onda">
+
+🌊 1.6m
+
+</div>
+
+<div class="periodo">
+
+⏱ 13 s
+
+</div>
+
+<div class="vento">
+
+💨 8 km/h
+
+</div>
+
+<div class="direcao">
+
+↗ Nordeste
+
+</div>
+
+<div class="score bom">
+
+⭐91
+
+</div>
+
+</div>
+
 
 <div class="horaCard">
 
-<div class="hora">18:00</div>
+<div class="hora">
 
-<div class="onda">🌊 1.3m</div>
-
-<div class="periodo">⏱ 11 s</div>
-
-<div class="vento">💨 6 km/h</div>
-
-<div class="direcao">⬅ Oeste</div>
-
-<div class="score regular">⭐84</div>
+18:00
 
 </div>
+
+<div class="onda">
+
+🌊 1.3m
+
+</div>
+
+<div class="periodo">
+
+⏱ 11 s
+
+</div>
+
+<div class="vento">
+
+💨 6 km/h
+
+</div>
+
+<div class="direcao">
+
+⬅ Oeste
+
+</div>
+
+<div class="score regular">
+
+⭐84
+
+</div>
+
+</div>
+
 
 </div>
 
 </section>
+
 
 <!-- ===================================== -->
 <!-- CONDIÇÕES -->
@@ -379,7 +591,9 @@ Deslize para ver as próximas horas.
 
 </h2>
 
+
 <div class="condicoesGrid">
+
 
 <div class="infoCard destaque">
 
@@ -393,6 +607,7 @@ Deslize para ver as próximas horas.
 
 </div>
 
+
 <div class="infoCard">
 
 <span class="icone">🌊</span>
@@ -404,6 +619,7 @@ Deslize para ver as próximas horas.
 <small>Ondulação</small>
 
 </div>
+
 
 <div class="infoCard">
 
@@ -417,6 +633,7 @@ Deslize para ver as próximas horas.
 
 </div>
 
+
 <div class="infoCard">
 
 <span class="icone">🌡</span>
@@ -428,6 +645,7 @@ Deslize para ver as próximas horas.
 <small>Temperatura</small>
 
 </div>
+
 
 <div class="infoCard">
 
@@ -441,6 +659,7 @@ Deslize para ver as próximas horas.
 
 </div>
 
+
 <div class="infoCard">
 
 <span class="icone">⏱</span>
@@ -452,6 +671,7 @@ Deslize para ver as próximas horas.
 <small>Segundos</small>
 
 </div>
+
 
 <div class="infoCard">
 
@@ -465,6 +685,7 @@ Deslize para ver as próximas horas.
 
 </div>
 
+
 <div class="infoCard">
 
 <span class="icone">☀️</span>
@@ -477,9 +698,11 @@ Deslize para ver as próximas horas.
 
 </div>
 
+
 </div>
 
 </section>
+
 
 <!-- ===================================== -->
 <!-- MARÉ • SOL • LUA -->
@@ -493,7 +716,9 @@ Deslize para ver as próximas horas.
 
 </h2>
 
+
 <div class="condicoesGrid">
+
 
 <div class="infoCard">
 
@@ -507,6 +732,7 @@ Deslize para ver as próximas horas.
 
 </div>
 
+
 <div class="infoCard">
 
 <span class="icone">📈</span>
@@ -518,6 +744,7 @@ Deslize para ver as próximas horas.
 <small>Maré</small>
 
 </div>
+
 
 <div class="infoCard">
 
@@ -531,6 +758,7 @@ Deslize para ver as próximas horas.
 
 </div>
 
+
 <div class="infoCard">
 
 <span class="icone">🌅</span>
@@ -542,6 +770,7 @@ Deslize para ver as próximas horas.
 <small>Sol</small>
 
 </div>
+
 
 <div class="infoCard">
 
@@ -555,6 +784,7 @@ Deslize para ver as próximas horas.
 
 </div>
 
+
 <div class="infoCard">
 
 <span class="icone">🌙</span>
@@ -567,9 +797,12 @@ Deslize para ver as próximas horas.
 
 </div>
 
+
 </div>
 
 </section>
+
+
 <!-- ===================================== -->
 <!-- SURF SCORE -->
 <!-- ===================================== -->
@@ -582,6 +815,7 @@ Deslize para ver as próximas horas.
 
 </h2>
 
+
 <div class="scoreBox">
 
 <h1 id="notaGrande">
@@ -590,15 +824,18 @@ Deslize para ver as próximas horas.
 
 </h1>
 
+
 <p id="condicaoMar">
 
 Aguardando previsão...
 
 </p>
 
+
 </div>
 
 </section>
+
 
 <!-- ===================================== -->
 <!-- COACH IA -->
@@ -608,6 +845,7 @@ Aguardando previsão...
 
 <div class="coachHeader">
 
+
 <div>
 
 <h2>
@@ -615,6 +853,7 @@ Aguardando previsão...
 🤖 Coach WaveRise IA
 
 </h2>
+
 
 <p>
 
@@ -624,13 +863,16 @@ Sua análise personalizada baseada nas condições do mar.
 
 </div>
 
+
 <div class="coachIcon">
 
 🤖
 
 </div>
 
+
 </div>
+
 
 <p id="coachTexto">
 
@@ -638,13 +880,19 @@ Buscando as melhores condições...
 
 </p>
 
-<button id="analisarCoach" class="primaryButton">
+
+<button
+    id="analisarCoach"
+    class="primaryButton"
+    type="button"
+>
 
 ✨ Analisar sessão
 
 </button>
 
 </section>
+
 
 <!-- ===================================== -->
 <!-- PREVISÃO 7 DIAS -->
@@ -658,7 +906,11 @@ Buscando as melhores condições...
 
 </h2>
 
-<div id="previsao7dias" class="previsaoGrid">
+
+<div
+    id="previsao7dias"
+    class="previsaoGrid"
+>
 
 <p>
 
@@ -670,6 +922,7 @@ Carregando previsão...
 
 </section>
 
+
 <!-- ===================================== -->
 <!-- FAVORITOS -->
 <!-- ===================================== -->
@@ -678,19 +931,26 @@ Carregando previsão...
 
 <div class="tituloCard">
 
+
 <h2>
 
 ❤️ Praias Favoritas
 
 </h2>
 
-<button id="limparFavoritos">
+
+<button
+    id="limparFavoritos"
+    type="button"
+>
 
 Limpar
 
 </button>
 
+
 </div>
+
 
 <div id="favoritos">
 
@@ -704,11 +964,13 @@ Nenhuma praia salva.
 
 </section>
 
+
 <!-- ===================================== -->
 <!-- MENU -->
 <!-- ===================================== -->
 
 <nav class="menuBottom">
+
 
 <a href="../index.html">
 
@@ -718,13 +980,18 @@ Nenhuma praia salva.
 
 </a>
 
-<a href="mar.html" class="ativo">
+
+<a
+    href="mar.html"
+    class="ativo"
+>
 
 🌊
 
 <small>Mar</small>
 
 </a>
+
 
 <a href="diario.html">
 
@@ -734,6 +1001,7 @@ Nenhuma praia salva.
 
 </a>
 
+
 <a href="coach.html">
 
 🤖
@@ -741,6 +1009,7 @@ Nenhuma praia salva.
 <small>Coach</small>
 
 </a>
+
 
 <a href="perfil.html">
 
@@ -750,13 +1019,98 @@ Nenhuma praia salva.
 
 </a>
 
+
 </nav>
+
 
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<script type="module" src="mar.js"></script>
+<!-- ===================================== -->
+<!-- LEAFLET -->
+<!-- ===================================== -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+></script>
+
+
+<!-- ===================================== -->
+<!-- AUTENTICAÇÃO -->
+<!-- ===================================== -->
+
+<script type="module">
+
+import {
+    protegerPagina,
+    sair
+} from "./auth.js";
+
+
+const usuario =
+    await protegerPagina();
+
+
+/*
+ * Se não houver usuário,
+ * protegerPagina() já iniciou
+ * o redirecionamento para login.
+ */
+
+if (usuario) {
+
+    const btnSair =
+        document.getElementById("btnSair");
+
+
+    btnSair?.addEventListener(
+        "click",
+        async () => {
+
+            btnSair.disabled = true;
+
+            btnSair.textContent =
+                "Saindo...";
+
+
+            try {
+
+                await sair();
+
+            }
+
+            catch (erro) {
+
+                console.error(
+                    "Erro ao sair:",
+                    erro
+                );
+
+
+                btnSair.disabled = false;
+
+                btnSair.textContent =
+                    "Sair";
+
+            }
+
+        }
+    );
+
+}
+
+</script>
+
+
+<!-- ===================================== -->
+<!-- MAR -->
+<!-- ===================================== -->
+
+<script
+    type="module"
+    src="mar.js"
+></script>
+
 
 </body>
 

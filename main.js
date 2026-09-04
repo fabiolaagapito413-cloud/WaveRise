@@ -553,3 +553,131 @@ document
     ?.addEventListener("click", () => {
         abrirPagina("pages/perfil.html");
     });
+
+    // ======================================================
+// WAVERISE PRO
+// ======================================================
+
+function abrirAvisoPro(recurso) {
+
+    alert(
+        `⭐ WAVERISE PRO\n\n` +
+        `${recurso}\n\n` +
+        `Esse recurso faz parte do WaveRise PRO.\n\n` +
+        `Em breve você poderá desbloquear essa função.`
+    );
+
+}
+
+
+// ======================================================
+// RECURSOS PRO
+// ======================================================
+
+document
+    .getElementById("abrirAnaliseFoto")
+    ?.addEventListener("click", () => {
+
+        abrirAvisoPro("📸 Análise de foto");
+
+    });
+
+
+document
+    .getElementById("abrirAnaliseVideo")
+    ?.addEventListener("click", () => {
+
+        abrirAvisoPro("🎥 Análise de vídeo");
+
+    });
+
+
+document
+    .getElementById("abrirCoachPro")
+    ?.addEventListener("click", () => {
+
+        abrirAvisoPro("🤖 Coach IA avançado");
+
+    });
+
+
+document
+    .getElementById("abrirPranchaIdeal")
+    ?.addEventListener("click", () => {
+
+        abrirAvisoPro("🏄 Prancha ideal para as condições");
+
+    });
+
+
+document
+    .getElementById("abrirMelhorHorario")
+    ?.addEventListener("click", () => {
+
+        abrirAvisoPro("⏰ Melhor horário para surfar");
+
+    });
+
+
+document
+    .getElementById("abrirEvolucaoPro")
+    ?.addEventListener("click", () => {
+
+        abrirAvisoPro("📊 Minha evolução avançada");
+
+    });
+
+
+document
+    .getElementById("abrirPlanoEvolucao")
+    ?.addEventListener("click", () => {
+
+        abrirAvisoPro("🧠 Plano de evolução personalizado");
+
+    });
+
+
+document
+    .getElementById("abrirComparacaoPraias")
+    ?.addEventListener("click", () => {
+
+        abrirAvisoPro("🌊 Comparação de praias");
+
+    });
+
+
+document
+    .getElementById("abrirScorePessoal")
+    ?.addEventListener("click", () => {
+
+        abrirAvisoPro("🔥 WaveRise Score pessoal");
+
+    });
+
+
+document
+    .getElementById("abrirAlertasPro")
+    ?.addEventListener("click", () => {
+
+        abrirAvisoPro("🔔 Alertas de condições ideais");
+
+    });
+
+
+// ======================================================
+// BOTÃO CONHECER PRO
+// ======================================================
+
+document
+    .getElementById("assinarPro")
+    ?.addEventListener("click", () => {
+
+        window.location.href = "pages/pro.html";
+
+    });
+
+// ======================================================
+// FIM WAVERISE PRO
+// ======================================================
+
+console.log("⭐ WaveRise PRO carregado.");
