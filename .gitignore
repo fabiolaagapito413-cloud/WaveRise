@@ -2,3 +2,5 @@
 .env
 dist/
 .DS_Store
+android/keystore.properties
+android/*.jks
