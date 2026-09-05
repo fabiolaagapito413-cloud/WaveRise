@@ -1,0 +1,1269 @@
+/* =====================================================
+   WAVERISE — SCORE PESSOAL
+   CSS ISOLADO DA PÁGINA
+   ===================================================== */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at 90% 5%,
+            rgba(65, 170, 255, 0.20),
+            transparent 32%
+        ),
+        linear-gradient(
+            180deg,
+            #0b3155 0%,
+            #082a4b 45%,
+            #061c35 100%
+        );
+
+    color: #ffffff;
+}
+
+/* =====================================================
+   CONTAINER PRINCIPAL
+   ===================================================== */
+
+.scorePagina {
+    width: 100%;
+    max-width: 900px;
+    min-width: 0;
+
+    margin: 0 auto;
+
+    padding: 24px 18px 120px;
+
+    overflow: hidden;
+}
+
+/* =====================================================
+   TOPO
+   ===================================================== */
+
+.scoreTopo {
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    margin-bottom: 26px;
+}
+
+.scoreTopo .voltar {
+    width: 54px;
+    height: 54px;
+
+    flex: 0 0 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 17px;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    color: #ffffff;
+
+    font-size: 27px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.scoreTopo > div {
+    min-width: 0;
+}
+
+.scoreTopo h1 {
+    margin: 4px 0 4px !important;
+
+    font-size: 31px !important;
+    line-height: 1.1 !important;
+    font-weight: 800 !important;
+
+    color: #ffffff;
+}
+
+.scoreTopo p {
+    margin: 0 !important;
+
+    color: #aabbd0;
+
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+}
+
+.eyebrow {
+    display: block;
+
+    color: #61dcff;
+
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 2px;
+}
+
+/* =====================================================
+   SCORE PRINCIPAL
+   ===================================================== */
+
+.scorePrincipal {
+    position: relative;
+
+    width: 100%;
+    min-width: 0;
+
+    display: flex !important;
+    align-items: center;
+
+    gap: 30px;
+
+    padding: 30px !important;
+
+    margin: 0 0 18px !important;
+
+    border: 1px solid rgba(102, 211, 255, 0.16) !important;
+    border-radius: 28px !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25, 65, 118, 0.94),
+            rgba(10, 28, 57, 0.96)
+        ) !important;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+    overflow: hidden;
+}
+
+.scorePrincipal::before {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    right: -100px;
+    top: -120px;
+
+    border-radius: 50%;
+
+    background: rgba(93, 197, 255, 0.09);
+
+    pointer-events: none;
+}
+
+.scoreCirculo {
+    position: relative;
+    z-index: 2;
+
+    width: 175px !important;
+    height: 175px !important;
+
+    min-width: 175px !important;
+    max-width: 175px !important;
+
+    min-height: 175px !important;
+    max-height: 175px !important;
+
+    flex: 0 0 175px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border-radius: 50% !important;
+
+    border: 7px solid rgba(79, 205, 255, 0.20) !important;
+
+    background:
+        radial-gradient(
+            circle,
+            #172f5d 0%,
+            #0b1936 60%,
+            #071222 100%
+        ) !important;
+
+    box-shadow:
+        0 0 0 6px rgba(84, 210, 255, 0.05),
+        0 0 40px rgba(70, 202, 255, 0.14);
+}
+
+.scoreNumero {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-size: 58px !important;
+    line-height: 1 !important;
+
+    font-weight: 900 !important;
+
+    color: #ffffff;
+}
+
+.scoreCirculo > span {
+    margin: 8px 0 0 !important;
+
+    color: #899ab5;
+
+    font-size: 13px !important;
+    line-height: 1 !important;
+}
+
+.scoreInfo {
+    position: relative;
+    z-index: 2;
+
+    min-width: 0;
+    flex: 1;
+
+    padding: 0 !important;
+}
+
+.scoreLabel {
+    display: block;
+
+    color: #5fddff;
+
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 2px;
+}
+
+.scoreInfo h2 {
+    margin: 9px 0 9px !important;
+
+    font-size: 30px !important;
+    line-height: 1.15 !important;
+
+    font-weight: 800 !important;
+
+    color: #ffffff;
+}
+
+.scoreInfo p {
+    max-width: 480px;
+
+    margin: 0 !important;
+
+    color: #aabbd0;
+
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+}
+
+/* =====================================================
+   CARDS
+   ===================================================== */
+
+.scorePagina .scoreCard {
+    position: relative;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    display: block !important;
+
+    margin: 0 0 18px !important;
+
+    padding: 24px !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 22px !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 31, 58, 0.97),
+            rgba(7, 18, 35, 0.98)
+        ) !important;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.20);
+
+    overflow: hidden !important;
+}
+
+.scorePagina .scoreCard::before,
+.scorePagina .scoreCard::after {
+    display: none !important;
+}
+
+/* =====================================================
+   TÍTULOS DAS SEÇÕES
+   ===================================================== */
+
+.scorePagina .tituloSecao {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 13px !important;
+
+    margin: 0 0 22px !important;
+    padding: 0 !important;
+}
+
+.scorePagina .tituloSecao > span {
+    width: 43px !important;
+    height: 43px !important;
+
+    min-width: 43px !important;
+    max-width: 43px !important;
+
+    flex: 0 0 43px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border-radius: 13px !important;
+
+    background: rgba(75, 196, 255, 0.10) !important;
+
+    font-size: 20px !important;
+}
+
+.scorePagina .tituloSecao > div {
+    min-width: 0 !important;
+
+    flex: 1 !important;
+}
+
+.scorePagina .tituloSecao h2 {
+    display: block !important;
+
+    width: auto !important;
+
+    margin: 0 0 4px !important;
+    padding: 0 !important;
+
+    font-size: 19px !important;
+    line-height: 1.2 !important;
+
+    font-weight: 800 !important;
+
+    color: #ffffff !important;
+
+    white-space: normal !important;
+}
+
+.scorePagina .tituloSecao p {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+
+    color: #7f91aa !important;
+}
+
+/* =====================================================
+   INDICADORES
+   ===================================================== */
+
+.scorePagina .indicadores {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    display: grid !important;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.scorePagina .indicador {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 16px !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 16px !important;
+
+    background: rgba(255, 255, 255, 0.035) !important;
+}
+
+.scorePagina .indicadorTopo {
+    width: 100% !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 8px !important;
+
+    margin: 0 0 12px !important;
+    padding: 0 !important;
+}
+
+.scorePagina .indicadorTopo span {
+    min-width: 0;
+
+    color: #aabbd0 !important;
+
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+}
+
+.scorePagina .indicadorTopo strong {
+    flex-shrink: 0;
+
+    font-size: 19px !important;
+    line-height: 1 !important;
+
+    color: #ffffff !important;
+}
+
+.scorePagina .barra {
+    width: 100% !important;
+    height: 7px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    border-radius: 20px !important;
+
+    background: rgba(255, 255, 255, 0.07) !important;
+}
+
+.scorePagina .barra div {
+    width: 0%;
+    height: 100%;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #39cfff,
+            #716cff
+        );
+
+    transition: width 0.7s ease;
+}
+
+/* =====================================================
+   ANÁLISE TÉCNICA
+   ===================================================== */
+
+.scorePagina .tecnicaGrid {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    display: grid !important;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.scorePagina .tecnicaItem {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 12px !important;
+
+    margin: 0 !important;
+    padding: 15px !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 15px !important;
+
+    background: rgba(255, 255, 255, 0.035) !important;
+
+    overflow: hidden !important;
+}
+
+.scorePagina .tecnicaItem > span {
+    width: 40px !important;
+    height: 40px !important;
+
+    min-width: 40px !important;
+    max-width: 40px !important;
+
+    flex: 0 0 40px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border-radius: 12px !important;
+
+    background: rgba(75, 196, 255, 0.09) !important;
+
+    font-size: 18px !important;
+}
+
+.scorePagina .tecnicaItem > div {
+    min-width: 0 !important;
+    flex: 1 !important;
+}
+
+.scorePagina .tecnicaItem p {
+    width: auto !important;
+
+    margin: 0 0 4px !important;
+    padding: 0 !important;
+
+    color: #7f91aa !important;
+
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+}
+
+.scorePagina .tecnicaItem strong {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+}
+
+/* =====================================================
+   LISTAS
+   ===================================================== */
+
+.scorePagina .listaAnalise {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 9px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.scorePagina .listaItem {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    align-items: flex-start !important;
+
+    gap: 10px !important;
+
+    margin: 0 !important;
+    padding: 13px 14px !important;
+
+    border-radius: 13px !important;
+
+    background: rgba(255, 255, 255, 0.035) !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+
+    color: #c6d1e1 !important;
+
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+.scorePagina .listaItem::before {
+    content: "✓";
+
+    width: 22px !important;
+    height: 22px !important;
+
+    min-width: 22px !important;
+    max-width: 22px !important;
+
+    flex: 0 0 22px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border-radius: 50% !important;
+
+    background: rgba(70, 225, 170, 0.12) !important;
+
+    color: #58e4aa !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+}
+
+.scorePagina .estadoVazio {
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 17px !important;
+
+    border-radius: 14px !important;
+
+    background: rgba(255, 255, 255, 0.025) !important;
+
+    color: #7b8ba3 !important;
+
+    text-align: center !important;
+
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+
+/* =====================================================
+   NÍVEL
+   ===================================================== */
+
+.scorePagina .nivelCard {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    display: block !important;
+
+    margin: 0 0 18px !important;
+    padding: 24px !important;
+
+    border: 1px solid rgba(118, 108, 255, 0.16) !important;
+    border-radius: 22px !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(31, 54, 99, 0.95),
+            rgba(11, 28, 53, 0.98)
+        ) !important;
+
+    overflow: hidden !important;
+}
+
+.scorePagina .nivelTopo {
+    width: 100% !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    margin: 0 0 20px !important;
+    padding: 0 !important;
+}
+
+.scorePagina .nivelTopo h2 {
+    margin: 6px 0 0 !important;
+
+    font-size: 26px !important;
+    line-height: 1.1 !important;
+
+    color: #ffffff !important;
+}
+
+.scorePagina .nivelXP {
+    flex-shrink: 0;
+
+    padding: 10px 15px !important;
+
+    border-radius: 13px !important;
+
+    background: rgba(121, 107, 255, 0.13) !important;
+
+    color: #c3bbff !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+}
+
+.scorePagina .progressoNivel {
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.scorePagina .barraNivel {
+    width: 100% !important;
+    height: 9px !important;
+
+    overflow: hidden !important;
+
+    border-radius: 20px !important;
+
+    background: rgba(255, 255, 255, 0.07) !important;
+}
+
+.scorePagina .barraNivel div {
+    width: 0%;
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #756bff,
+            #39ceff
+        );
+
+    transition: width 0.8s ease;
+}
+
+.scorePagina .nivelMeta {
+    width: 100% !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 10px !important;
+
+    margin: 8px 0 0 !important;
+    padding: 0 !important;
+
+    color: #7486a0 !important;
+
+    font-size: 11px !important;
+}
+
+/* =====================================================
+   COACH
+   ===================================================== */
+
+.scorePagina .coachCard {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    align-items: flex-start !important;
+
+    gap: 16px !important;
+
+    margin: 0 0 20px !important;
+    padding: 22px !important;
+
+    border: 1px solid rgba(87, 202, 255, 0.10) !important;
+    border-radius: 20px !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(21, 50, 88, 0.90),
+            rgba(8, 22, 42, 0.97)
+        ) !important;
+
+    overflow: hidden !important;
+}
+
+.scorePagina .coachIcon {
+    width: 50px !important;
+    height: 50px !important;
+
+    min-width: 50px !important;
+    max-width: 50px !important;
+
+    flex: 0 0 50px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 15px !important;
+
+    background: rgba(80, 197, 255, 0.10) !important;
+
+    font-size: 23px !important;
+}
+
+.scorePagina .coachTexto {
+    min-width: 0 !important;
+    flex: 1 !important;
+}
+
+.scorePagina .coachTexto > span {
+    display: block !important;
+
+    margin: 0 !important;
+
+    color: #62dcff !important;
+
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 1.6px !important;
+}
+
+.scorePagina .coachTexto h2 {
+    margin: 7px 0 !important;
+
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+
+    color: #ffffff !important;
+}
+
+.scorePagina .coachTexto p {
+    margin: 0 !important;
+
+    color: #7d8da6 !important;
+
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+}
+
+/* =====================================================
+   BOTÕES
+   ===================================================== */
+
+.scorePagina .acoesScore {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+
+    margin: 0 0 30px !important;
+    padding: 0 !important;
+}
+
+.scorePagina .acoesScore a {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    min-height: 52px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 12px 16px !important;
+
+    border-radius: 15px !important;
+
+    text-decoration: none !important;
+
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+
+    font-weight: 700 !important;
+
+    text-align: center !important;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.scorePagina .acoesScore a:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
+}
+
+.scorePagina .botaoPrincipal {
+    background:
+        linear-gradient(
+            135deg,
+            #36caff,
+            #626cff
+        ) !important;
+
+    color: #ffffff !important;
+}
+
+.scorePagina .botaoSecundario {
+    background: rgba(255, 255, 255, 0.06) !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+
+    color: #dce5f2 !important;
+}
+
+/* =====================================================
+   MENU INFERIOR
+   ===================================================== */
+
+.scorePagina .menu {
+    position: fixed !important;
+
+    left: 50% !important;
+    bottom: 12px !important;
+
+    transform: translateX(-50%) !important;
+
+    width: min(92%, 600px) !important;
+
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: space-around !important;
+
+    gap: 2px !important;
+
+    padding: 9px 7px !important;
+
+    margin: 0 !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 20px !important;
+
+    background: rgba(5, 13, 27, 0.96) !important;
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.40);
+
+    z-index: 1000 !important;
+
+    overflow: hidden !important;
+}
+
+.scorePagina .menu a {
+    min-width: 0 !important;
+    width: 20% !important;
+
+    flex: 1 1 20% !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 4px !important;
+
+    padding: 7px 3px !important;
+
+    margin: 0 !important;
+
+    border-radius: 12px !important;
+
+    color: #68758d !important;
+
+    text-decoration: none !important;
+
+    font-size: 18px !important;
+
+    white-space: nowrap !important;
+}
+
+.scorePagina .menu a span {
+    display: block !important;
+
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+
+    color: inherit !important;
+}
+
+.scorePagina .menu a:hover,
+.scorePagina .menu a:active {
+    color: #63d8ff !important;
+
+    background: rgba(99, 216, 255, 0.06) !important;
+}
+
+/* =====================================================
+   CELULAR
+   ===================================================== */
+
+@media (max-width: 650px) {
+
+    .scorePagina {
+        width: 100%;
+        max-width: 100%;
+
+        padding: 18px 14px 120px;
+    }
+
+    .scoreTopo {
+        gap: 13px;
+        margin-bottom: 22px;
+    }
+
+    .scoreTopo .voltar {
+        width: 52px;
+        height: 52px;
+
+        min-width: 52px;
+        flex-basis: 52px;
+    }
+
+    .scoreTopo h1 {
+        font-size: 29px !important;
+    }
+
+    .scoreTopo p {
+        font-size: 14px !important;
+    }
+
+    /* SCORE */
+
+    .scorePrincipal {
+        flex-direction: column !important;
+
+        align-items: center !important;
+
+        text-align: center;
+
+        gap: 20px;
+
+        padding: 27px 20px !important;
+    }
+
+    .scoreCirculo {
+        width: 158px !important;
+        height: 158px !important;
+
+        min-width: 158px !important;
+        max-width: 158px !important;
+
+        min-height: 158px !important;
+        max-height: 158px !important;
+
+        flex-basis: 158px !important;
+    }
+
+    .scoreNumero {
+        font-size: 53px !important;
+    }
+
+    .scoreInfo {
+        width: 100% !important;
+    }
+
+    .scoreInfo h2 {
+        font-size: 28px !important;
+    }
+
+    .scoreInfo p {
+        max-width: 100% !important;
+
+        font-size: 14px !important;
+    }
+
+    /* CARDS */
+
+    .scorePagina .scoreCard {
+        padding: 20px !important;
+    }
+
+    .scorePagina .tituloSecao {
+        gap: 11px !important;
+
+        margin-bottom: 18px !important;
+    }
+
+    .scorePagina .tituloSecao > span {
+        width: 40px !important;
+        height: 40px !important;
+
+        min-width: 40px !important;
+        max-width: 40px !important;
+    }
+
+    .scorePagina .tituloSecao h2 {
+        font-size: 18px !important;
+    }
+
+    /* INDICADORES */
+
+    .scorePagina .indicadores {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 10px !important;
+    }
+
+    .scorePagina .indicador {
+        padding: 13px !important;
+    }
+
+    .scorePagina .indicadorTopo span {
+        font-size: 11px !important;
+    }
+
+    .scorePagina .indicadorTopo strong {
+        font-size: 17px !important;
+    }
+
+    /* TÉCNICA */
+
+    .scorePagina .tecnicaGrid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* NÍVEL */
+
+    .scorePagina .nivelCard {
+        padding: 20px !important;
+    }
+
+    .scorePagina .nivelTopo h2 {
+        font-size: 25px !important;
+    }
+
+    /* COACH */
+
+    .scorePagina .coachCard {
+        padding: 18px !important;
+
+        gap: 13px !important;
+    }
+
+    .scorePagina .coachIcon {
+        width: 45px !important;
+        height: 45px !important;
+
+        min-width: 45px !important;
+        max-width: 45px !important;
+
+        flex-basis: 45px !important;
+    }
+
+    /* BOTÕES */
+
+    .scorePagina .acoesScore {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* =====================================================
+   CELULARES PEQUENOS
+   ===================================================== */
+
+@media (max-width: 400px) {
+
+    .scorePagina {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .scoreTopo h1 {
+        font-size: 25px !important;
+    }
+
+    .scoreTopo p {
+        font-size: 13px !important;
+    }
+
+    .scorePagina .scoreCard {
+        padding: 18px !important;
+    }
+
+    .scorePagina .indicadores {
+        grid-template-columns: 1fr !important;
+    }
+
+    .scorePagina .nivelCard {
+        padding: 18px !important;
+    }
+
+    .scorePagina .menu {
+        width: 94% !important;
+    }
+
+    .scorePagina .menu a {
+        font-size: 17px !important;
+    }
+
+    .scorePagina .menu a span {
+        font-size: 8px !important;
+    }
+}

@@ -42,6 +42,7 @@ export default defineConfig({
                 compararPraias: resolve("pages/comparar-praias.html"),
                 alertas: resolve("pages/alertas.html"),
                 pranchaIdeal: resolve("pages/prancha-ideal.html"),
+                scorePessoal: resolve("pages/score-pessoal.html"),
 
                 // ==============================
                 // PRO

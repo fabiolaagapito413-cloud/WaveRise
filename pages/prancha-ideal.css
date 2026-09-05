@@ -2,21 +2,44 @@
    WAVERISE — PRANCHA IDEAL
    ===================================================== */
 
-* {
-    box-sizing: border-box;
+html,
+body {
+    width: 100%;
+    min-width: 0;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background:
-        radial-gradient(circle at top left, rgba(76, 201, 240, 0.14), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(108, 92, 231, 0.18), transparent 35%),
-        #0f1117;
-    color: #ffffff;
     min-height: 100vh;
-    padding-bottom: 90px;
+    padding-bottom: 105px;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: #ffffff;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(76, 201, 240, 0.18),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(108, 92, 231, 0.18),
+            transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            #082c4d,
+            #071d35 65%,
+            #06172b
+        );
 }
 
 button,
@@ -29,165 +52,463 @@ input {
    HEADER
    ===================================================== */
 
-header {
-    padding: 22px 20px 10px;
-}
+.pranchaHeader {
+    width: min(900px, calc(100% - 30px));
 
-.topo {
-    max-width: 900px;
+    min-height: 78px;
+
     margin: 0 auto;
-}
 
-.voltar {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 6px;
-    color: #9aa4b2;
-    text-decoration: none;
-    font-size: 14px;
-    margin-bottom: 20px;
+
+    gap: 14px;
+
+    padding: 18px 0;
 }
 
-.voltar:hover {
+.pranchaHeader .voltar {
+    width: 48px;
+    height: 48px;
+
+    flex: 0 0 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
     color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 25px;
 }
 
-header h1 {
-    font-size: 30px;
-    margin-bottom: 8px;
+.headerInfo {
+    min-width: 0;
+
+    flex: 1;
 }
 
-header p {
-    color: #9aa4b2;
-    line-height: 1.5;
+.headerInfo span {
+    display: block;
+
+    color: #62dfff;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.headerInfo p {
+    margin: 4px 0 0;
+
+    color: #ffffff;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.proBadge {
+    flex-shrink: 0;
+
+    padding: 7px 11px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #716cff,
+            #36caff
+        );
+
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
 }
 
 /* =====================================================
-   CONTAINER
+   PÁGINA
    ===================================================== */
 
-.container {
+.pranchaPage {
     width: min(900px, calc(100% - 30px));
+
     margin: 0 auto;
+
+    min-width: 0;
 }
 
-.card {
-    background: rgba(24, 28, 38, 0.88);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 22px;
-    padding: 22px;
+/* =====================================================
+   HERO
+   ===================================================== */
+
+.pranchaHero {
+    position: relative;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 27px;
+
     margin-bottom: 18px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.22);
-    backdrop-filter: blur(12px);
+
+    border-radius: 24px;
+
+    border: 1px solid rgba(93, 210, 255, 0.14);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(20, 65, 112, 0.95),
+            rgba(10, 29, 58, 0.98)
+        );
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.20);
 }
 
-.card h2 {
-    font-size: 20px;
-    margin-bottom: 7px;
+.pranchaHero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    right: -80px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background: rgba(77, 204, 255, 0.08);
+
+    pointer-events: none;
 }
 
-.card-subtitle {
-    color: #8e98a8;
+.heroIcon {
+    position: relative;
+    z-index: 1;
+
+    width: 72px;
+    height: 72px;
+
+    min-width: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 21px;
+
+    background: rgba(71, 200, 255, 0.10);
+
+    font-size: 36px;
+}
+
+.pranchaHero > div:last-child {
+    position: relative;
+    z-index: 1;
+
+    min-width: 0;
+}
+
+.eyebrow {
+    display: block;
+
+    color: #61dcff;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.pranchaHero h1 {
+    margin: 7px 0 7px;
+
+    color: #ffffff;
+
+    font-size: 27px;
+    line-height: 1.15;
+
+    font-weight: 900;
+}
+
+.pranchaHero p {
+    max-width: 620px;
+
+    margin: 0;
+
+    color: #a9bad0;
+
     font-size: 14px;
-    margin-bottom: 20px;
-    line-height: 1.5;
+    line-height: 1.55;
+}
+
+/* =====================================================
+   CARDS
+   ===================================================== */
+
+.pranchaCard {
+    width: 100%;
+
+    min-width: 0;
+
+    margin-bottom: 18px;
+
+    padding: 23px;
+
+    border-radius: 21px;
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(13, 30, 56, 0.97),
+            rgba(7, 18, 35, 0.98)
+        );
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.18);
+
+    overflow: hidden;
+}
+
+.cardTitulo {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 21px;
+}
+
+.tituloIcon {
+    width: 43px;
+    height: 43px;
+
+    min-width: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: rgba(70, 202, 255, 0.09);
+
+    font-size: 20px;
+}
+
+.cardTitulo > div {
+    min-width: 0;
+}
+
+.cardTitulo h2 {
+    margin: 0 0 4px;
+
+    color: #ffffff;
+
+    font-size: 19px;
+    line-height: 1.2;
+
+    font-weight: 800;
+}
+
+.cardTitulo p {
+    margin: 0;
+
+    color: #7f91aa;
+
+    font-size: 12px;
+    line-height: 1.4;
 }
 
 /* =====================================================
    PERFIL
    ===================================================== */
 
-.perfil-grid {
+.perfilGrid {
+    width: 100%;
+
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
     gap: 12px;
 }
 
-.perfil-item {
-    background: rgba(255, 255, 255, 0.045);
-    border-radius: 14px;
-    padding: 15px;
+.perfilItem {
+    min-width: 0;
+
+    padding: 16px;
+
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.perfil-item span {
+.perfilItem > span {
     display: block;
-    color: #8993a3;
-    font-size: 12px;
-    margin-bottom: 6px;
+
+    margin-bottom: 9px;
+
+    font-size: 20px;
 }
 
-.perfil-item strong {
+.perfilItem small {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #7f91aa;
+
+    font-size: 11px;
+}
+
+.perfilItem strong {
+    display: block;
+
+    color: #ffffff;
+
     font-size: 15px;
+
+    line-height: 1.3;
+
+    overflow-wrap: anywhere;
 }
 
 /* =====================================================
-   FORMULÁRIO
+   CAMPOS
    ===================================================== */
 
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-}
+.campoLabel {
+    display: block;
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
+    margin: 18px 0 8px;
 
-.form-group.full {
-    grid-column: 1 / -1;
-}
+    color: #cbd7e6;
 
-.form-group label {
-    color: #cbd2dc;
     font-size: 13px;
-    font-weight: 600;
+
+    font-weight: 700;
 }
 
-.form-group select,
-.form-group input {
+.campoLabel:first-of-type {
+    margin-top: 0;
+}
+
+.campoSelect {
     width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    background: #171b24;
-    color: #ffffff;
-    border-radius: 13px;
+
+    min-height: 50px;
+
     padding: 13px 14px;
+
+    border-radius: 13px;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
     outline: none;
+
+    background: #111d31;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    cursor: pointer;
 }
 
-.form-group select:focus,
-.form-group input:focus {
-    border-color: #4facfe;
-    box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+.campoSelect:focus {
+    border-color: #4fcfff;
+
+    box-shadow:
+        0 0 0 3px rgba(79, 207, 255, 0.10);
+}
+
+.campoSelect option {
+    background: #111d31;
+
+    color: #ffffff;
 }
 
 /* =====================================================
    BOTÃO
    ===================================================== */
 
-#btnRecomendar {
+.btnPrincipal {
     width: 100%;
+
+    min-height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 3px 0 18px;
+
+    padding: 14px 18px;
+
     border: 0;
-    border-radius: 15px;
-    padding: 15px 18px;
-    margin-top: 20px;
-    background: linear-gradient(135deg, #4facfe, #6c5ce7);
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #35caff,
+            #646cff
+        );
+
     color: #ffffff;
-    font-size: 16px;
-    font-weight: 700;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
     cursor: pointer;
-    transition: 0.2s ease;
-    box-shadow: 0 10px 25px rgba(79, 172, 254, 0.18);
+
+    box-shadow:
+        0 12px 28px rgba(50, 190, 255, 0.16);
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
 }
 
-#btnRecomendar:hover {
+.btnPrincipal:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 30px rgba(79, 172, 254, 0.25);
+
+    opacity: 0.94;
 }
 
-#btnRecomendar:active {
+.btnPrincipal:active {
     transform: translateY(0);
 }
 
@@ -195,32 +516,141 @@ header p {
    RESULTADO
    ===================================================== */
 
-#resultado {
-    display: none;
+.resultadoCard {
+    width: 100%;
+
+    min-width: 0;
+
+    margin-bottom: 18px;
+
+    padding: 23px;
+
+    border-radius: 23px;
+
+    border: 1px solid rgba(82, 210, 255, 0.14);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 53, 94, 0.98),
+            rgba(7, 20, 39, 0.99)
+        );
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.22);
+
+    overflow: hidden;
 }
 
-.resultado-header {
-    margin-bottom: 20px;
+.resultadoTitulo {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 22px;
 }
 
-.categoria {
+.resultadoTitulo > span {
+    width: 43px;
+    height: 43px;
+
+    min-width: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: rgba(255, 205, 80, 0.10);
+
+    font-size: 20px;
+}
+
+.resultadoTitulo h2 {
+    margin: 5px 0 0;
+
+    font-size: 21px;
+    line-height: 1.2;
+}
+
+/* =====================================================
+   PRANCHA PRINCIPAL
+   ===================================================== */
+
+.pranchaPrincipal {
+    text-align: center;
+
+    padding: 25px 20px;
+
+    border-radius: 19px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(63, 202, 255, 0.12),
+            transparent 65%
+        ),
+        rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pranchaImagem {
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(71, 201, 255, 0.10);
+
+    font-size: 43px;
+}
+
+#categoria {
     display: inline-block;
-    padding: 7px 11px;
+
+    margin-bottom: 8px;
+
+    padding: 6px 10px;
+
     border-radius: 20px;
-    background: rgba(79, 172, 254, 0.12);
-    color: #70c7ff;
-    font-size: 12px;
-    font-weight: 700;
-    margin-bottom: 10px;
+
+    background: rgba(77, 203, 255, 0.10);
+
+    color: #68d9ff;
+
+    font-size: 11px;
+
+    font-weight: 800;
 }
 
 #nomePrancha {
-    font-size: 28px;
-    margin-bottom: 8px;
+    margin: 3px 0 9px;
+
+    color: #ffffff;
+
+    font-size: 27px;
+
+    line-height: 1.15;
 }
 
 #descricaoPrancha {
-    color: #9da6b5;
+    max-width: 620px;
+
+    margin: 0 auto;
+
+    color: #a8b9cf;
+
+    font-size: 14px;
+
     line-height: 1.6;
 }
 
@@ -229,27 +659,58 @@ header p {
    ===================================================== */
 
 .especificacoes {
+    width: 100%;
+
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
     gap: 12px;
-    margin: 20px 0;
+
+    margin: 18px 0;
 }
 
-.spec {
-    background: rgba(255, 255, 255, 0.045);
-    border-radius: 15px;
+.especificacoes > div {
+    min-width: 0;
+
     padding: 16px;
+
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.spec span {
+.especificacoes span {
     display: block;
-    color: #8993a3;
-    font-size: 12px;
-    margin-bottom: 7px;
+
+    margin-bottom: 8px;
+
+    font-size: 19px;
 }
 
-.spec strong {
-    font-size: 16px;
+.especificacoes small {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #7f91aa;
+
+    font-size: 11px;
+}
+
+.especificacoes strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    line-height: 1.3;
+
+    overflow-wrap: anywhere;
 }
 
 /* =====================================================
@@ -258,76 +719,168 @@ header p {
 
 .compatibilidade {
     margin-top: 20px;
+
+    padding: 17px;
+
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.035);
 }
 
-.compatibilidade-topo {
+.compatibilidadeTopo {
     display: flex;
+
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 9px;
+
+    gap: 12px;
+
+    margin-bottom: 10px;
 }
 
-.compatibilidade-topo span {
-    color: #9da6b5;
+.compatibilidadeTopo span {
+    color: #a7b7ca;
+
     font-size: 13px;
 }
 
 #compatibilidadeValor {
+    flex-shrink: 0;
+
+    color: #65dcff;
+
     font-size: 22px;
-    font-weight: 800;
+
+    font-weight: 900;
 }
 
-.barra-container {
+.compatibilidade .barra {
+    width: 100%;
     height: 9px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
+
     overflow: hidden;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.07);
 }
 
 #barraCompatibilidade {
     width: 0%;
     height: 100%;
+
     border-radius: inherit;
-    background: linear-gradient(90deg, #4facfe, #6c5ce7);
+
+    background:
+        linear-gradient(
+            90deg,
+            #35caff,
+            #716cff
+        );
+
     transition: width 0.7s ease;
 }
 
 /* =====================================================
-   MOTIVO / COACH
+   MOTIVO
    ===================================================== */
 
-.motivo-box,
-.coach-box {
+.motivo {
     margin-top: 18px;
-    border-radius: 17px;
+
     padding: 18px;
+
+    border-radius: 17px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.motivo-box {
-    background: rgba(255, 255, 255, 0.045);
+.motivo h3 {
+    margin: 0 0 8px;
+
+    color: #ffffff;
+
+    font-size: 15px;
 }
 
-.coach-box {
+.motivo p {
+    margin: 0;
+
+    color: #aab9cb;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+/* =====================================================
+   COACH
+   ===================================================== */
+
+.coachPrancha {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    margin-top: 18px;
+
+    padding: 18px;
+
+    border-radius: 17px;
+
     background:
         linear-gradient(
             135deg,
-            rgba(79, 172, 254, 0.10),
-            rgba(108, 92, 231, 0.10)
+            rgba(58, 201, 255, 0.08),
+            rgba(112, 99, 255, 0.08)
         );
-    border: 1px solid rgba(79, 172, 254, 0.12);
+
+    border: 1px solid rgba(75, 205, 255, 0.10);
 }
 
-.motivo-box h3,
-.coach-box h3 {
-    font-size: 15px;
-    margin-bottom: 8px;
+.coachAvatar {
+    width: 46px;
+    height: 46px;
+
+    min-width: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: rgba(72, 200, 255, 0.10);
+
+    font-size: 22px;
 }
 
-.motivo-box p,
-.coach-box p {
-    color: #aeb6c4;
-    line-height: 1.6;
-    font-size: 14px;
+.coachPrancha > div:last-child {
+    min-width: 0;
+}
+
+.coachPrancha strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #62dcff;
+
+    font-size: 12px;
+}
+
+.coachPrancha p {
+    margin: 0;
+
+    color: #aab9cb;
+
+    font-size: 13px;
+
+    line-height: 1.55;
 }
 
 /* =====================================================
@@ -339,109 +892,204 @@ header p {
 }
 
 #listaAlternativas {
+    width: 100%;
+
     display: grid;
-    gap: 12px;
+
+    gap: 11px;
 }
 
 .alternativa {
-    background: rgba(255, 255, 255, 0.045);
-    border-radius: 15px;
+    width: 100%;
+
+    min-width: 0;
+
     padding: 16px;
-    border: 1px solid transparent;
+
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.05);
+
     transition: 0.2s ease;
 }
 
 .alternativa:hover {
-    border-color: rgba(79, 172, 254, 0.2);
+    border-color: rgba(78, 205, 255, 0.20);
+
     transform: translateY(-1px);
 }
 
 .alternativa-topo {
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
+    justify-content: space-between;
+
     gap: 10px;
+
     margin-bottom: 7px;
 }
 
 .alternativa h3 {
+    margin: 0;
+
+    color: #ffffff;
+
     font-size: 16px;
 }
 
 .alternativa .tag {
-    font-size: 11px;
-    color: #70c7ff;
-    background: rgba(79, 172, 254, 0.1);
+    flex-shrink: 0;
+
     padding: 5px 8px;
+
     border-radius: 10px;
+
+    background: rgba(78, 204, 255, 0.10);
+
+    color: #68d9ff;
+
+    font-size: 10px;
 }
 
 .alternativa p {
-    color: #929cab;
+    margin: 0;
+
+    color: #91a0b4;
+
     font-size: 13px;
+
     line-height: 1.5;
 }
 
 /* =====================================================
-   CARD INFORMATIVO
+   AVISO
    ===================================================== */
 
-.info-card {
-    background: rgba(108, 92, 231, 0.08);
-    border: 1px solid rgba(108, 92, 231, 0.12);
+.infoCard {
+    width: 100%;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+
+    padding: 18px;
+
+    border-radius: 17px;
+
+    border: 1px solid rgba(112, 99, 255, 0.12);
+
+    background: rgba(108, 92, 231, 0.07);
 }
 
-.info-card p {
-    color: #aeb6c4;
-    font-size: 13px;
+.infoCard > span {
+    flex-shrink: 0;
+
+    font-size: 20px;
+}
+
+.infoCard p {
+    margin: 0;
+
+    color: #aab8ca;
+
+    font-size: 12px;
+
     line-height: 1.6;
-}
-
-.info-card strong {
-    color: #ffffff;
 }
 
 /* =====================================================
    MENU INFERIOR
    ===================================================== */
 
-.bottom-menu {
+.bottomMenu {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 72px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(15, 17, 23, 0.94);
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(15px);
-    z-index: 50;
-}
 
-.bottom-menu-inner {
-    width: min(900px, 100%);
+    left: 50%;
+    bottom: 12px;
+
+    transform: translateX(-50%);
+
+    width: min(92%, 600px);
+
+    min-width: 0;
+
+    height: 70px;
+
     display: flex;
+
+    align-items: center;
     justify-content: space-around;
-    align-items: center;
+
+    padding: 7px;
+
+    border-radius: 21px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    background: rgba(5, 13, 27, 0.96);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.42);
+
+    z-index: 1000;
+
+    overflow: hidden;
 }
 
-.bottom-menu a {
-    color: #7f8998;
+.bottomMenu a {
+    width: 20%;
+
+    min-width: 0;
+
+    flex: 1 1 20%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 3px;
+
+    padding: 5px 2px;
+
+    color: #69778e;
+
     text-decoration: none;
-    font-size: 12px;
+
     text-align: center;
 }
 
-.bottom-menu a.active {
-    color: #ffffff;
+.bottomMenu a span {
+    display: block;
+
+    font-size: 19px;
+
+    line-height: 1;
 }
 
-.bottom-menu-icon {
+.bottomMenu a small {
     display: block;
-    font-size: 20px;
-    margin-bottom: 3px;
+
+    color: inherit;
+
+    font-size: 9px;
+
+    line-height: 1.2;
+}
+
+.bottomMenu a:hover {
+    color: #63dcff;
 }
 
 /* =====================================================
@@ -450,30 +1098,54 @@ header p {
 
 @media (max-width: 650px) {
 
-    header {
-        padding: 18px 16px 8px;
+    body {
+        padding-bottom: 100px;
     }
 
-    header h1 {
-        font-size: 25px;
+    .pranchaHeader {
+        width: calc(100% - 24px);
+
+        padding: 15px 0;
     }
 
-    .container {
-        width: min(100% - 22px, 900px);
+    .pranchaPage {
+        width: calc(100% - 24px);
     }
 
-    .card {
-        padding: 18px;
-        border-radius: 18px;
+    .pranchaHero {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 22px;
+
+        gap: 15px;
     }
 
-    .perfil-grid,
-    .form-grid {
-        grid-template-columns: 1fr;
+    .heroIcon {
+        width: 60px;
+        height: 60px;
+
+        min-width: 60px;
+
+        font-size: 30px;
     }
 
-    .form-group.full {
-        grid-column: auto;
+    .pranchaHero h1 {
+        font-size: 24px;
+    }
+
+    .pranchaHero p {
+        font-size: 13px;
+    }
+
+    .pranchaCard,
+    .resultadoCard {
+        padding: 19px;
+    }
+
+    .perfilGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .especificacoes {
@@ -484,7 +1156,66 @@ header p {
         font-size: 24px;
     }
 
-    .bottom-menu {
-        height: 68px;
+    .bottomMenu {
+        width: 94%;
+    }
+}
+
+/* =====================================================
+   CELULARES PEQUENOS
+   ===================================================== */
+
+@media (max-width: 400px) {
+
+    .pranchaHeader {
+        width: calc(100% - 20px);
+    }
+
+    .pranchaPage {
+        width: calc(100% - 20px);
+    }
+
+    .pranchaHeader .voltar {
+        width: 44px;
+        height: 44px;
+
+        min-width: 44px;
+
+        font-size: 22px;
+    }
+
+    .proBadge {
+        padding: 6px 8px;
+
+        font-size: 9px;
+    }
+
+    .pranchaHero {
+        padding: 19px;
+    }
+
+    .pranchaHero h1 {
+        font-size: 22px;
+    }
+
+    .pranchaCard,
+    .resultadoCard {
+        padding: 17px;
+    }
+
+    .perfilGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .bottomMenu {
+        width: 95%;
+    }
+
+    .bottomMenu a span {
+        font-size: 18px;
+    }
+
+    .bottomMenu a small {
+        font-size: 8px;
     }
 }

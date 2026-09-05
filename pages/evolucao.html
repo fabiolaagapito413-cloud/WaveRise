@@ -2,135 +2,227 @@
 <html lang="pt-BR">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Evolução - WaveRise</title>
 
-<title>Evolução - WaveRise</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="evolucao.css">
 
-<link rel="stylesheet" href="../style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 
 <body>
 
-
 <div class="app">
 
+    <!-- =========================
+         TOPO
+    ========================== -->
 
-<header class="topo">
+    <header class="topo">
 
-<button class="voltar" onclick="history.back()">
-← Voltar
-</button>
+        <button class="voltar" onclick="history.back()">
+            ← Voltar
+        </button>
 
-<h1>📈 Evolução</h1>
+        <div class="tituloPagina">
+            <span>📈</span>
+            <div>
+                <h1>Minha Evolução</h1>
+                <p>Acompanhe sua evolução no surf</p>
+            </div>
+        </div>
 
-</header>
-
-
-<section class="card">
-
-<h2>Minha Performance</h2>
-
-
-<div class="estatisticas">
-
-
-<div class="card">
-
-<p>Sessões</p>
-<strong id="totalSessoes">0</strong>
-
-</div>
+    </header>
 
 
-<div class="card">
+    <main class="evolucaoPagina">
 
-<p>Ondas</p>
-<strong id="totalOndas">0</strong>
+        <!-- =========================
+             RESUMO
+        ========================== -->
 
-</div>
+        <section class="card evolucaoResumo">
 
-
-<div class="card">
-
-<p>Média</p>
-<strong id="mediaNota">0</strong>
-
-</div>
-
-
-<div class="card">
-
-<p>XP</p>
-<strong id="xp">0</strong>
-
-</div>
+            <div class="cardCabecalho">
+                <div>
+                    <span class="subtitulo">SEU DESEMPENHO</span>
+                    <h2>🏄 Minha Performance</h2>
+                </div>
+            </div>
 
 
-</div>
+            <div class="estatisticas">
+
+                <div class="estatistica">
+
+                    <span class="estatisticaIcone">🌊</span>
+
+                    <div>
+                        <p>Sessões</p>
+                        <strong id="totalSessoes">0</strong>
+                    </div>
+
+                </div>
 
 
-</section>
+                <div class="estatistica">
+
+                    <span class="estatisticaIcone">🏄</span>
+
+                    <div>
+                        <p>Ondas</p>
+                        <strong id="totalOndas">0</strong>
+                    </div>
+
+                </div>
 
 
-<section class="card">
+                <div class="estatistica">
 
-<h2>🏄 Próxima evolução</h2>
-<section class="card">
+                    <span class="estatisticaIcone">⭐</span>
 
-<h2>📊 Evolução das Sessões</h2>
+                    <div>
+                        <p>Média</p>
+                        <strong id="mediaNota">0</strong>
+                    </div>
 
-<canvas id="graficoSurf"></canvas>
-
-</section>
-<p id="mensagem">
-Continue surfando para evoluir!
-</p>
+                </div>
 
 
-</section>
-<nav class="menu">
+                <div class="estatistica">
 
-<a href="../index.html">
-🏠
-<span>Início</span>
-</a>
+                    <span class="estatisticaIcone">⚡</span>
 
+                    <div>
+                        <p>XP</p>
+                        <strong id="xp">0</strong>
+                    </div>
 
-<a href="diario.html">
-🌊
-<span>Surf</span>
-</a>
+                </div>
 
+            </div>
 
-<a href="coach.html">
-🤖
-<span>Coach</span>
-</a>
+        </section>
 
 
-<a href="evolucao.html">
-📈
-<span>Evolução</span>
-</a>
+        <!-- =========================
+             PRÓXIMA EVOLUÇÃO
+        ========================== -->
+
+        <section class="card proximaEvolucao">
+
+            <div class="cardCabecalho">
+
+                <div>
+                    <span class="subtitulo">SEU PRÓXIMO PASSO</span>
+                    <h2>🚀 Próxima evolução</h2>
+                </div>
+
+            </div>
 
 
-<a href="perfil.html">
-👤
-<span>Perfil</span>
-</a>
+            <div class="evolucaoMensagem" id="mensagem">
+                Continue surfando para evoluir!
+            </div>
 
-</nav>
+        </section>
+
+
+        <!-- =========================
+             GRÁFICO
+        ========================== -->
+
+        <section class="card graficoCard">
+
+            <div class="cardCabecalho">
+
+                <div>
+                    <span class="subtitulo">HISTÓRICO</span>
+                    <h2>📊 Evolução das Sessões</h2>
+                </div>
+
+            </div>
+
+
+            <div class="graficoContainer">
+
+                <canvas id="graficoSurf"></canvas>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             INDICADOR
+        ========================== -->
+
+        <section class="card">
+
+            <div class="cardCabecalho">
+
+                <div>
+                    <span class="subtitulo">WAVERISE</span>
+                    <h2>🌊 Continue evoluindo</h2>
+                </div>
+
+            </div>
+
+            <p class="textoEvolucao">
+                Cada sessão registrada ajuda o WaveRise a entender
+                sua evolução e oferecer recomendações cada vez mais
+                personalizadas.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         MENU INFERIOR
+    ========================== -->
+
+    <nav class="menu">
+
+        <a href="../index.html">
+            🏠
+            <span>Início</span>
+        </a>
+
+
+        <a href="diario.html">
+            🌊
+            <span>Surf</span>
+        </a>
+
+
+        <a href="coach.html">
+            🤖
+            <span>Coach</span>
+        </a>
+
+
+        <a href="evolucao.html" class="ativo">
+            📈
+            <span>Evolução</span>
+        </a>
+
+
+        <a href="perfil.html">
+            👤
+            <span>Perfil</span>
+        </a>
+
+    </nav>
 
 </div>
 
 
 <script type="module" src="evolucao.js"></script>
-
 
 </body>
 

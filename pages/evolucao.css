@@ -1,0 +1,366 @@
+/* =====================================================
+   WAVERISE — MINHA EVOLUÇÃO
+===================================================== */
+
+:root {
+    --evo-card: rgba(16, 28, 55, 0.88);
+    --evo-border: rgba(255, 255, 255, 0.08);
+    --evo-text: #ffffff;
+    --evo-muted: #9eabc5;
+    --evo-blue: #4facfe;
+    --evo-purple: #7b61ff;
+    --evo-green: #45e6a8;
+}
+
+
+/* =====================================================
+   PÁGINA
+===================================================== */
+
+body {
+    background:
+        radial-gradient(circle at top left, rgba(79, 172, 254, 0.14), transparent 35%),
+        radial-gradient(circle at top right, rgba(123, 97, 255, 0.16), transparent 35%),
+        linear-gradient(180deg, #07111f 0%, #0b1730 100%);
+    color: var(--evo-text);
+}
+
+
+.app {
+    min-height: 100vh;
+    padding-bottom: 90px;
+}
+
+
+.evolucaoPagina {
+    width: min(100% - 32px, 900px);
+    margin: 0 auto;
+    padding: 20px 0 40px;
+}
+
+
+/* =====================================================
+   TOPO
+===================================================== */
+
+.topo {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--evo-border);
+}
+
+
+.voltar {
+    border: 0;
+    background: transparent;
+    color: #ffffff;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+
+.tituloPagina {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.tituloPagina > span {
+    font-size: 30px;
+}
+
+
+.tituloPagina h1 {
+    margin: 0;
+    font-size: 23px;
+}
+
+
+.tituloPagina p {
+    margin: 3px 0 0;
+    color: var(--evo-muted);
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.evolucaoPagina .card {
+    background: var(--evo-card);
+    border: 1px solid var(--evo-border);
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(12px);
+}
+
+
+.cardCabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+
+.cardCabecalho h2 {
+    margin: 5px 0 0;
+    font-size: 19px;
+}
+
+
+.subtitulo {
+    color: var(--evo-blue);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+
+/* =====================================================
+   ESTATÍSTICAS
+===================================================== */
+
+.estatisticas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+
+.estatistica {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 88px;
+    padding: 15px;
+    border-radius: 17px;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+.estatisticaIcone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 13px;
+    background: rgba(79, 172, 254, 0.12);
+    font-size: 20px;
+}
+
+
+.estatistica p {
+    margin: 0 0 4px;
+    color: var(--evo-muted);
+    font-size: 12px;
+}
+
+
+.estatistica strong {
+    display: block;
+    font-size: 25px;
+    line-height: 1;
+}
+
+
+/* =====================================================
+   PRÓXIMA EVOLUÇÃO
+===================================================== */
+
+.proximaEvolucao {
+    position: relative;
+    overflow: hidden;
+}
+
+
+.proximaEvolucao::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -70px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(123, 97, 255, 0.12);
+    pointer-events: none;
+}
+
+
+.evolucaoMensagem {
+    position: relative;
+    z-index: 1;
+    padding: 17px 18px;
+    border-radius: 15px;
+    background: rgba(79, 172, 254, 0.08);
+    border: 1px solid rgba(79, 172, 254, 0.14);
+    color: #dceaff;
+    line-height: 1.55;
+}
+
+
+/* =====================================================
+   GRÁFICO
+===================================================== */
+
+.graficoContainer {
+    position: relative;
+    width: 100%;
+    height: 320px;
+}
+
+
+#graficoSurf {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+/* =====================================================
+   TEXTO FINAL
+===================================================== */
+
+.textoEvolucao {
+    margin: 0;
+    color: var(--evo-muted);
+    line-height: 1.65;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   MENU INFERIOR
+===================================================== */
+
+.menu {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(5, 12, 25, 0.94);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+}
+
+
+.menu a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-width: 65px;
+    padding: 7px 9px;
+    border-radius: 13px;
+    color: #8f9bb4;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.2s ease;
+}
+
+
+.menu a span {
+    font-size: 10px;
+}
+
+
+.menu a:hover,
+.menu a.ativo {
+    color: #ffffff;
+    background: rgba(79, 172, 254, 0.10);
+}
+
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .topo {
+        padding: 15px;
+    }
+
+    .evolucaoPagina {
+        width: min(100% - 22px, 900px);
+        padding-top: 14px;
+    }
+
+    .estatisticas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .estatistica {
+        min-height: 78px;
+    }
+
+    .graficoContainer {
+        height: 260px;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .tituloPagina h1 {
+        font-size: 20px;
+    }
+
+    .tituloPagina > span {
+        font-size: 25px;
+    }
+
+    .evolucaoPagina .card {
+        padding: 17px;
+        border-radius: 18px;
+    }
+
+    .estatisticas {
+        gap: 8px;
+    }
+
+    .estatistica {
+        padding: 11px;
+        gap: 8px;
+    }
+
+    .estatisticaIcone {
+        width: 36px;
+        height: 36px;
+        font-size: 17px;
+    }
+
+    .estatistica strong {
+        font-size: 21px;
+    }
+
+    .graficoContainer {
+        height: 230px;
+    }
+
+    .menu {
+        gap: 2px;
+    }
+
+    .menu a {
+        min-width: 58px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+}
