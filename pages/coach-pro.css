@@ -1,0 +1,962 @@
+/* ======================================================
+   WAVERISE — COACH IA PRO
+   ESTILO COMPLETO
+====================================================== */
+
+:root {
+    --azul-fundo: #071d32;
+    --azul-card: #12395c;
+    --azul-card-2: #102f4e;
+    --azul-brilho: #55d9ff;
+    --azul-claro: #9ed7f2;
+    --texto: #ffffff;
+    --texto-suave: #b8d1e3;
+    --borda: rgba(110, 210, 255, 0.16);
+}
+
+
+/* ======================================================
+   BASE
+====================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            180deg,
+            #0a2743 0%,
+            #071d32 55%,
+            #061827 100%
+        );
+
+    color: var(--texto);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    overflow-x: hidden;
+}
+
+
+/* ======================================================
+   CONTAINER
+====================================================== */
+
+.page {
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    padding:
+        20px
+        16px
+        110px;
+}
+
+
+/* ======================================================
+   HEADER
+====================================================== */
+
+.topBar {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+}
+
+.topBar h1 {
+    margin: 0;
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    color: #ffffff;
+}
+
+.topBar a {
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+
+/* ======================================================
+   HERO
+====================================================== */
+
+.hero {
+    margin-bottom: 24px;
+}
+
+.hero h2 {
+    margin: 0 0 10px;
+
+    font-size: 38px;
+
+    line-height: 1.08;
+
+    font-weight: 900;
+
+    color: #ffffff;
+}
+
+.hero p {
+    margin: 0;
+
+    color: var(--texto-suave);
+
+    font-size: 17px;
+
+    line-height: 1.55;
+}
+
+
+/* ======================================================
+   CARDS
+====================================================== */
+
+.card {
+    width: 100%;
+
+    margin-bottom: 18px;
+
+    padding: 26px 22px;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 63, 99, 0.97),
+            rgba(9, 35, 58, 0.98)
+        );
+
+    border:
+        1px solid
+        var(--borda);
+
+    box-shadow:
+        0 12px 35px
+        rgba(0, 0, 0, 0.18);
+
+    overflow: hidden;
+}
+
+
+/* ======================================================
+   TÍTULO DOS CARDS
+====================================================== */
+
+.cardTitulo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 17px;
+}
+
+.iconeCard {
+    width: 48px;
+    height: 48px;
+
+    min-width: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        rgba(44, 185, 255, 0.12);
+
+    font-size: 25px;
+}
+
+.cardTitulo h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 27px;
+
+    line-height: 1.15;
+
+    font-weight: 900;
+}
+
+.cardTitulo p {
+    margin: 5px 0 0;
+
+    color: var(--texto-suave);
+
+    font-size: 16px;
+
+    line-height: 1.45;
+}
+
+
+/* ======================================================
+   DIAGNÓSTICO
+====================================================== */
+
+#diagnostico {
+    margin: 0;
+
+    color: #c2d8e7;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+/* ======================================================
+   TEXTO DO COACH
+====================================================== */
+
+.coachProTexto {
+    margin-top: 15px;
+
+    color: var(--texto-suave);
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* ======================================================
+   PLANO DE EVOLUÇÃO
+====================================================== */
+
+.coachProPlano {
+    border:
+        1px solid
+        rgba(80, 210, 255, 0.20);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18, 63, 99, 0.98),
+            rgba(7, 29, 48, 0.99)
+        );
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.coachProPlano:active {
+    transform: scale(0.99);
+}
+
+
+/* ======================================================
+   BLOCOS DO PLANO
+====================================================== */
+
+.planoBloco {
+    margin-top: 13px;
+
+    padding: 16px;
+
+    border-radius: 17px;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    border:
+        1px solid
+        rgba(120, 210, 255, 0.10);
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.planoLabel {
+    color: #70dcff;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+.planoBloco strong {
+    color: #ffffff;
+
+    font-size: 16px;
+
+    line-height: 1.45;
+}
+
+.planoBloco p {
+    margin: 0;
+
+    color: #b8d1e1;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* ======================================================
+   FASE
+====================================================== */
+
+.planoFase {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(40, 185, 255, 0.11),
+            rgba(100, 90, 255, 0.10)
+        );
+
+    border:
+        1px solid
+        rgba(80, 210, 255, 0.22);
+}
+
+
+/* ======================================================
+   PROGRESSO DO PLANO
+====================================================== */
+
+.planoProgresso {
+    margin-top: 20px;
+
+    padding-top: 4px;
+}
+
+.planoProgressoTopo {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+
+    color: #aac7d9;
+
+    font-size: 13px;
+}
+
+.planoProgressoTopo strong {
+    color: var(--azul-brilho);
+
+    font-size: 14px;
+}
+
+
+/* ======================================================
+   BARRAS
+====================================================== */
+
+.barra {
+    width: 100%;
+
+    height: 10px;
+
+    overflow: hidden;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255, 255, 255, 0.09);
+}
+
+.barra > div {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #25baff,
+            #7166ff
+        );
+
+    transition:
+        width 0.7s ease;
+}
+
+
+/* ======================================================
+   SCORE
+====================================================== */
+
+.scoreBox {
+    text-align: center;
+}
+
+.scorePrincipal {
+    display: flex;
+
+    align-items: baseline;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 15px;
+}
+
+.scorePrincipal strong {
+    font-size: 64px;
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #36c9ff,
+            #7467ff
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+}
+
+.scorePrincipal span {
+    color: #7898ad;
+
+    font-size: 18px;
+}
+
+.scoreDescricao {
+    margin: 14px auto 0;
+
+    max-width: 520px;
+
+    color: #a9c5d8;
+
+    font-size: 14px;
+
+    line-height: 1.55;
+}
+
+
+/* ======================================================
+   PONTOS FORTES / MELHORIAS
+====================================================== */
+
+#pontosFortes p,
+#melhorias p {
+    margin: 10px 0;
+
+    color: #bfd5e4;
+
+    font-size: 15px;
+
+    line-height: 1.55;
+}
+
+
+/* ======================================================
+   DESEMPENHO TÉCNICO
+====================================================== */
+
+.habilidade {
+    margin-top: 18px;
+}
+
+.habilidadeTopo {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+
+    color: #c3d8e7;
+
+    font-size: 14px;
+}
+
+.habilidadeTopo strong {
+    color: #62ddff;
+
+    font-size: 14px;
+}
+
+
+/* ======================================================
+   MANOBRAS
+====================================================== */
+
+.listaManobras {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 18px;
+}
+
+.manobra {
+    width: 100%;
+}
+
+.manobraTopo {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 7px;
+
+    color: #c3d8e7;
+
+    font-size: 14px;
+}
+
+.manobraTopo strong {
+    color: #62ddff;
+}
+
+.manobraBarra {
+    width: 100%;
+
+    height: 9px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    overflow: hidden;
+}
+
+.manobraBarra > div {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #25baff,
+            #7166ff
+        );
+
+    transition:
+        width 0.7s ease;
+}
+
+
+/* ======================================================
+   MISSÃO
+====================================================== */
+
+.coachProMissao h3 {
+    margin: 18px 0 8px;
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+    line-height: 1.3;
+}
+
+.coachProMissao > p {
+    margin: 0;
+
+    color: #abc5d7;
+
+    font-size: 14px;
+
+    line-height: 1.65;
+}
+
+#progressoMissao {
+    margin-top: 10px;
+
+    color: #62ddff;
+
+    font-weight: 800;
+}
+
+
+/* ======================================================
+   ESTATÍSTICAS
+====================================================== */
+
+.statsGrid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+
+    margin-top: 18px;
+}
+
+.stat {
+    min-width: 0;
+
+    padding: 17px 12px;
+
+    text-align: center;
+
+    border-radius: 17px;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    border:
+        1px solid
+        rgba(120, 210, 255, 0.09);
+}
+
+.stat strong {
+    display: block;
+
+    color: #5bdcff;
+
+    font-size: 25px;
+
+    font-weight: 900;
+}
+
+.stat span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #7898ad;
+
+    font-size: 12px;
+}
+
+
+/* ======================================================
+   TREINO
+====================================================== */
+
+#treino {
+    margin: 0;
+
+    color: #bdd3e2;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* ======================================================
+   PRÓXIMO OBJETIVO
+====================================================== */
+
+#proximoObjetivo {
+    margin: 0;
+
+    color: #c0d7e6;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* ======================================================
+   RELATÓRIO
+====================================================== */
+
+.relatorioResumo {
+    margin-top: 15px;
+}
+
+.relatorioResumo p {
+    margin: 10px 0;
+
+    color: #aec7d8;
+
+    font-size: 14px;
+
+    line-height: 1.55;
+}
+
+.relatorioResumo strong {
+    color: #ffffff;
+}
+
+
+/* ======================================================
+   BOTÕES
+====================================================== */
+
+.btnPrincipal {
+    width: 100%;
+
+    margin-top: 16px;
+
+    padding: 15px;
+
+    border: 0;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #25baff,
+            #6666ff
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease;
+}
+
+.btnPrincipal:active {
+    transform: scale(0.98);
+}
+
+
+/* ======================================================
+   MENU INFERIOR
+====================================================== */
+
+.bottomMenu {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    justify-content: space-around;
+
+    align-items: center;
+
+    width: 100%;
+
+    min-height: 68px;
+
+    padding:
+        8px
+        6px
+        calc(8px + env(safe-area-inset-bottom));
+
+    background:
+        rgba(5, 20, 34, 0.97);
+
+    border-top:
+        1px solid
+        rgba(110, 210, 255, 0.15);
+
+    box-shadow:
+        0 -8px 25px
+        rgba(0, 0, 0, 0.25);
+
+    backdrop-filter:
+        blur(14px);
+}
+
+.bottomMenu a {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 3px;
+
+    min-width: 0;
+
+    color: #8eb5cb;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-align: center;
+}
+
+.bottomMenu a span {
+    font-size: 20px;
+
+    line-height: 1;
+}
+
+.bottomMenu a:hover {
+    color: #62ddff;
+}
+
+.bottomMenu a:active {
+    color: #62ddff;
+
+    transform: scale(0.96);
+}
+
+
+/* ======================================================
+   RESPONSIVO
+====================================================== */
+
+@media (max-width: 600px) {
+
+    .page {
+        padding:
+            16px
+            12px
+            105px;
+    }
+
+    .hero h2 {
+        font-size: 34px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .card {
+        padding: 24px 20px;
+
+        border-radius: 28px;
+    }
+
+    .cardTitulo h2 {
+        font-size: 25px;
+    }
+
+    .scorePrincipal strong {
+        font-size: 58px;
+    }
+}
+
+
+@media (max-width: 420px) {
+
+    .page {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .card {
+        padding: 22px 18px;
+
+        border-radius: 26px;
+    }
+
+    .cardTitulo {
+        gap: 11px;
+    }
+
+    .iconeCard {
+        width: 44px;
+        height: 44px;
+
+        min-width: 44px;
+
+        font-size: 22px;
+    }
+
+    .cardTitulo h2 {
+        font-size: 23px;
+    }
+
+    .cardTitulo p {
+        font-size: 15px;
+    }
+
+    .scorePrincipal strong {
+        font-size: 52px;
+    }
+
+    .statsGrid {
+        gap: 9px;
+    }
+
+    .stat {
+        padding:
+            15px
+            8px;
+    }
+
+    .stat strong {
+        font-size: 22px;
+    }
+
+    .bottomMenu {
+        min-height: 64px;
+    }
+
+    .bottomMenu a {
+        font-size: 10px;
+    }
+
+    .bottomMenu a span {
+        font-size: 19px;
+    }
+}

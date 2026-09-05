@@ -1,0 +1,1088 @@
+/* =========================================
+   MELHOR HORÁRIO — WAVERISE PRO
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(79, 172, 254, 0.18),
+            transparent 38%
+        ),
+        linear-gradient(
+            180deg,
+            #0d1118 0%,
+            #071522 55%,
+            #04101b 100%
+        );
+
+    color: #ffffff;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.mhHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+
+    padding: 18px 20px;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    background:
+        rgba(8,13,20,0.96);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 20;
+
+    backdrop-filter:
+        blur(14px);
+
+    -webkit-backdrop-filter:
+        blur(14px);
+}
+
+.mhHeader > div:nth-child(2) {
+    flex: 1;
+
+    margin-left: 14px;
+
+    min-width: 0;
+}
+
+.mhLogo {
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+.mhHeader p {
+    margin:
+        4px
+        0
+        0;
+
+    color: #9da3b0;
+
+    font-size: 12px;
+}
+
+.voltar {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 26px;
+
+    border-radius: 12px;
+
+    transition:
+        background .2s ease;
+}
+
+.voltar:hover {
+    background:
+        rgba(255,255,255,.07);
+}
+
+.proBadge {
+    padding:
+        8px
+        13px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4facfe,
+            #6c5ce7
+        );
+
+    color: #06111b;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    box-shadow:
+        0 8px 20px
+        rgba(79,172,254,.18);
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.melhorHorario {
+    width: min(
+        100%,
+        850px
+    );
+
+    margin: auto;
+
+    padding:
+        20px
+        16px
+        110px;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.mhHero {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding:
+        24px
+        4px
+        28px;
+}
+
+.heroIcon {
+    width: 64px;
+    height: 64px;
+
+    min-width: 64px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4facfe,
+            #6c5ce7
+        );
+
+    font-size: 31px;
+
+    box-shadow:
+        0 12px 35px
+        rgba(79,172,254,.20);
+}
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #72c7ff;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+}
+
+.mhHero h1 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size:
+        clamp(
+            24px,
+            6vw,
+            34px
+        );
+
+    line-height: 1.15;
+}
+
+.mhHero p {
+    margin:
+        8px
+        0
+        0;
+
+    color: #a5aab5;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   CARDS
+========================================= */
+
+.mhCard {
+    margin-bottom: 16px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(15,40,62,.78);
+
+    border:
+        1px solid
+        rgba(100,210,255,.10);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.18);
+}
+
+.mhCard.destaque {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,88,130,.72),
+            rgba(24,48,91,.80)
+        );
+
+    border-color:
+        rgba(79,172,254,.28);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.22);
+}
+
+.cardTitulo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+.tituloIcon {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    font-size: 20px;
+}
+
+.cardTitulo h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 18px;
+}
+
+.cardTitulo p {
+    margin:
+        4px
+        0
+        0;
+
+    color: #8f96a3;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   LOCALIZAÇÃO
+========================================= */
+
+.localStatus {
+    color: #ffffff;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+.coordenadas {
+    margin-top: 12px;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: #8f9aaa;
+
+    font-size: 11px;
+
+    text-align: center;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   BOTÃO PRINCIPAL
+========================================= */
+
+.btnPrincipal {
+    display: block;
+
+    width: 100%;
+
+    padding:
+        14px
+        18px;
+
+    border: 0;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4facfe,
+            #6c5ce7
+        );
+
+    color: #ffffff;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        opacity .2s ease;
+}
+
+.btnPrincipal:active {
+    transform:
+        scale(.98);
+}
+
+.btnPrincipal:disabled {
+    opacity: .55;
+
+    cursor:
+        not-allowed;
+
+    transform:
+        none;
+}
+
+
+/* =========================================
+   MELHOR HORÁRIO
+========================================= */
+
+.melhorTitulo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.melhorTitulo > span {
+    font-size: 30px;
+}
+
+.melhorTitulo h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 20px;
+}
+
+.horarioPrincipal {
+    text-align: center;
+
+    padding:
+        22px
+        10px
+        18px;
+}
+
+.horarioPrincipal strong {
+    display: block;
+
+    color: #72c7ff;
+
+    font-size:
+        clamp(
+            46px,
+            12vw,
+            72px
+        );
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #72c7ff,
+            #a48cff
+        );
+
+    -webkit-background-clip:
+        text;
+
+    -webkit-text-fill-color:
+        transparent;
+
+    background-clip:
+        text;
+}
+
+.horarioPrincipal span {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #9098a6;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   NOTA DO HORÁRIO
+========================================= */
+
+.notaHorario {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(0,0,0,.18);
+}
+
+.notaNumero {
+    min-width: 58px;
+
+    width: 58px;
+
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    color: #ffffff;
+
+    font-size: 23px;
+
+    font-weight: 900;
+}
+
+.notaHorario strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 14px;
+}
+
+.notaHorario p {
+    margin:
+        5px
+        0
+        0;
+
+    color: #9299a5;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   CONDIÇÕES
+========================================= */
+
+.condicoesGrid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 10px;
+}
+
+.condicao {
+    padding:
+        15px
+        8px;
+
+    min-width: 0;
+
+    text-align: center;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.035);
+}
+
+.condicao span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 20px;
+}
+
+.condicao strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 16px;
+}
+
+.condicao small {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #7f8794;
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   LISTA DE HORÁRIOS
+========================================= */
+
+.listaHorarios {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.estadoInicial {
+    padding:
+        30px
+        15px;
+
+    color: #777f8d;
+
+    text-align: center;
+}
+
+.estadoInicial span {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 30px;
+}
+
+.estadoInicial p {
+    margin: 0;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   ITEM DE HORÁRIO
+========================================= */
+
+.horarioItem {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.05);
+}
+
+.horarioItem.melhor {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79,172,254,.10),
+            rgba(108,92,231,.08)
+        );
+
+    border-color:
+        rgba(79,172,254,.40);
+}
+
+.hora {
+    min-width: 58px;
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: 900;
+}
+
+.horaInfo {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.horaInfo strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 13px;
+}
+
+.horaInfo small {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #818997;
+
+    font-size: 11px;
+}
+
+.horaNota {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: 900;
+}
+
+.melhorTag {
+    padding:
+        4px
+        7px;
+
+    border-radius: 6px;
+
+    background:
+        rgba(79,172,254,.15);
+
+    color: #72c7ff;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   COACH
+========================================= */
+
+.coachCard {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(108,92,231,.13),
+            rgba(79,172,254,.09)
+        );
+
+    border-color:
+        rgba(108,92,231,.20);
+}
+
+.coachMensagem {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(0,0,0,.16);
+}
+
+.coachAvatar {
+    width: 38px;
+    height: 38px;
+
+    min-width: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.07);
+}
+
+.coachMensagem p {
+    margin: 0;
+
+    color: #c2c7d0;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================
+   ATUALIZAR
+========================================= */
+
+.btnAtualizar {
+    width: 100%;
+
+    margin-bottom: 20px;
+
+    padding: 14px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.10);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    color: #c5cad3;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.btnAtualizar:active {
+    transform:
+        scale(.98);
+}
+
+.btnAtualizar:disabled {
+    opacity: .5;
+
+    cursor:
+        not-allowed;
+}
+
+
+/* =========================================
+   ESTADO DE CARREGAMENTO
+========================================= */
+
+.carregando {
+    opacity: .7;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 700px) {
+
+    .melhorHorario {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .condicoesGrid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================
+   CELULAR
+========================================= */
+
+@media (max-width: 600px) {
+
+    .mhHeader {
+        padding:
+            16px
+            14px;
+    }
+
+
+    .mhHeader > div:nth-child(2) {
+        margin-left: 10px;
+    }
+
+
+    .mhLogo {
+        font-size: 17px;
+    }
+
+
+    .proBadge {
+        padding:
+            8px
+            11px;
+
+        border-radius: 13px;
+    }
+
+
+    .melhorHorario {
+        padding:
+            16px
+            12px
+            100px;
+    }
+
+
+    .mhHero {
+        gap: 13px;
+
+        padding:
+            20px
+            4px
+            24px;
+    }
+
+
+    .heroIcon {
+        width: 55px;
+        height: 55px;
+
+        min-width: 55px;
+
+        border-radius: 16px;
+
+        font-size: 27px;
+    }
+
+
+    .mhHero h1 {
+        font-size: 27px;
+    }
+
+
+    .mhHero p {
+        font-size: 13px;
+    }
+
+
+    .mhCard {
+        padding: 16px;
+
+        border-radius: 18px;
+    }
+
+
+    .horarioPrincipal strong {
+        font-size: 58px;
+    }
+
+
+    .notaHorario {
+        padding: 13px;
+
+        gap: 12px;
+    }
+
+
+    .notaNumero {
+        width: 54px;
+        min-width: 54px;
+
+        height: 54px;
+    }
+
+
+    .horarioItem {
+        gap: 9px;
+
+        padding: 12px;
+    }
+
+
+    .hora {
+        min-width: 52px;
+
+        font-size: 15px;
+    }
+
+
+    .horaInfo strong {
+        font-size: 12px;
+    }
+
+
+    .horaInfo small {
+        font-size: 10px;
+    }
+
+
+    .horaNota {
+        font-size: 15px;
+    }
+
+}
+
+
+/* =========================================
+   CELULARES PEQUENOS
+========================================= */
+
+@media (max-width: 380px) {
+
+    .mhHero {
+        align-items: flex-start;
+    }
+
+
+    .heroIcon {
+        width: 50px;
+        height: 50px;
+
+        min-width: 50px;
+    }
+
+
+    .mhHero h1 {
+        font-size: 24px;
+    }
+
+
+    .condicao {
+        padding:
+            13px
+            6px;
+    }
+
+
+    .horarioItem {
+        gap: 7px;
+    }
+
+
+    .hora {
+        min-width: 48px;
+    }
+
+}

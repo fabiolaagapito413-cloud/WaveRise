@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Coach IA Pro — WaveRise</title>
+
+    <!-- CSS PRINCIPAL -->
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- CSS DO COACH PRO -->
+    <link rel="stylesheet" href="coach-pro.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
+
+    <main class="page">
+
+
+        <!-- =================================================
+             TOPO
+        ================================================== -->
+
+        <div class="topBar">
+
+            <a href="../index.html">
+                ← Voltar
+            </a>
+
+            <h1>
+                🌊 WaveRise
+            </h1>
+
+            <a href="perfil.html">
+                👤
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero">
+
+            <h2>
+                🤖 Coach IA Pro
+            </h2>
+
+            <p>
+                Sua análise inteligente de surf,
+                evolução técnica e próximos desafios.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             DIAGNÓSTICO
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    🧠
+                </span>
+
+                <div>
+
+                    <h2>
+                        Diagnóstico
+                    </h2>
+
+                    <p>
+                        Como está seu surf atualmente
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="diagnostico"
+                class="coachProTexto"
+            >
+                Carregando seu diagnóstico...
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PLANO DE EVOLUÇÃO
+        ================================================== -->
+
+        <section
+            class="card coachProPlano"
+            onclick="location.href='plano-evolucao.html'"
+            role="link"
+            tabindex="0"
+            onkeydown="
+                if(event.key === 'Enter' || event.key === ' ')
+                location.href='plano-evolucao.html'
+            "
+        >
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    📈
+                </span>
+
+                <div>
+
+                    <h2>
+                        Plano de evolução
+                    </h2>
+
+                    <p>
+                        Seu caminho personalizado para evoluir no surf
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="planoBloco">
+
+                <span class="planoLabel">
+                    🎯 Objetivo
+                </span>
+
+                <strong id="planoObjetivo">
+                    Carregando...
+                </strong>
+
+            </div>
+
+
+            <div class="planoBloco">
+
+                <span class="planoLabel">
+                    ⏱️ Prazo
+                </span>
+
+                <strong id="planoPrazo">
+                    Carregando...
+                </strong>
+
+            </div>
+
+
+            <div class="planoBloco">
+
+                <span class="planoLabel">
+                    📅 Frequência
+                </span>
+
+                <strong id="planoFrequencia">
+                    Carregando...
+                </strong>
+
+            </div>
+
+
+            <div class="planoBloco">
+
+                <span class="planoLabel">
+                    🏄 Fase atual
+                </span>
+
+                <strong
+                    id="planoFase"
+                    class="planoFase"
+                >
+                    Carregando...
+                </strong>
+
+            </div>
+
+
+            <div class="planoBloco">
+
+                <span class="planoLabel">
+                    🎯 Meta
+                </span>
+
+                <p id="planoMeta">
+                    Carregando...
+                </p>
+
+            </div>
+
+
+            <div class="planoBloco">
+
+                <span class="planoLabel">
+                    💪 Treino recomendado
+                </span>
+
+                <p id="planoTreino">
+                    Carregando...
+                </p>
+
+            </div>
+
+
+            <div class="planoProgresso">
+
+                <div class="planoProgressoTopo">
+
+                    <span>
+                        Progresso do plano
+                    </span>
+
+                    <strong id="planoProgresso">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="barra">
+
+                    <div id="barraPlano"></div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="planoAbrir"
+                style="
+                    margin-top:18px;
+                    display:flex;
+                    justify-content:space-between;
+                    color:#62ddff;
+                    font-weight:800;
+                    font-size:14px;
+                "
+            >
+
+                <span>
+                    Ver plano completo
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             WAVERISE SCORE
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    🏆
+                </span>
+
+                <div>
+
+                    <h2>
+                        WaveRise Score
+                    </h2>
+
+                    <p>
+                        Seu nível geral de performance
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="scorePrincipal">
+
+                <strong id="waveScore">
+                    --
+                </strong>
+
+                <span>
+                    / 100
+                </span>
+
+            </div>
+
+
+            <div
+                id="scoreDescricao"
+                class="scoreDescricao"
+            >
+                Analisando seu desempenho...
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PONTOS FORTES
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    💪
+                </span>
+
+                <div>
+
+                    <h2>
+                        Pontos fortes
+                    </h2>
+
+                    <p>
+                        O que você já faz bem
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="pontosFortes"
+                class="coachProTexto"
+            >
+                Carregando...
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MELHORIAS
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    🚀
+                </span>
+
+                <div>
+
+                    <h2>
+                        Melhorias
+                    </h2>
+
+                    <p>
+                        Onde você pode evoluir
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="melhorias"
+                class="coachProTexto"
+            >
+                Carregando...
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             DESEMPENHO TÉCNICO
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    📊
+                </span>
+
+                <div>
+
+                    <h2>
+                        Desempenho técnico
+                    </h2>
+
+                    <p>
+                        Análise dos principais fundamentos
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- EQUILÍBRIO -->
+
+            <div class="habilidade">
+
+                <div class="habilidadeTopo">
+
+                    <span>
+                        Equilíbrio
+                    </span>
+
+                    <strong id="valorEquilibrio">
+                        --
+                    </strong>
+
+                </div>
+
+                <div class="barra">
+
+                    <div id="barraEquilibrio"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- POSTURA -->
+
+            <div class="habilidade">
+
+                <div class="habilidadeTopo">
+
+                    <span>
+                        Postura
+                    </span>
+
+                    <strong id="valorPostura">
+                        --
+                    </strong>
+
+                </div>
+
+                <div class="barra">
+
+                    <div id="barraPostura"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PERNAS -->
+
+            <div class="habilidade">
+
+                <div class="habilidadeTopo">
+
+                    <span>
+                        Pernas
+                    </span>
+
+                    <strong id="valorPernas">
+                        --
+                    </strong>
+
+                </div>
+
+                <div class="barra">
+
+                    <div id="barraPernas"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BRAÇOS -->
+
+            <div class="habilidade">
+
+                <div class="habilidadeTopo">
+
+                    <span>
+                        Braços
+                    </span>
+
+                    <strong id="valorBracos">
+                        --
+                    </strong>
+
+                </div>
+
+                <div class="barra">
+
+                    <div id="barraBracos"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- POSIÇÃO NA PRANCHA -->
+
+            <div class="habilidade">
+
+                <div class="habilidadeTopo">
+
+                    <span>
+                        Posição na prancha
+                    </span>
+
+                    <strong id="valorPrancha">
+                        --
+                    </strong>
+
+                </div>
+
+                <div class="barra">
+
+                    <div id="barraPrancha"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MANOBRAS
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    🏄
+                </span>
+
+                <div>
+
+                    <h2>
+                        Manobras
+                    </h2>
+
+                    <p>
+                        Seu desempenho nas principais manobras
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTTOM TURN -->
+
+            <div class="manobra">
+
+                <div class="manobraTopo">
+
+                    <span>
+                        Bottom Turn
+                    </span>
+
+                    <strong id="bottomTurn">
+                        --
+                    </strong>
+
+                </div>
+
+                <div class="barra">
+
+                    <div id="barraBottomTurn"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CUTBACK -->
+
+            <div class="manobra">
+
+                <div class="manobraTopo">
+
+                    <span>
+                        Cutback
+                    </span>
+
+                    <strong id="cutback">
+                        --
+                    </strong>
+
+                </div>
+
+                <div class="barra">
+
+                    <div id="barraCutback"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- AÉREO -->
+
+            <div class="manobra">
+
+                <div class="manobraTopo">
+
+                    <span>
+                        Aéreo
+                    </span>
+
+                    <strong id="aereo">
+                        --
+                    </strong>
+
+                </div>
+
+                <div class="barra">
+
+                    <div id="barraAereo"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARVE -->
+
+            <div class="manobra">
+
+                <div class="manobraTopo">
+
+                    <span>
+                        Carve
+                    </span>
+
+                    <strong id="carve">
+                        --
+                    </strong>
+
+                </div>
+
+                <div class="barra">
+
+                    <div id="barraCarve"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MISSÃO
+        ================================================== -->
+
+        <section class="card coachProMissao">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    🔥
+                </span>
+
+                <div>
+
+                    <h2>
+                        Missão atual
+                    </h2>
+
+                    <p>
+                        Seu próximo desafio
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <h3 id="missao">
+                Carregando missão...
+            </h3>
+
+
+            <p id="descricaoMissao">
+                Preparando seu próximo desafio.
+            </p>
+
+
+            <div class="planoProgresso">
+
+                <div class="planoProgressoTopo">
+
+                    <span>
+                        Progresso
+                    </span>
+
+                    <strong id="progressoMissao">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="barra">
+
+                    <div id="barraMissao"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TREINO
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    🏋️
+                </span>
+
+                <div>
+
+                    <h2>
+                        Treino recomendado
+                    </h2>
+
+                    <p>
+                        Exercício para sua evolução
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="treino"
+                class="coachProTexto"
+            >
+                Carregando treino...
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PRÓXIMO OBJETIVO
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    🎯
+                </span>
+
+                <div>
+
+                    <h2>
+                        Próximo objetivo
+                    </h2>
+
+                    <p>
+                        O que buscar nas próximas sessões
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="proximoObjetivo"
+                class="coachProTexto"
+            >
+                Carregando...
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ESTATÍSTICAS
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    📈
+                </span>
+
+                <div>
+
+                    <h2>
+                        Estatísticas
+                    </h2>
+
+                    <p>
+                        Seu histórico no WaveRise
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="statsGrid">
+
+
+                <div class="stat">
+
+                    <span>
+                        🏅
+                    </span>
+
+                    <strong id="nivel">
+                        1
+                    </strong>
+
+                    <small>
+                        Nível
+                    </small>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <span>
+                        ⭐
+                    </span>
+
+                    <strong id="xp">
+                        0
+                    </strong>
+
+                    <small>
+                        XP
+                    </small>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <span>
+                        🌊
+                    </span>
+
+                    <strong id="ondas">
+                        0
+                    </strong>
+
+                    <small>
+                        Ondas
+                    </small>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <span>
+                        ⏱️
+                    </span>
+
+                    <strong id="tempo">
+                        0h
+                    </strong>
+
+                    <small>
+                        No mar
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ANÁLISE VISUAL
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    🎥
+                </span>
+
+                <div>
+
+                    <h2>
+                        Análise visual
+                    </h2>
+
+                    <p>
+                        Envie uma foto ou vídeo da sua sessão
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="analise-foto.html"
+                class="btnPrincipal"
+                style="
+                    display:block;
+                    text-align:center;
+                    text-decoration:none;
+                "
+            >
+                📸 Analisar foto
+            </a>
+
+
+            <a
+                href="analise-video.html"
+                class="btnPrincipal"
+                style="
+                    display:block;
+                    text-align:center;
+                    text-decoration:none;
+                    margin-top:10px;
+                "
+            >
+                🎥 Analisar vídeo
+            </a>
+
+        </section>
+
+
+        <!-- =================================================
+             RELATÓRIO
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="cardTitulo">
+
+                <span class="iconeCard">
+                    📋
+                </span>
+
+                <div>
+
+                    <h2>
+                        Relatório
+                    </h2>
+
+                    <p>
+                        Resumo da sua evolução
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="relatorio"
+                class="coachProTexto"
+            >
+                Gerando relatório...
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         MENU INFERIOR
+    ====================================================== -->
+
+    <nav class="bottomMenu">
+
+
+        <a href="../index.html">
+
+            <span>
+                🏠
+            </span>
+
+            <small>
+                Início
+            </small>
+
+        </a>
+
+
+        <a href="diario.html">
+
+            <span>
+                🌊
+            </span>
+
+            <small>
+                Diário
+            </small>
+
+        </a>
+
+
+        <a
+            href="coach-pro.html"
+            class="ativo"
+        >
+
+            <span>
+                🤖
+            </span>
+
+            <small>
+                Coach
+            </small>
+
+        </a>
+
+
+        <a href="evolucao.html">
+
+            <span>
+                📊
+            </span>
+
+            <small>
+                Evolução
+            </small>
+
+        </a>
+
+
+        <a href="perfil.html">
+
+            <span>
+                👤
+            </span>
+
+            <small>
+                Perfil
+            </small>
+
+        </a>
+
+    </nav>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        src="coach-pro.js"
+    ></script>
+
+
+</body>
+
+</html>

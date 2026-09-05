@@ -1,0 +1,594 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(79,172,254,0.15),
+            transparent 35%
+        ),
+        #0f1115;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* HEADER */
+
+.cpHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 18px 20px;
+
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    background: rgba(15,17,21,0.94);
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(12px);
+}
+
+.cpHeaderInfo {
+    flex: 1;
+}
+
+.voltar {
+    color: white;
+    text-decoration: none;
+    font-size: 26px;
+}
+
+.cpLogo {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.cpHeader p {
+    margin: 4px 0 0;
+    color: #8d95a3;
+    font-size: 12px;
+}
+
+.proBadge {
+    padding: 6px 9px;
+    border-radius: 7px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4facfe,
+            #6c5ce7
+        );
+
+    font-size: 10px;
+    font-weight: 900;
+}
+
+
+/* MAIN */
+
+.compararPraias {
+    width: min(100%, 900px);
+    margin: auto;
+
+    padding: 20px 16px 110px;
+}
+
+
+/* HERO */
+
+.cpHero {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 20px 4px 28px;
+}
+
+.cpHeroIcon {
+    width: 62px;
+    height: 62px;
+    min-width: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    font-size: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4facfe,
+            #6c5ce7
+        );
+}
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #72c7ff;
+
+    font-size: 10px;
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+}
+
+.cpHero h1 {
+    margin: 0;
+
+    font-size: clamp(25px, 7vw, 36px);
+}
+
+.cpHero p {
+    margin: 8px 0 0;
+
+    color: #969daa;
+
+    line-height: 1.5;
+
+    font-size: 13px;
+}
+
+
+/* CARD */
+
+.cpCard {
+    margin-bottom: 15px;
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.045);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+}
+
+.cardTitulo {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 17px;
+}
+
+.tituloIcon {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: rgba(255,255,255,0.07);
+
+    font-size: 20px;
+}
+
+.cardTitulo h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.cardTitulo p {
+    margin: 4px 0 0;
+
+    color: #858d9a;
+
+    font-size: 12px;
+}
+
+
+/* INPUT */
+
+.cpInput {
+    width: 100%;
+
+    padding: 15px;
+
+    border-radius: 13px;
+
+    border:
+        1px solid rgba(255,255,255,0.09);
+
+    outline: none;
+
+    background: rgba(0,0,0,0.2);
+
+    color: white;
+
+    font-size: 14px;
+}
+
+.cpInput::placeholder {
+    color: #6e7683;
+}
+
+.cpInput:focus {
+    border-color: rgba(79,172,254,0.5);
+}
+
+
+/* LOCAL */
+
+.localBox {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.025);
+}
+
+.localBox > span {
+    font-size: 20px;
+}
+
+.localBox strong {
+    display: block;
+    font-size: 12px;
+}
+
+.localBox small {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #747d8b;
+
+    font-size: 10px;
+}
+
+
+/* BOTÃO */
+
+.btnComparar {
+    width: 100%;
+
+    padding: 16px;
+
+    margin: 4px 0 16px;
+
+    border: 0;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4facfe,
+            #6c5ce7
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+.btnSecundario {
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid rgba(255,255,255,0.1);
+
+    background: rgba(255,255,255,0.035);
+
+    color: #c1c6cf;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* RESULTADO */
+
+.resultado {
+    padding: 20px;
+
+    margin-top: 8px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.045);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+}
+
+.resultadoTitulo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+.resultadoTitulo > span {
+    font-size: 27px;
+}
+
+.resultadoTitulo h2 {
+    margin: 0;
+}
+
+
+/* GRID */
+
+.praiasGrid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+.praiaResultado {
+    padding: 16px;
+
+    border-radius: 16px;
+
+    background: rgba(0,0,0,0.16);
+
+    border:
+        1px solid rgba(255,255,255,0.06);
+}
+
+.praiaResultado.vencedoraCard {
+    border-color:
+        rgba(79,172,254,0.5);
+}
+
+.praiaCabecalho {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.posicao {
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.07);
+
+    font-weight: 900;
+}
+
+.praiaCabecalho h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.praiaCabecalho small {
+    color: #717a88;
+    font-size: 10px;
+}
+
+
+/* SCORE */
+
+.scorePraia {
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 4px;
+
+    margin: 20px 0;
+}
+
+.scorePraia strong {
+    font-size: 42px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #72c7ff,
+            #a48cff
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.scorePraia span {
+    color: #717987;
+    font-size: 12px;
+}
+
+
+/* DADOS */
+
+.dadosPraia {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 8px;
+}
+
+.dadosPraia > div {
+    padding: 10px 7px;
+
+    text-align: center;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.035);
+}
+
+.dadosPraia span {
+    display: block;
+
+    margin-bottom: 4px;
+}
+
+.dadosPraia strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.dadosPraia small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #707986;
+
+    font-size: 9px;
+}
+
+
+/* VENCEDORA */
+
+.vencedora {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-top: 14px;
+
+    padding: 16px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79,172,254,0.11),
+            rgba(108,92,231,0.09)
+        );
+
+    border:
+        1px solid rgba(79,172,254,0.2);
+}
+
+.trofeu {
+    font-size: 32px;
+}
+
+.vencedora h3 {
+    margin: 0;
+
+    font-size: 18px;
+}
+
+.vencedora p {
+    margin: 5px 0 0;
+
+    color: #929aa7;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+
+/* COACH */
+
+.coachComparacao {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 14px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background: rgba(0,0,0,0.15);
+}
+
+.coachAvatar {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.07);
+}
+
+.coachComparacao strong {
+    font-size: 13px;
+}
+
+.coachComparacao p {
+    margin: 5px 0 0;
+
+    color: #a7adb7;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+
+    .compararPraias {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .praiasGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .cpHero {
+        padding-top: 15px;
+    }
+
+}

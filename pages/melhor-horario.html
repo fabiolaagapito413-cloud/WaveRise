@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Melhor Horário — WaveRise</title>
+
+
+    <!-- CSS GLOBAL -->
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+
+    <!-- CSS DA PÁGINA -->
+
+    <link
+        rel="stylesheet"
+        href="melhor-horario.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
+
+    <header class="mhHeader">
+
+
+        <a
+            href="../index.html"
+            class="voltar"
+            aria-label="Voltar"
+        >
+            ←
+        </a>
+
+
+        <div>
+
+            <span class="mhLogo">
+                🌊 WaveRise
+            </span>
+
+            <p>
+                Melhor horário
+            </p>
+
+        </div>
+
+
+        <div class="proBadge">
+            PRO
+        </div>
+
+
+    </header>
+
+
+
+    <!-- ==================================================
+         CONTEÚDO
+    ================================================== -->
+
+    <main class="melhorHorario">
+
+
+        <!-- ==================================================
+             HERO
+        ================================================== -->
+
+        <section class="mhHero">
+
+
+            <div class="heroIcon">
+                🕐
+            </div>
+
+
+            <div>
+
+                <span class="eyebrow">
+                    WAVE RISE PRO
+                </span>
+
+
+                <h1>
+                    Melhor horário para surfar
+                </h1>
+
+
+                <p>
+                    Descubra quais horários apresentam
+                    as melhores condições para sua sessão.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==================================================
+             LOCALIZAÇÃO
+        ================================================== -->
+
+        <section class="mhCard">
+
+
+            <div class="cardTitulo">
+
+
+                <div class="tituloIcon">
+                    📍
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Local da sessão
+                    </h2>
+
+
+                    <p id="localStatus">
+                        Localização não definida
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <button
+                id="btnLocalizacao"
+                class="btnPrincipal"
+                type="button"
+            >
+
+                📍 Usar minha localização
+
+            </button>
+
+
+
+            <div
+                class="coordenadas"
+                id="coordenadas"
+            >
+
+                Aguardando localização...
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==================================================
+             MELHOR HORÁRIO
+        ================================================== -->
+
+        <section
+            class="mhCard destaque"
+        >
+
+
+            <div class="melhorTitulo">
+
+
+                <span>
+                    ⭐
+                </span>
+
+
+                <div>
+
+                    <span class="eyebrow">
+                        RECOMENDAÇÃO
+                    </span>
+
+
+                    <h2>
+                        Melhor horário
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="horarioPrincipal">
+
+
+                <strong id="melhorHorario">
+                    --
+                </strong>
+
+
+                <span id="melhorData">
+                    --
+                </span>
+
+
+            </div>
+
+
+
+            <div class="notaHorario">
+
+
+                <div
+                    class="notaNumero"
+                    id="notaMelhorHorario"
+                >
+
+                    --
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Qualidade do horário
+                    </strong>
+
+
+                    <p id="descricaoMelhorHorario">
+                        Aguardando dados do mar...
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==================================================
+             CONDIÇÕES
+        ================================================== -->
+
+        <section class="mhCard">
+
+
+            <div class="cardTitulo">
+
+
+                <div class="tituloIcon">
+                    🌊
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Condições
+                    </h2>
+
+
+                    <p>
+                        Previsão do melhor período
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="condicoesGrid">
+
+
+                <!-- ONDAS -->
+
+                <div class="condicao">
+
+                    <span>
+                        🌊
+                    </span>
+
+
+                    <strong id="ondas">
+                        --
+                    </strong>
+
+
+                    <small>
+                        Ondas
+                    </small>
+
+                </div>
+
+
+
+                <!-- VENTO -->
+
+                <div class="condicao">
+
+                    <span>
+                        💨
+                    </span>
+
+
+                    <strong id="vento">
+                        --
+                    </strong>
+
+
+                    <small>
+                        Vento
+                    </small>
+
+                </div>
+
+
+
+                <!-- TEMPERATURA -->
+
+                <div class="condicao">
+
+                    <span>
+                        🌡️
+                    </span>
+
+
+                    <strong id="temperatura">
+                        --
+                    </strong>
+
+
+                    <small>
+                        Temperatura
+                    </small>
+
+                </div>
+
+
+
+                <!-- PERÍODO -->
+
+                <div class="condicao">
+
+                    <span>
+                        ⏱️
+                    </span>
+
+
+                    <strong id="tempo">
+                        --
+                    </strong>
+
+
+                    <small>
+                        Período
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==================================================
+             HORÁRIOS DO DIA
+        ================================================== -->
+
+        <section class="mhCard">
+
+
+            <div class="cardTitulo">
+
+
+                <div class="tituloIcon">
+                    🕐
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Horários do dia
+                    </h2>
+
+
+                    <p>
+                        Comparação das melhores janelas
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div
+                id="listaHorarios"
+                class="listaHorarios"
+            >
+
+
+                <div class="estadoInicial">
+
+                    <span>
+                        🌊
+                    </span>
+
+
+                    <p>
+                        Ative sua localização para
+                        analisar os horários.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==================================================
+             COACH IA
+        ================================================== -->
+
+        <section
+            class="mhCard coachCard"
+        >
+
+
+            <div class="cardTitulo">
+
+
+                <div class="tituloIcon">
+                    🤖
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Coach IA
+                    </h2>
+
+
+                    <p>
+                        Recomendação personalizada
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="coachMensagem">
+
+
+                <span class="coachAvatar">
+                    🤖
+                </span>
+
+
+                <p id="coachMensagem">
+
+                    Assim que analisarmos as condições,
+                    o Coach IA vai indicar o melhor momento
+                    para sua sessão.
+
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==================================================
+             ATUALIZAR PREVISÃO
+        ================================================== -->
+
+        <button
+            id="btnAtualizar"
+            class="btnAtualizar"
+            type="button"
+        >
+
+            🔄 Atualizar previsão
+
+        </button>
+
+
+    </main>
+
+
+
+    <!-- ==================================================
+         MENU INFERIOR
+    ================================================== -->
+
+    <nav class="bottomMenu">
+
+
+        <a href="../index.html">
+
+            <span>
+                🏠
+            </span>
+
+            <small>
+                Início
+            </small>
+
+        </a>
+
+
+
+        <a href="diario.html">
+
+            <span>
+                🌊
+            </span>
+
+            <small>
+                Diário
+            </small>
+
+        </a>
+
+
+
+        <a href="coach-pro.html">
+
+            <span>
+                🤖
+            </span>
+
+            <small>
+                Coach
+            </small>
+
+        </a>
+
+
+
+        <a href="evolucao.html">
+
+            <span>
+                📊
+            </span>
+
+            <small>
+                Evolução
+            </small>
+
+        </a>
+
+
+
+        <a href="perfil.html">
+
+            <span>
+                👤
+            </span>
+
+            <small>
+                Perfil
+            </small>
+
+        </a>
+
+
+    </nav>
+
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script
+        type="module"
+        src="melhor-horario.js"
+    ></script>
+
+
+</body>
+
+</html>

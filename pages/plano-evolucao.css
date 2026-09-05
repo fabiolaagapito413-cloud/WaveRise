@@ -1,0 +1,816 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    color: #ffffff;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #12385b 0%,
+            #071522 45%,
+            #030a11 100%
+        );
+}
+
+
+/* ==================================================
+   PÁGINA
+================================================== */
+
+.planoPage {
+    width: 100%;
+    max-width: 650px;
+
+    margin: auto;
+
+    padding:
+        20px
+        18px
+        100px;
+}
+
+
+/* ==================================================
+   TOPO
+================================================== */
+
+.planoTopo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 20px;
+}
+
+.btnVoltar {
+    width: 44px;
+    height: 44px;
+
+    border: 0;
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: #ffffff;
+
+    font-size: 22px;
+
+    cursor: pointer;
+}
+
+.planoTopo h1 {
+    margin: 0;
+
+    font-size: 23px;
+}
+
+.planoTopo p {
+    margin:
+        4px
+        0
+        0;
+
+    color: #8faec3;
+
+    font-size: 12px;
+}
+
+
+/* ==================================================
+   HERO
+================================================== */
+
+.planoHero {
+    padding: 24px;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,95,145,.70),
+            rgba(8,30,50,.95)
+        );
+
+    border:
+        1px solid
+        rgba(100,220,255,.20);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.30);
+}
+
+.planoHeroIcon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #159fe0,
+            #6b63ff
+        );
+
+    font-size: 29px;
+
+    margin-bottom: 15px;
+}
+
+.planoHero h2 {
+    margin:
+        0
+        0
+        8px;
+
+    font-size: 21px;
+}
+
+.planoHero p {
+    margin: 0;
+
+    color: #b7d0e2;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* ==================================================
+   OBJETIVO
+================================================== */
+
+.objetivoCard {
+    margin-top: 16px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(10,31,48,.88);
+
+    border:
+        1px solid
+        rgba(90,210,255,.16);
+}
+
+.label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #63dcff;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+#objetivoPrincipal {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 19px;
+}
+
+
+/* ==================================================
+   STATUS DA FASE
+================================================== */
+
+.statusCard {
+    margin-top: 16px;
+
+    padding:
+        18px
+        20px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18,72,103,.90),
+            rgba(8,29,46,.95)
+        );
+
+    border:
+        1px solid
+        rgba(80,215,255,.22);
+}
+
+.statusLabel {
+    color: #70dfff;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+#statusFase {
+    margin:
+        7px
+        0
+        4px;
+
+    font-size: 20px;
+}
+
+#statusDescricao {
+    margin: 0;
+
+    color: #a9c5d6;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* ==================================================
+   PROGRESSO
+================================================== */
+
+.progressoCard {
+    margin-top: 16px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(10,31,48,.88);
+
+    border:
+        1px solid
+        rgba(90,210,255,.16);
+}
+
+.progressoTopo {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+.progressoTopo span {
+    color: #aac4d5;
+
+    font-size: 13px;
+}
+
+#progressoValor {
+    color: #62ddff;
+
+    font-size: 14px;
+
+    font-weight: 900;
+}
+
+.barra {
+    width: 100%;
+
+    height: 10px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.08);
+}
+
+#barraProgresso {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #25baff,
+            #6d65ff
+        );
+
+    transition:
+        width .6s ease;
+}
+
+
+/* ==================================================
+   RESUMO
+================================================== */
+
+.resumoGrid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 16px;
+}
+
+.resumoBox {
+    padding: 15px;
+
+    border-radius: 17px;
+
+    background:
+        rgba(10,31,48,.88);
+
+    border:
+        1px solid
+        rgba(90,210,255,.12);
+}
+
+.resumoBox span {
+    display: block;
+
+    color: #7897aa;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .7px;
+}
+
+.resumoBox strong {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #ffffff;
+
+    font-size: 16px;
+}
+
+
+/* ==================================================
+   TÍTULOS
+================================================== */
+
+.tituloSecao {
+    margin:
+        25px
+        0
+        12px;
+
+    font-size: 18px;
+}
+
+
+/* ==================================================
+   FASES
+================================================== */
+
+.fase {
+    margin-bottom: 12px;
+
+    padding: 18px;
+
+    border-radius: 19px;
+
+    background:
+        rgba(10,31,48,.88);
+
+    border:
+        1px solid
+        rgba(90,210,255,.12);
+
+    opacity: .72;
+
+    transition:
+        .25s ease;
+}
+
+.faseAtual {
+    opacity: 1;
+
+    border:
+        1px solid
+        rgba(80,215,255,.42);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,75,105,.65),
+            rgba(8,30,48,.92)
+        );
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.20);
+}
+
+.faseConcluida {
+    opacity: .9;
+}
+
+.faseTopo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.faseIcon {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        rgba(50,190,255,.10);
+
+    font-size: 21px;
+}
+
+.faseTopo strong {
+    display: block;
+
+    font-size: 15px;
+}
+
+.faseTopo span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #809db1;
+
+    font-size: 11px;
+}
+
+.faseTexto {
+    margin:
+        15px
+        0
+        0;
+
+    color: #abc5d6;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+.faseStatus {
+    display: inline-block;
+
+    margin-top: 12px;
+
+    padding:
+        5px
+        10px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(70,210,150,.10);
+
+    color: #83e9b0;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+.fase:not(.faseAtual) .faseStatus {
+    background:
+        rgba(255,255,255,.06);
+
+    color: #809db1;
+}
+
+
+/* ==================================================
+   METAS
+================================================== */
+
+.metasCard {
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(10,31,48,.88);
+
+    border:
+        1px solid
+        rgba(90,210,255,.12);
+}
+
+.meta {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding:
+        13px
+        0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+.meta:last-child {
+    border-bottom: 0;
+}
+
+.metaIcon {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        rgba(50,190,255,.09);
+
+    font-size: 18px;
+}
+
+.metaTexto {
+    flex: 1;
+}
+
+.metaTexto strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 13px;
+}
+
+.metaTexto span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #7795a9;
+
+    font-size: 11px;
+}
+
+.metaCheck {
+    color: #59ddff;
+
+    font-size: 18px;
+
+    font-weight: 800;
+}
+
+
+/* ==================================================
+   TREINO
+================================================== */
+
+.treinoCard {
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17,57,82,.90),
+            rgba(7,27,43,.96)
+        );
+
+    border:
+        1px solid
+        rgba(80,210,255,.20);
+}
+
+.treinoItem {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 13px;
+
+    padding: 13px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.035);
+}
+
+.treinoItem span:first-child {
+    font-size: 20px;
+}
+
+.treinoItem strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.treinoItem p {
+    margin:
+        4px
+        0
+        0;
+
+    color: #89a7ba;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* ==================================================
+   COACH IA
+================================================== */
+
+.coachCard {
+    margin-top: 16px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(49,43,105,.70),
+            rgba(13,28,52,.95)
+        );
+
+    border:
+        1px solid
+        rgba(125,120,255,.22);
+}
+
+.coachTitulo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-weight: 900;
+
+    font-size: 14px;
+}
+
+#coachMensagem {
+    margin:
+        10px
+        0
+        0;
+
+    color: #b7cce0;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* ==================================================
+   BOTÕES
+================================================== */
+
+.btnDiario {
+    width: 100%;
+
+    margin-top: 18px;
+
+    padding: 15px;
+
+    border: 0;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #25baff,
+            #6666ff
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+.btnCoach {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 13px;
+
+    border:
+        1px solid
+        rgba(100,220,255,.20);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: #bfeaff;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.btnDiario:active,
+.btnCoach:active,
+.btnVoltar:active {
+    transform: scale(.98);
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width: 420px) {
+
+    .planoPage {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .planoHero {
+        padding: 20px;
+    }
+
+    .resumoGrid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}

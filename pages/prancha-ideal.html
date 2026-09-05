@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prancha Ideal — WaveRise</title>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="prancha-ideal.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="pranchaHeader">
+
+        <a href="../index.html" class="voltar">
+            ←
+        </a>
+
+        <div class="headerInfo">
+            <span>🌊 WaveRise</span>
+            <p>Prancha ideal</p>
+        </div>
+
+        <span class="proBadge">
+            PRO
+        </span>
+
+    </header>
+
+
+    <!-- =========================================
+         CONTEÚDO
+    ========================================== -->
+
+    <main class="pranchaPage">
+
+        <!-- HERO -->
+
+        <section class="pranchaHero">
+
+            <div class="heroIcon">
+                🏄
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    WAVERISE PRO
+                </span>
+
+                <h1>
+                    Encontre sua prancha ideal
+                </h1>
+
+                <p>
+                    Uma recomendação baseada no seu perfil,
+                    nível e objetivo no surf.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- PERFIL -->
+
+        <section class="pranchaCard">
+
+            <div class="cardTitulo">
+
+                <span class="tituloIcon">
+                    👤
+                </span>
+
+                <div>
+                    <h2>
+                        Seu perfil
+                    </h2>
+
+                    <p>
+                        Dados utilizados na recomendação
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="perfilGrid">
+
+                <div class="perfilItem">
+
+                    <span>
+                        🏅
+                    </span>
+
+                    <small>
+                        Nível
+                    </small>
+
+                    <strong id="nivel">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="perfilItem">
+
+                    <span>
+                        🎯
+                    </span>
+
+                    <small>
+                        Objetivo
+                    </small>
+
+                    <strong id="objetivo">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="perfilItem">
+
+                    <span>
+                        📏
+                    </span>
+
+                    <small>
+                        Altura
+                    </small>
+
+                    <strong id="altura">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="perfilItem">
+
+                    <span>
+                        ⚖️
+                    </span>
+
+                    <small>
+                        Peso
+                    </small>
+
+                    <strong id="peso">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUESTIONÁRIO -->
+
+        <section class="pranchaCard">
+
+            <div class="cardTitulo">
+
+                <span class="tituloIcon">
+                    🌊
+                </span>
+
+                <div>
+                    <h2>
+                        Sobre suas ondas
+                    </h2>
+
+                    <p>
+                        Conte como você costuma surfar
+                    </p>
+                </div>
+
+            </div>
+
+
+            <label class="campoLabel">
+                Tipo de onda que você mais surfa
+            </label>
+
+            <select
+                id="tipoOnda"
+                class="campoSelect"
+            >
+
+                <option value="pequena">
+                    Pequenas e fracas
+                </option>
+
+                <option value="media" selected>
+                    Ondas médias
+                </option>
+
+                <option value="forte">
+                    Ondas fortes
+                </option>
+
+                <option value="grande">
+                    Ondas grandes
+                </option>
+
+            </select>
+
+
+            <label class="campoLabel">
+                O que você quer melhorar?
+            </label>
+
+            <select
+                id="foco"
+                class="campoSelect"
+            >
+
+                <option value="estabilidade">
+                    Estabilidade e confiança
+                </option>
+
+                <option value="velocidade">
+                    Velocidade
+                </option>
+
+                <option value="manobras">
+                    Manobras
+                </option>
+
+                <option value="performance">
+                    Performance
+                </option>
+
+                <option value="ondas">
+                    Pegar mais ondas
+                </option>
+
+            </select>
+
+
+            <label class="campoLabel">
+                Tipo de surf que você procura
+            </label>
+
+            <select
+                id="estilo"
+                class="campoSelect"
+            >
+
+                <option value="diversao">
+                    Diversão e evolução
+                </option>
+
+                <option value="performance">
+                    Performance
+                </option>
+
+                <option value="versatil">
+                    Uma prancha versátil
+                </option>
+
+                <option value="competicao">
+                    Competição
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <!-- BOTÃO -->
+
+        <button
+            id="btnRecomendar"
+            class="btnPrincipal"
+        >
+            🏄 Encontrar minha prancha
+        </button>
+
+
+        <!-- RESULTADO -->
+
+        <section
+            id="resultado"
+            class="resultadoCard"
+            style="display:none;"
+        >
+
+            <div class="resultadoTitulo">
+
+                <span>
+                    ⭐
+                </span>
+
+                <div>
+
+                    <span class="eyebrow">
+                        RECOMENDAÇÃO
+                    </span>
+
+                    <h2>
+                        Sua prancha ideal
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="pranchaPrincipal">
+
+                <div class="pranchaImagem">
+                    🏄
+                </div>
+
+                <span id="categoria">
+                    --
+                </span>
+
+                <h3 id="nomePrancha">
+                    --
+                </h3>
+
+                <p id="descricaoPrancha">
+                    --
+                </p>
+
+            </div>
+
+
+            <!-- ESPECIFICAÇÕES -->
+
+            <div class="especificacoes">
+
+                <div>
+
+                    <span>
+                        📐
+                    </span>
+
+                    <small>
+                        Tamanho
+                    </small>
+
+                    <strong id="tamanho">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        📦
+                    </span>
+
+                    <small>
+                        Volume
+                    </small>
+
+                    <strong id="volume">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        🏄
+                    </span>
+
+                    <small>
+                        Modelo
+                    </small>
+
+                    <strong id="modelo">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- COMPATIBILIDADE -->
+
+            <div class="compatibilidade">
+
+                <div class="compatibilidadeTopo">
+
+                    <span>
+                        Compatibilidade com você
+                    </span>
+
+                    <strong id="compatibilidadeValor">
+                        --
+                    </strong>
+
+                </div>
+
+                <div class="barra">
+                    <div id="barraCompatibilidade"></div>
+                </div>
+
+            </div>
+
+
+            <!-- POR QUE -->
+
+            <div class="motivo">
+
+                <h3>
+                    💡 Por que essa prancha?
+                </h3>
+
+                <p id="motivo">
+                    --
+                </p>
+
+            </div>
+
+
+            <!-- COACH -->
+
+            <div class="coachPrancha">
+
+                <div class="coachAvatar">
+                    🤖
+                </div>
+
+                <div>
+
+                    <strong>
+                        Coach IA
+                    </strong>
+
+                    <p id="coachMensagem">
+                        --
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ALTERNATIVAS -->
+
+        <section
+            id="alternativas"
+            class="pranchaCard"
+            style="display:none;"
+        >
+
+            <div class="cardTitulo">
+
+                <span class="tituloIcon">
+                    🔄
+                </span>
+
+                <div>
+                    <h2>
+                        Outras opções
+                    </h2>
+
+                    <p>
+                        Pranchas que também podem funcionar para você
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div id="listaAlternativas">
+            </div>
+
+        </section>
+
+
+        <!-- AVISO -->
+
+        <section class="infoCard">
+
+            <span>
+                ℹ️
+            </span>
+
+            <p>
+                A recomendação do WaveRise é uma orientação
+                baseada nos dados informados. O tamanho e
+                volume ideais podem variar conforme habilidade,
+                tipo de onda, formato da prancha e preferência
+                pessoal.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         MENU INFERIOR
+    ========================================== -->
+
+    <nav class="bottomMenu">
+
+        <a href="../index.html">
+            <span>🏠</span>
+            <small>Início</small>
+        </a>
+
+        <a href="diario.html">
+            <span>🌊</span>
+            <small>Diário</small>
+        </a>
+
+        <a href="coach-pro.html">
+            <span>🤖</span>
+            <small>Coach</small>
+        </a>
+
+        <a href="evolucao.html">
+            <span>📊</span>
+            <small>Evolução</small>
+        </a>
+
+        <a href="perfil.html">
+            <span>👤</span>
+            <small>Perfil</small>
+        </a>
+
+    </nav>
+
+
+    <script type="module" src="prancha-ideal.js"></script>
+
+</body>
+
+</html>

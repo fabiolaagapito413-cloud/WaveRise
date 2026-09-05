@@ -16,13 +16,11 @@ fotoInput.addEventListener("change", () => {
 
     const arquivo = fotoInput.files[0];
 
-    if (!arquivo) {
-        return;
-    }
+    if (!arquivo) return;
 
     const leitor = new FileReader();
 
-    leitor.onload = function(evento) {
+    leitor.onload = (evento) => {
 
         preview.src = evento.target.result;
         preview.style.display = "block";
@@ -36,7 +34,7 @@ fotoInput.addEventListener("change", () => {
 });
 
 // ======================================================
-// ANALISAR FOTO
+// ANALISAR FOTO COM IA
 // ======================================================
 
 analisarBtn.addEventListener("click", async () => {
@@ -57,69 +55,58 @@ analisarBtn.addEventListener("click", async () => {
         <strong>🏄 Analisando sua sessão...</strong>
         <br><br>
         O WaveRise está avaliando sua postura,
-        equilíbrio e posicionamento sobre a prancha.
+        equilíbrio, posicionamento e técnica.
     `;
 
     try {
 
         // ==================================================
-        // CONVERSÃO DA FOTO
+        // ENVIAR FOTO PARA O BACKEND
         // ==================================================
 
-        const base64 = await arquivoParaBase64(arquivo);
+        const formulario = new FormData();
 
-        console.log("📸 Foto preparada para análise.");
+        formulario.append("foto", arquivo);
 
-        // ==================================================
-        // POR ENQUANTO — TESTE DA FUNÇÃO
-        // ==================================================
+        console.log("📸 Enviando foto para o WaveRise...");
 
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        const resposta = await fetch(
+            "http://localhost:3000/coach/foto",
+            {
+                method: "POST",
+                body: formulario
+            }
+        );
 
-        textoResultado.innerHTML = `
-            <strong>🏄 Análise concluída!</strong>
+        if (!resposta.ok) {
 
-            <br><br>
+            const erro = await resposta.json().catch(() => ({}));
 
-            📐 <strong>Postura:</strong><br>
-            Sua postura será avaliada em relação
-            ao posicionamento ideal sobre a prancha.
+            throw new Error(
+                erro.erro || `Erro do servidor: ${resposta.status}`
+            );
+        }
 
-            <br><br>
+        const dados = await resposta.json();
 
-            ⚖️ <strong>Equilíbrio:</strong><br>
-            O WaveRise analisará a distribuição
-            do seu peso entre os pés.
+        console.log("🤖 Resposta da IA:", dados);
 
-            <br><br>
+        if (!dados.sucesso || !dados.analise) {
+            throw new Error("A IA não retornou uma análise válida.");
+        }
 
-            🦵 <strong>Posição das pernas:</strong><br>
-            Será observada a flexão dos joelhos
-            e a estabilidade durante a onda.
-
-            <br><br>
-
-            🏄 <strong>Técnica:</strong><br>
-            A análise identificará pontos fortes
-            e aspectos que podem ser aprimorados.
-
-            <br><br>
-
-            ⭐ <strong>Próximo passo:</strong><br>
-            conectar esta tela à inteligência artificial
-            para realizar a análise real da sua foto.
-        `;
-
-        console.log("Foto:", base64.substring(0, 50) + "...");
+        mostrarResultado(dados.analise);
 
     } catch (erro) {
 
-        console.error("Erro na análise:", erro);
+        console.error("❌ Erro na análise:", erro);
 
         textoResultado.innerHTML = `
-            ❌ Não foi possível analisar a foto.
+            <strong>❌ Não foi possível analisar a foto.</strong>
             <br><br>
-            Tente novamente.
+            ${erro.message}
+            <br><br>
+            Verifique se o servidor do WaveRise está funcionando.
         `;
 
     } finally {
@@ -132,22 +119,66 @@ analisarBtn.addEventListener("click", async () => {
 });
 
 // ======================================================
-// CONVERTER ARQUIVO PARA BASE64
+// MOSTRAR RESULTADO
 // ======================================================
 
-function arquivoParaBase64(arquivo) {
+function mostrarResultado(analise) {
 
-    return new Promise((resolve, reject) => {
+    const pontosFortes = Array.isArray(analise.pontosFortes)
+        ? analise.pontosFortes
+        : [];
 
-        const leitor = new FileReader();
+    const melhorias = Array.isArray(analise.melhorias)
+        ? analise.melhorias
+        : [];
 
-        leitor.onload = () => resolve(leitor.result);
+    textoResultado.innerHTML = `
 
-        leitor.onerror = () =>
-            reject(new Error("Não foi possível ler a foto."));
+        <div>
 
-        leitor.readAsDataURL(arquivo);
+            <strong>🏄 Análise concluída!</strong>
 
-    });
+            <br><br>
 
+            ⭐ <strong>Nota:</strong>
+            ${analise.nota ?? "--"}/100
+
+            <br><br>
+
+            🏄 <strong>Manobra:</strong>
+            ${analise.manobra || "Não identificada"}
+
+            <br><br>
+
+            💪 <strong>Pontos fortes:</strong>
+
+            <ul>
+                ${pontosFortes.length
+                    ? pontosFortes.map(item => `<li>${item}</li>`).join("")
+                    : "<li>Nenhum ponto identificado.</li>"
+                }
+            </ul>
+
+            <br>
+
+            🎯 <strong>O que melhorar:</strong>
+
+            <ul>
+                ${melhorias.length
+                    ? melhorias.map(item => `<li>${item}</li>`).join("")
+                    : "<li>Nenhuma melhoria identificada.</li>"
+                }
+            </ul>
+
+            <br>
+
+            🏋️ <strong>Treino recomendado:</strong>
+
+            <br><br>
+
+            ${analise.treino || "Nenhum treino recomendado."}
+
+        </div>
+
+    `;
 }

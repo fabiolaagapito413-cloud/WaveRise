@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Comparar Praias — WaveRise</title>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="comprar-praias.css">
+</head>
+
+<body>
+
+    <header class="cpHeader">
+
+        <a href="../index.html" class="voltar">
+            ←
+        </a>
+
+        <div class="cpHeaderInfo">
+            <span class="cpLogo">🌊 WaveRise</span>
+            <p>Comparar praias</p>
+        </div>
+
+        <span class="proBadge">PRO</span>
+
+    </header>
+
+
+    <main class="compararPraias">
+
+        <!-- HERO -->
+
+        <section class="cpHero">
+
+            <div class="cpHeroIcon">
+                🏆
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    WAVERISE PRO
+                </span>
+
+                <h1>
+                    Compare as praias
+                </h1>
+
+                <p>
+                    Descubra qual praia apresenta as melhores
+                    condições para sua próxima sessão.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRAIA 1 -->
+
+        <section class="cpCard">
+
+            <div class="cardTitulo">
+
+                <span class="tituloIcon">
+                    1️⃣
+                </span>
+
+                <div>
+                    <h2>Praia 1</h2>
+                    <p>Primeiro local para comparar</p>
+                </div>
+
+            </div>
+
+
+            <input
+                id="praia1"
+                class="cpInput"
+                type="text"
+                placeholder="Ex.: Santos"
+            >
+
+
+            <div class="localBox">
+
+                <span>📍</span>
+
+                <div>
+                    <strong id="statusPraia1">
+                        Localização não definida
+                    </strong>
+
+                    <small id="coordPraia1">
+                        Informe a praia ou use sua localização.
+                    </small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRAIA 2 -->
+
+        <section class="cpCard">
+
+            <div class="cardTitulo">
+
+                <span class="tituloIcon">
+                    2️⃣
+                </span>
+
+                <div>
+                    <h2>Praia 2</h2>
+                    <p>Segundo local para comparar</p>
+                </div>
+
+            </div>
+
+
+            <input
+                id="praia2"
+                class="cpInput"
+                type="text"
+                placeholder="Ex.: São Vicente"
+            >
+
+
+            <div class="localBox">
+
+                <span>📍</span>
+
+                <div>
+                    <strong id="statusPraia2">
+                        Localização não definida
+                    </strong>
+
+                    <small id="coordPraia2">
+                        Informe a praia para comparação.
+                    </small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOTÃO -->
+
+        <button
+            id="btnComparar"
+            class="btnComparar"
+        >
+            🌊 Comparar praias
+        </button>
+
+
+        <!-- RESULTADO -->
+
+        <section
+            id="resultado"
+            class="resultado"
+            style="display:none;"
+        >
+
+            <div class="resultadoTitulo">
+
+                <span>📊</span>
+
+                <div>
+                    <span class="eyebrow">
+                        ANÁLISE
+                    </span>
+
+                    <h2>
+                        Comparação
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="praiasGrid">
+
+                <!-- PRAIA 1 -->
+
+                <article
+                    id="resultadoPraia1"
+                    class="praiaResultado"
+                >
+
+                    <div class="praiaCabecalho">
+
+                        <span class="posicao">
+                            1
+                        </span>
+
+                        <div>
+                            <h3 id="nomeResultado1">
+                                Praia 1
+                            </h3>
+
+                            <small>
+                                Resultado
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="scorePraia">
+
+                        <strong id="score1">
+                            --
+                        </strong>
+
+                        <span>
+                            /100
+                        </span>
+
+                    </div>
+
+
+                    <div class="dadosPraia">
+
+                        <div>
+                            <span>🌊</span>
+                            <strong id="ondas1">--</strong>
+                            <small>Ondas</small>
+                        </div>
+
+                        <div>
+                            <span>⏱️</span>
+                            <strong id="periodo1">--</strong>
+                            <small>Período</small>
+                        </div>
+
+                        <div>
+                            <span>💨</span>
+                            <strong id="vento1">--</strong>
+                            <small>Vento</small>
+                        </div>
+
+                        <div>
+                            <span>🌙</span>
+                            <strong id="mare1">--</strong>
+                            <small>Maré</small>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRAIA 2 -->
+
+                <article
+                    id="resultadoPraia2"
+                    class="praiaResultado"
+                >
+
+                    <div class="praiaCabecalho">
+
+                        <span class="posicao">
+                            2
+                        </span>
+
+                        <div>
+                            <h3 id="nomeResultado2">
+                                Praia 2
+                            </h3>
+
+                            <small>
+                                Resultado
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="scorePraia">
+
+                        <strong id="score2">
+                            --
+                        </strong>
+
+                        <span>
+                            /100
+                        </span>
+
+                    </div>
+
+
+                    <div class="dadosPraia">
+
+                        <div>
+                            <span>🌊</span>
+                            <strong id="ondas2">--</strong>
+                            <small>Ondas</small>
+                        </div>
+
+                        <div>
+                            <span>⏱️</span>
+                            <strong id="periodo2">--</strong>
+                            <small>Período</small>
+                        </div>
+
+                        <div>
+                            <span>💨</span>
+                            <strong id="vento2">--</strong>
+                            <small>Vento</small>
+                        </div>
+
+                        <div>
+                            <span>🌙</span>
+                            <strong id="mare2">--</strong>
+                            <small>Maré</small>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- VENCEDORA -->
+
+            <div class="vencedora">
+
+                <span class="trofeu">
+                    🏆
+                </span>
+
+                <div>
+
+                    <span class="eyebrow">
+                        MELHOR OPÇÃO
+                    </span>
+
+                    <h3 id="praiaVencedora">
+                        --
+                    </h3>
+
+                    <p id="motivoVencedora">
+                        --
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- COACH -->
+
+            <div class="coachComparacao">
+
+                <div class="coachAvatar">
+                    🤖
+                </div>
+
+                <div>
+
+                    <strong>
+                        Coach IA
+                    </strong>
+
+                    <p id="coachMensagem">
+                        --
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <button
+            id="btnLocalizacao"
+            class="btnSecundario"
+        >
+            📍 Usar minha localização
+        </button>
+
+
+    </main>
+
+
+    <nav class="bottomMenu">
+
+        <a href="../index.html">
+            <span>🏠</span>
+            <small>Início</small>
+        </a>
+
+        <a href="diario.html">
+            <span>🌊</span>
+            <small>Diário</small>
+        </a>
+
+        <a href="coach-pro.html">
+            <span>🤖</span>
+            <small>Coach</small>
+        </a>
+
+        <a href="evolucao.html">
+            <span>📊</span>
+            <small>Evolução</small>
+        </a>
+
+        <a href="perfil.html">
+            <span>👤</span>
+            <small>Perfil</small>
+        </a>
+
+    </nav>
+
+
+    <script type="module" src="comparar-praias.js"></script>
+
+</body>
+
+</html>

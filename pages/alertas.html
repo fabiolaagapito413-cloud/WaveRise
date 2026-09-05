@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Alertas — WaveRise</title>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="alertas.css">
+</head>
+
+<body>
+
+    <header class="alertasHeader">
+
+        <a href="../index.html" class="voltar">
+            ←
+        </a>
+
+        <div class="headerInfo">
+            <span>🌊 WaveRise</span>
+            <p>Alertas personalizados</p>
+        </div>
+
+        <span class="proBadge">PRO</span>
+
+    </header>
+
+
+    <main class="alertasPage">
+
+        <!-- HERO -->
+
+        <section class="alertasHero">
+
+            <div class="heroIcon">
+                🔔
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    WAVERISE PRO
+                </span>
+
+                <h1>
+                    Alertas personalizados
+                </h1>
+
+                <p>
+                    Receba um alerta quando as condições
+                    que você procura estiverem boas para surfar.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- STATUS -->
+
+        <section class="alertaStatus">
+
+            <div class="statusIcon">
+                🔔
+            </div>
+
+            <div>
+
+                <strong id="statusTitulo">
+                    Alertas desativados
+                </strong>
+
+                <p id="statusTexto">
+                    Configure suas preferências abaixo.
+                </p>
+
+            </div>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    id="ativarAlertas"
+                >
+
+                <span class="slider"></span>
+
+            </label>
+
+        </section>
+
+
+        <!-- PRAIA -->
+
+        <section class="alertaCard">
+
+            <div class="cardTitulo">
+
+                <span class="tituloIcon">
+                    📍
+                </span>
+
+                <div>
+                    <h2>Praia</h2>
+                    <p>Onde você quer receber o alerta</p>
+                </div>
+
+            </div>
+
+
+            <input
+                id="nomePraia"
+                class="inputAlerta"
+                type="text"
+                placeholder="Ex.: Praia do José Menino"
+            >
+
+        </section>
+
+
+        <!-- ONDAS -->
+
+        <section class="alertaCard">
+
+            <div class="cardTitulo">
+
+                <span class="tituloIcon">
+                    🌊
+                </span>
+
+                <div>
+                    <h2>Condições das ondas</h2>
+                    <p>Defina o mínimo desejado</p>
+                </div>
+
+            </div>
+
+
+            <div class="campoAlerta">
+
+                <div>
+                    <strong>
+                        Altura mínima
+                    </strong>
+
+                    <small>
+                        Ex.: 1,0 metro
+                    </small>
+                </div>
+
+                <div class="numeroControle">
+
+                    <button
+                        type="button"
+                        data-target="alturaMinima"
+                        data-change="-0.1"
+                    >
+                        −
+                    </button>
+
+                    <strong id="alturaMinima">
+                        1.0
+                    </strong>
+
+                    <span>
+                        m
+                    </span>
+
+                    <button
+                        type="button"
+                        data-target="alturaMinima"
+                        data-change="0.1"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="campoAlerta">
+
+                <div>
+                    <strong>
+                        Período mínimo
+                    </strong>
+
+                    <small>
+                        Quanto maior, melhor tende a ser a organização das ondas
+                    </small>
+                </div>
+
+                <div class="numeroControle">
+
+                    <button
+                        type="button"
+                        data-target="periodoMinimo"
+                        data-change="-1"
+                    >
+                        −
+                    </button>
+
+                    <strong id="periodoMinimo">
+                        10
+                    </strong>
+
+                    <span>
+                        s
+                    </span>
+
+                    <button
+                        type="button"
+                        data-target="periodoMinimo"
+                        data-change="1"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SCORE -->
+
+        <section class="alertaCard">
+
+            <div class="cardTitulo">
+
+                <span class="tituloIcon">
+                    ⭐
+                </span>
+
+                <div>
+                    <h2>WaveRise Score</h2>
+                    <p>Receba alerta apenas quando a previsão estiver boa</p>
+                </div>
+
+            </div>
+
+
+            <div class="sliderCampo">
+
+                <div class="sliderTopo">
+
+                    <span>
+                        Score mínimo
+                    </span>
+
+                    <strong id="scoreValor">
+                        75
+                    </strong>
+
+                </div>
+
+
+                <input
+                    id="scoreMinimo"
+                    type="range"
+                    min="40"
+                    max="95"
+                    value="75"
+                >
+
+                <div class="rangeLabels">
+
+                    <span>40</span>
+                    <span>95</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- HORÁRIO -->
+
+        <section class="alertaCard">
+
+            <div class="cardTitulo">
+
+                <span class="tituloIcon">
+                    🕐
+                </span>
+
+                <div>
+                    <h2>Horário</h2>
+                    <p>Quando o alerta pode ser enviado</p>
+                </div>
+
+            </div>
+
+
+            <div class="horarioGrid">
+
+                <div>
+
+                    <label>
+                        A partir de
+                    </label>
+
+                    <input
+                        id="horaInicio"
+                        type="time"
+                        value="05:00"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Até
+                    </label>
+
+                    <input
+                        id="horaFim"
+                        type="time"
+                        value="18:00"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESUMO -->
+
+        <section class="alertaCard resumoCard">
+
+            <div class="cardTitulo">
+
+                <span class="tituloIcon">
+                    🎯
+                </span>
+
+                <div>
+                    <h2>Seu alerta</h2>
+                    <p>Resumo das condições escolhidas</p>
+                </div>
+
+            </div>
+
+
+            <div
+                id="resumoAlerta"
+                class="resumoAlerta"
+            >
+                Configure suas preferências.
+            </div>
+
+        </section>
+
+
+        <!-- SALVAR -->
+
+        <button
+            id="salvarAlerta"
+            class="btnPrincipal"
+        >
+            🔔 Salvar alerta
+        </button>
+
+
+        <button
+            id="testarAlerta"
+            class="btnSecundario"
+        >
+            🔔 Testar notificação
+        </button>
+
+
+        <!-- EXPLICAÇÃO -->
+
+        <section class="coachCard">
+
+            <div class="coachAvatar">
+                🤖
+            </div>
+
+            <div>
+
+                <strong>
+                    Como funciona?
+                </strong>
+
+                <p>
+                    O WaveRise poderá verificar as condições
+                    da praia escolhida e avisar quando elas
+                    atingirem os critérios definidos por você.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- MENU -->
+
+    <nav class="bottomMenu">
+
+        <a href="../index.html">
+            <span>🏠</span>
+            <small>Início</small>
+        </a>
+
+        <a href="diario.html">
+            <span>🌊</span>
+            <small>Diário</small>
+        </a>
+
+        <a href="coach-pro.html">
+            <span>🤖</span>
+            <small>Coach</small>
+        </a>
+
+        <a href="evolucao.html">
+            <span>📊</span>
+            <small>Evolução</small>
+        </a>
+
+        <a href="perfil.html">
+            <span>👤</span>
+            <small>Perfil</small>
+        </a>
+
+    </nav>
+
+
+    <script type="module" src="alertas.js"></script>
+
+</body>
+
+</html>

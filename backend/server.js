@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import coachRoutes from "./routes/coach.js";
 
 dotenv.config();
-console.log("API:", process.env.OPENAI_API_KEY);
 
 const app = express();
 

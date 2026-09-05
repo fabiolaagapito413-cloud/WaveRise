@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Plano de Evolução - WaveRise</title>
+
+    <!-- CSS GLOBAL -->
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+    <!-- CSS DA PÁGINA -->
+    <link
+        rel="stylesheet"
+        href="plano-evolucao.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<main class="planoPage">
+
+
+    <!-- ==================================================
+         TOPO
+    ================================================== -->
+
+    <header class="planoTopo">
+
+        <button
+            class="btnVoltar"
+            onclick="history.back()"
+            aria-label="Voltar"
+        >
+            ←
+        </button>
+
+
+        <div>
+
+            <h1>
+                🧠 Plano de evolução
+            </h1>
+
+            <p>
+                Seu caminho personalizado no surf
+            </p>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==================================================
+         HERO
+    ================================================== -->
+
+    <section class="planoHero">
+
+        <div class="planoHeroIcon">
+            🧠
+        </div>
+
+
+        <h2>
+            Seu plano de evolução
+        </h2>
+
+
+        <p>
+            O WaveRise analisa seu histórico,
+            seu nível e seu objetivo para definir
+            o próximo passo da sua evolução.
+        </p>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         OBJETIVO
+    ================================================== -->
+
+    <section class="objetivoCard">
+
+        <span class="label">
+            🎯 Seu objetivo
+        </span>
+
+
+        <h2 id="objetivoPrincipal">
+            Evoluir no surf
+        </h2>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         STATUS DA FASE
+    ================================================== -->
+
+    <section class="statusCard">
+
+        <span class="statusLabel">
+            📍 VOCÊ ESTÁ AQUI
+        </span>
+
+
+        <h2 id="statusFase">
+            Fase 1 — Construção da base
+        </h2>
+
+
+        <p id="statusDescricao">
+            Construindo fundamentos e consistência.
+        </p>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         PROGRESSO
+    ================================================== -->
+
+    <section class="progressoCard">
+
+        <div class="progressoTopo">
+
+            <span>
+                📈 Progresso do plano
+            </span>
+
+
+            <strong id="progressoValor">
+                0%
+            </strong>
+
+        </div>
+
+
+        <div class="barra">
+
+            <div id="barraProgresso"></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         RESUMO
+    ================================================== -->
+
+    <section class="resumoGrid">
+
+
+        <div class="resumoBox">
+
+            <span>
+                Sessões
+            </span>
+
+            <strong id="resumoSessoes">
+                0
+            </strong>
+
+        </div>
+
+
+
+        <div class="resumoBox">
+
+            <span>
+                Ondas
+            </span>
+
+            <strong id="resumoOndas">
+                0
+            </strong>
+
+        </div>
+
+
+
+        <div class="resumoBox">
+
+            <span>
+                Média
+            </span>
+
+            <strong id="resumoNota">
+                --
+            </strong>
+
+        </div>
+
+
+
+        <div class="resumoBox">
+
+            <span>
+                Score
+            </span>
+
+            <strong id="resumoScore">
+                --
+            </strong>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         FASES
+    ================================================== -->
+
+    <h2 class="tituloSecao">
+        🚀 Sua jornada
+    </h2>
+
+
+
+    <!-- FASE 1 -->
+
+    <section
+        class="fase"
+        id="fase1"
+    >
+
+        <div class="faseTopo">
+
+            <div class="faseIcon">
+                🌱
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Fase 1 — Construção da base
+                </strong>
+
+                <span>
+                    Fundamentos e consistência
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <p class="faseTexto">
+
+            Desenvolva equilíbrio, mobilidade,
+            remada, pop-up e confiança para
+            aumentar sua consistência no mar.
+
+        </p>
+
+
+        <span
+            class="faseStatus"
+            id="statusFase1"
+        >
+            EM ANDAMENTO
+        </span>
+
+    </section>
+
+
+
+    <!-- FASE 2 -->
+
+    <section
+        class="fase"
+        id="fase2"
+    >
+
+        <div class="faseTopo">
+
+            <div class="faseIcon">
+                🎯
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Fase 2 — Consistência
+                </strong>
+
+                <span>
+                    Controle e repetição
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <p class="faseTexto">
+
+            Aumente o número de ondas bem
+            executadas e desenvolva controle
+            sobre a linha da onda.
+
+        </p>
+
+
+        <span
+            class="faseStatus"
+            id="statusFase2"
+        >
+            PRÓXIMA FASE
+        </span>
+
+    </section>
+
+
+
+    <!-- FASE 3 -->
+
+    <section
+        class="fase"
+        id="fase3"
+    >
+
+        <div class="faseTopo">
+
+            <div class="faseIcon">
+                🏄
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Fase 3 — Técnica
+                </strong>
+
+                <span>
+                    Manobras e velocidade
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <p class="faseTexto">
+
+            Trabalhe Bottom Turn, Cutback,
+            geração de velocidade e transições
+            entre movimentos.
+
+        </p>
+
+
+        <span
+            class="faseStatus"
+            id="statusFase3"
+        >
+            BLOQUEADA
+        </span>
+
+    </section>
+
+
+
+    <!-- FASE 4 -->
+
+    <section
+        class="fase"
+        id="fase4"
+    >
+
+        <div class="faseTopo">
+
+            <div class="faseIcon">
+                🔥
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Fase 4 — Performance
+                </strong>
+
+                <span>
+                    Refinamento e performance
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <p class="faseTexto">
+
+            Busque mais velocidade, precisão,
+            linhas críticas e conexão entre
+            manobras.
+
+        </p>
+
+
+        <span
+            class="faseStatus"
+            id="statusFase4"
+        >
+            BLOQUEADA
+        </span>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         METAS
+    ================================================== -->
+
+    <h2 class="tituloSecao">
+        🏆 Metas atuais
+    </h2>
+
+
+    <section class="metasCard">
+
+
+        <!-- META SESSÕES -->
+
+        <div class="meta">
+
+            <div class="metaIcon">
+                🏄
+            </div>
+
+
+            <div class="metaTexto">
+
+                <strong>
+                    Registrar sessões
+                </strong>
+
+                <span>
+                    Continue alimentando seu histórico
+                </span>
+
+            </div>
+
+
+            <div
+                class="metaCheck"
+                id="metaSessoes"
+            >
+                ○
+            </div>
+
+        </div>
+
+
+
+        <!-- META ONDAS -->
+
+        <div class="meta">
+
+            <div class="metaIcon">
+                🌊
+            </div>
+
+
+            <div class="metaTexto">
+
+                <strong>
+                    Registrar 50 ondas
+                </strong>
+
+                <span>
+                    Aumente sua experiência na água
+                </span>
+
+            </div>
+
+
+            <div
+                class="metaCheck"
+                id="metaOndas"
+            >
+                ○
+            </div>
+
+        </div>
+
+
+
+        <!-- META NOTA -->
+
+        <div class="meta">
+
+            <div class="metaIcon">
+                ⭐
+            </div>
+
+
+            <div class="metaTexto">
+
+                <strong>
+                    Melhorar sua média
+                </strong>
+
+                <span>
+                    Busque sessões cada vez melhores
+                </span>
+
+            </div>
+
+
+            <div
+                class="metaCheck"
+                id="metaNota"
+            >
+                ○
+            </div>
+
+        </div>
+
+
+
+        <!-- META ANÁLISE -->
+
+        <div class="meta">
+
+            <div class="metaIcon">
+                📷
+            </div>
+
+
+            <div class="metaTexto">
+
+                <strong>
+                    Fazer uma análise visual
+                </strong>
+
+                <span>
+                    Use foto ou vídeo para receber feedback
+                </span>
+
+            </div>
+
+
+            <div
+                class="metaCheck"
+                id="metaAnalise"
+            >
+                ○
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         TREINO
+    ================================================== -->
+
+    <h2 class="tituloSecao">
+        🏋️ Treino da fase atual
+    </h2>
+
+
+    <section class="treinoCard">
+
+
+        <!-- TREINO 1 -->
+
+        <div class="treinoItem">
+
+            <span>
+                🧘
+            </span>
+
+
+            <div>
+
+                <strong id="treino1Titulo">
+                    Mobilidade
+                </strong>
+
+
+                <p id="treino1Texto">
+                    Trabalhe mobilidade de quadril,
+                    tornozelos e coluna.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TREINO 2 -->
+
+        <div class="treinoItem">
+
+            <span>
+                🏄
+            </span>
+
+
+            <div>
+
+                <strong id="treino2Titulo">
+                    Pop-up
+                </strong>
+
+
+                <p id="treino2Texto">
+                    Treine movimentos rápidos
+                    e consistentes.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TREINO 3 -->
+
+        <div class="treinoItem">
+
+            <span>
+                ⚖️
+            </span>
+
+
+            <div>
+
+                <strong id="treino3Titulo">
+                    Equilíbrio
+                </strong>
+
+
+                <p id="treino3Texto">
+                    Desenvolva estabilidade e
+                    controle sobre a prancha.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TREINO 4 -->
+
+        <div class="treinoItem">
+
+            <span>
+                🌊
+            </span>
+
+
+            <div>
+
+                <strong id="treino4Titulo">
+                    Sessão consciente
+                </strong>
+
+
+                <p id="treino4Texto">
+                    Durante o surf, escolha algumas
+                    ondas para focar exclusivamente
+                    na técnica.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         COACH IA
+    ================================================== -->
+
+    <section class="coachCard">
+
+
+        <div class="coachTitulo">
+            🤖 Coach IA
+        </div>
+
+
+        <p id="coachMensagem">
+            Carregando sua recomendação...
+        </p>
+
+
+        <button
+            class="btnCoach"
+            onclick="location.href='coach-pro.html'"
+        >
+
+            🤖 Ver análise completa do Coach
+
+        </button>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         BOTÃO DIÁRIO
+    ================================================== -->
+
+    <button
+        class="btnDiario"
+        onclick="location.href='diario.html'"
+    >
+
+        📖 Registrar nova sessão
+
+    </button>
+
+
+</main>
+
+
+
+<!-- ======================================================
+     JAVASCRIPT DA PÁGINA
+====================================================== -->
+ <script
+        type="module"
+src="plano-evolucao.js"></script>
+
+
+</body>
+
+</html>

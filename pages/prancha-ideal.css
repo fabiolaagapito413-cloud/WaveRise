@@ -1,0 +1,490 @@
+/* =====================================================
+   WAVERISE — PRANCHA IDEAL
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(76, 201, 240, 0.14), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(108, 92, 231, 0.18), transparent 35%),
+        #0f1117;
+    color: #ffffff;
+    min-height: 100vh;
+    padding-bottom: 90px;
+}
+
+button,
+select,
+input {
+    font: inherit;
+}
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+header {
+    padding: 22px 20px 10px;
+}
+
+.topo {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #9aa4b2;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.voltar:hover {
+    color: #ffffff;
+}
+
+header h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #9aa4b2;
+    line-height: 1.5;
+}
+
+/* =====================================================
+   CONTAINER
+   ===================================================== */
+
+.container {
+    width: min(900px, calc(100% - 30px));
+    margin: 0 auto;
+}
+
+.card {
+    background: rgba(24, 28, 38, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(12px);
+}
+
+.card h2 {
+    font-size: 20px;
+    margin-bottom: 7px;
+}
+
+.card-subtitle {
+    color: #8e98a8;
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* =====================================================
+   PERFIL
+   ===================================================== */
+
+.perfil-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.perfil-item {
+    background: rgba(255, 255, 255, 0.045);
+    border-radius: 14px;
+    padding: 15px;
+}
+
+.perfil-item span {
+    display: block;
+    color: #8993a3;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.perfil-item strong {
+    font-size: 15px;
+}
+
+/* =====================================================
+   FORMULÁRIO
+   ===================================================== */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    color: #cbd2dc;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: #171b24;
+    color: #ffffff;
+    border-radius: 13px;
+    padding: 13px 14px;
+    outline: none;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+}
+
+/* =====================================================
+   BOTÃO
+   ===================================================== */
+
+#btnRecomendar {
+    width: 100%;
+    border: 0;
+    border-radius: 15px;
+    padding: 15px 18px;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #4facfe, #6c5ce7);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+    box-shadow: 0 10px 25px rgba(79, 172, 254, 0.18);
+}
+
+#btnRecomendar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(79, 172, 254, 0.25);
+}
+
+#btnRecomendar:active {
+    transform: translateY(0);
+}
+
+/* =====================================================
+   RESULTADO
+   ===================================================== */
+
+#resultado {
+    display: none;
+}
+
+.resultado-header {
+    margin-bottom: 20px;
+}
+
+.categoria {
+    display: inline-block;
+    padding: 7px 11px;
+    border-radius: 20px;
+    background: rgba(79, 172, 254, 0.12);
+    color: #70c7ff;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#nomePrancha {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+#descricaoPrancha {
+    color: #9da6b5;
+    line-height: 1.6;
+}
+
+/* =====================================================
+   ESPECIFICAÇÕES
+   ===================================================== */
+
+.especificacoes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.spec {
+    background: rgba(255, 255, 255, 0.045);
+    border-radius: 15px;
+    padding: 16px;
+}
+
+.spec span {
+    display: block;
+    color: #8993a3;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.spec strong {
+    font-size: 16px;
+}
+
+/* =====================================================
+   COMPATIBILIDADE
+   ===================================================== */
+
+.compatibilidade {
+    margin-top: 20px;
+}
+
+.compatibilidade-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 9px;
+}
+
+.compatibilidade-topo span {
+    color: #9da6b5;
+    font-size: 13px;
+}
+
+#compatibilidadeValor {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.barra-container {
+    height: 9px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#barraCompatibilidade {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #4facfe, #6c5ce7);
+    transition: width 0.7s ease;
+}
+
+/* =====================================================
+   MOTIVO / COACH
+   ===================================================== */
+
+.motivo-box,
+.coach-box {
+    margin-top: 18px;
+    border-radius: 17px;
+    padding: 18px;
+}
+
+.motivo-box {
+    background: rgba(255, 255, 255, 0.045);
+}
+
+.coach-box {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 172, 254, 0.10),
+            rgba(108, 92, 231, 0.10)
+        );
+    border: 1px solid rgba(79, 172, 254, 0.12);
+}
+
+.motivo-box h3,
+.coach-box h3 {
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.motivo-box p,
+.coach-box p {
+    color: #aeb6c4;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* =====================================================
+   ALTERNATIVAS
+   ===================================================== */
+
+#alternativas {
+    display: none;
+}
+
+#listaAlternativas {
+    display: grid;
+    gap: 12px;
+}
+
+.alternativa {
+    background: rgba(255, 255, 255, 0.045);
+    border-radius: 15px;
+    padding: 16px;
+    border: 1px solid transparent;
+    transition: 0.2s ease;
+}
+
+.alternativa:hover {
+    border-color: rgba(79, 172, 254, 0.2);
+    transform: translateY(-1px);
+}
+
+.alternativa-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 7px;
+}
+
+.alternativa h3 {
+    font-size: 16px;
+}
+
+.alternativa .tag {
+    font-size: 11px;
+    color: #70c7ff;
+    background: rgba(79, 172, 254, 0.1);
+    padding: 5px 8px;
+    border-radius: 10px;
+}
+
+.alternativa p {
+    color: #929cab;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =====================================================
+   CARD INFORMATIVO
+   ===================================================== */
+
+.info-card {
+    background: rgba(108, 92, 231, 0.08);
+    border: 1px solid rgba(108, 92, 231, 0.12);
+}
+
+.info-card p {
+    color: #aeb6c4;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.info-card strong {
+    color: #ffffff;
+}
+
+/* =====================================================
+   MENU INFERIOR
+   ===================================================== */
+
+.bottom-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(15, 17, 23, 0.94);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(15px);
+    z-index: 50;
+}
+
+.bottom-menu-inner {
+    width: min(900px, 100%);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bottom-menu a {
+    color: #7f8998;
+    text-decoration: none;
+    font-size: 12px;
+    text-align: center;
+}
+
+.bottom-menu a.active {
+    color: #ffffff;
+}
+
+.bottom-menu-icon {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+/* =====================================================
+   RESPONSIVO
+   ===================================================== */
+
+@media (max-width: 650px) {
+
+    header {
+        padding: 18px 16px 8px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .container {
+        width: min(100% - 22px, 900px);
+    }
+
+    .card {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .perfil-grid,
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .especificacoes {
+        grid-template-columns: 1fr;
+    }
+
+    #nomePrancha {
+        font-size: 24px;
+    }
+
+    .bottom-menu {
+        height: 68px;
+    }
+}

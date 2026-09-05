@@ -1,0 +1,841 @@
+/* =========================================
+   WAVERISE — ALERTAS PERSONALIZADOS
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(79, 172, 254, 0.15),
+            transparent 35%
+        ),
+        #0f1115;
+
+    color: #ffffff;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.alertasHeader {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 18px 20px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 20;
+
+    background:
+        rgba(15, 17, 21, 0.94);
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(12px);
+}
+
+.voltar {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 27px;
+}
+
+.headerInfo {
+    flex: 1;
+}
+
+.headerInfo span {
+    font-size: 18px;
+
+    font-weight: 900;
+}
+
+.headerInfo p {
+    margin: 4px 0 0;
+
+    color: #858d9a;
+
+    font-size: 12px;
+}
+
+.proBadge {
+    padding: 6px 10px;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4facfe,
+            #6c5ce7
+        );
+
+    font-size: 10px;
+
+    font-weight: 900;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.alertasPage {
+    width: min(100%, 850px);
+
+    margin: auto;
+
+    padding:
+        20px
+        16px
+        115px;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.alertasHero {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding:
+        18px
+        4px
+        28px;
+}
+
+.heroIcon {
+    width: 64px;
+
+    height: 64px;
+
+    min-width: 64px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4facfe,
+            #6c5ce7
+        );
+
+    font-size: 30px;
+
+    box-shadow:
+        0 12px 35px
+        rgba(79,172,254,0.18);
+}
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #72c7ff;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+}
+
+.alertasHero h1 {
+    margin: 0;
+
+    font-size:
+        clamp(25px, 7vw, 36px);
+}
+
+.alertasHero p {
+    margin: 8px 0 0;
+
+    color: #969daa;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.alertaStatus {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 15px;
+
+    padding: 16px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79,172,254,0.10),
+            rgba(108,92,231,0.08)
+        );
+
+    border:
+        1px solid
+        rgba(79,172,254,0.18);
+}
+
+.statusIcon {
+    width: 45px;
+
+    height: 45px;
+
+    min-width: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,0.07);
+
+    font-size: 21px;
+}
+
+.alertaStatus > div:nth-child(2) {
+    flex: 1;
+}
+
+.alertaStatus strong {
+    display: block;
+
+    font-size: 14px;
+}
+
+.alertaStatus p {
+    margin: 4px 0 0;
+
+    color: #858d9a;
+
+    font-size: 11px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   SWITCH
+========================================= */
+
+.switch {
+    position: relative;
+
+    width: 50px;
+
+    height: 28px;
+
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+
+    width: 0;
+
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+
+    inset: 0;
+
+    cursor: pointer;
+
+    border-radius: 30px;
+
+    background:
+        #343944;
+
+    transition: 0.25s;
+}
+
+.slider::before {
+    content: "";
+
+    position: absolute;
+
+    width: 22px;
+
+    height: 22px;
+
+    left: 3px;
+
+    top: 3px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    transition: 0.25s;
+}
+
+.switch input:checked + .slider {
+    background:
+        linear-gradient(
+            135deg,
+            #4facfe,
+            #6c5ce7
+        );
+}
+
+.switch input:checked + .slider::before {
+    transform:
+        translateX(22px);
+}
+
+
+/* =========================================
+   CARDS
+========================================= */
+
+.alertaCard {
+    margin-bottom: 15px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,0.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.15);
+}
+
+.cardTitulo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+.tituloIcon {
+    width: 43px;
+
+    height: 43px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,0.07);
+
+    font-size: 20px;
+}
+
+.cardTitulo h2 {
+    margin: 0;
+
+    font-size: 18px;
+}
+
+.cardTitulo p {
+    margin: 4px 0 0;
+
+    color: #858d9a;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   INPUT
+========================================= */
+
+.inputAlerta {
+    width: 100%;
+
+    padding: 15px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.09);
+
+    border-radius: 13px;
+
+    outline: none;
+
+    background:
+        rgba(0,0,0,0.20);
+
+    color: white;
+
+    font-size: 14px;
+}
+
+.inputAlerta::placeholder {
+    color: #68717f;
+}
+
+.inputAlerta:focus {
+    border-color:
+        rgba(79,172,254,0.55);
+}
+
+
+/* =========================================
+   CAMPOS
+========================================= */
+
+.campoAlerta {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 15px 0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,0.05);
+}
+
+.campoAlerta:last-child {
+    border-bottom: 0;
+
+    padding-bottom: 0;
+}
+
+.campoAlerta:first-of-type {
+    padding-top: 0;
+}
+
+.campoAlerta strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.campoAlerta small {
+    display: block;
+
+    max-width: 430px;
+
+    margin-top: 5px;
+
+    color: #737c89;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   CONTROLE NUMÉRICO
+========================================= */
+
+.numeroControle {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+.numeroControle button {
+    width: 32px;
+
+    height: 32px;
+
+    border: 0;
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,0.07);
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+.numeroControle strong {
+    min-width: 35px;
+
+    text-align: center;
+
+    font-size: 17px;
+}
+
+.numeroControle span {
+    color: #737c89;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   RANGE
+========================================= */
+
+.sliderCampo {
+    padding-top: 2px;
+}
+
+.sliderTopo {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+}
+
+.sliderTopo span {
+    color: #b3b8c1;
+
+    font-size: 13px;
+}
+
+.sliderTopo strong {
+    font-size: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #72c7ff,
+            #a48cff
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+#scoreMinimo {
+    width: 100%;
+
+    accent-color: #6c5ce7;
+
+    cursor: pointer;
+}
+
+.rangeLabels {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 6px;
+
+    color: #68717f;
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   HORÁRIO
+========================================= */
+
+.horarioGrid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+.horarioGrid label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #9299a5;
+
+    font-size: 11px;
+}
+
+.horarioGrid input {
+    width: 100%;
+
+    padding: 13px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    border-radius: 12px;
+
+    background:
+        rgba(0,0,0,0.20);
+
+    color: white;
+
+    outline: none;
+}
+
+
+/* =========================================
+   RESUMO
+========================================= */
+
+.resumoCard {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(79,172,254,0.08),
+            rgba(108,92,231,0.07)
+        );
+}
+
+.resumoAlerta {
+    padding: 15px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(0,0,0,0.16);
+
+    color: #aab0ba;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+.resumoAlerta strong {
+    color: white;
+}
+
+
+/* =========================================
+   BOTÕES
+========================================= */
+
+.btnPrincipal {
+    display: block;
+
+    width: 100%;
+
+    padding: 16px;
+
+    margin-bottom: 10px;
+
+    border: 0;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4facfe,
+            #6c5ce7
+        );
+
+    color: white;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+.btnPrincipal:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+.btnSecundario {
+    width: 100%;
+
+    padding: 14px;
+
+    margin-bottom: 15px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.10);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,0.035);
+
+    color: #c0c5ce;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   COACH
+========================================= */
+
+.coachCard {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 17px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(108,92,231,0.10),
+            rgba(79,172,254,0.07)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,0.07);
+}
+
+.coachAvatar {
+    width: 42px;
+
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,0.07);
+
+    font-size: 20px;
+}
+
+.coachCard strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.coachCard p {
+    margin: 5px 0 0;
+
+    color: #929aa6;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .alertasPage {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .alertaCard {
+        padding: 16px;
+    }
+
+    .alertasHero {
+        padding-top: 15px;
+    }
+
+    .heroIcon {
+        width: 55px;
+        height: 55px;
+        min-width: 55px;
+    }
+
+    .campoAlerta {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .numeroControle {
+        align-self: flex-end;
+    }
+
+}

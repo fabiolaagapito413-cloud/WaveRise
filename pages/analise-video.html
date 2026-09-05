@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Análise de Vídeo | WaveRise</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #071321;
+            color: #ffffff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            margin: auto;
+            padding: 30px 20px 50px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 20px 10px 35px;
+        }
+
+        .hero-icon {
+            font-size: 70px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 34px;
+            margin: 10px 0 18px;
+        }
+
+        .subtitle {
+            color: #a9bfd4;
+            font-size: 20px;
+            line-height: 1.5;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .card {
+            background: #0d2033;
+            border: 1px solid #183c56;
+            border-radius: 28px;
+            padding: 28px 22px;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 25px;
+        }
+
+        .upload-area {
+            border: 2px dashed #2d6285;
+            border-radius: 22px;
+            padding: 35px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .upload-area:active {
+            transform: scale(0.98);
+        }
+
+        .upload-icon {
+            font-size: 58px;
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            color: #b4c9dc;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .video-preview {
+            width: 100%;
+            max-height: 400px;
+            margin-top: 20px;
+            border-radius: 18px;
+            display: none;
+            background: #000;
+        }
+
+        .file-name {
+            margin-top: 15px;
+            color: #59d6ff;
+            text-align: center;
+            word-break: break-word;
+        }
+
+        .button {
+            width: 100%;
+            border: none;
+            border-radius: 20px;
+            padding: 18px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            background: linear-gradient(135deg, #21c8f6, #625ee8);
+            color: #06111d;
+            margin-top: 22px;
+        }
+
+        .button:active {
+            transform: scale(0.98);
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+        }
+
+        .result {
+            display: none;
+        }
+
+        .result h2 {
+            margin-bottom: 25px;
+        }
+
+        .result-item {
+            margin-bottom: 25px;
+        }
+
+        .result-item strong {
+            display: block;
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .result-item p {
+            color: #b7c9da;
+            font-size: 17px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .back-button {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #b7c9da;
+            border: 1px solid #214963;
+            border-radius: 18px;
+            padding: 17px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <section class="hero">
+            <div class="hero-icon">🎥</div>
+
+            <h1>Análise de Vídeo</h1>
+
+            <p class="subtitle">
+                Envie um vídeo seu surfando e descubra seus
+                pontos fortes e o que pode melhorar na sua técnica.
+            </p>
+        </section>
+
+        <section class="card">
+
+            <h2>🎬 Escolha seu vídeo</h2>
+
+            <label class="upload-area" for="videoInput">
+
+                <div class="upload-icon">🎥</div>
+
+                <div class="upload-text">
+                    Toque aqui para escolher um vídeo
+                    da sua sessão de surf.
+                </div>
+
+            </label>
+
+            <input
+                type="file"
+                id="videoInput"
+                accept="video/*"
+            >
+
+            <div id="fileName" class="file-name"></div>
+
+            <video
+                id="videoPreview"
+                class="video-preview"
+                controls
+                playsinline>
+            </video>
+
+            <button
+                id="analisarVideoBtn"
+                class="button"
+                disabled>
+                🤖 Analisar meu surf
+            </button>
+
+        </section>
+
+        <section id="resultado" class="card result">
+
+            <h2>🏄 Análise da sua sessão</h2>
+
+            <div class="result-item">
+                <strong>⭐ Avaliação</strong>
+                <p id="avaliacao">
+                    A análise aparecerá aqui.
+                </p>
+            </div>
+
+            <div class="result-item">
+                <strong>💪 Pontos fortes</strong>
+                <p id="pontosFortes">
+                    Aguardando análise.
+                </p>
+            </div>
+
+            <div class="result-item">
+                <strong>🎯 O que melhorar</strong>
+                <p id="melhorar">
+                    Aguardando análise.
+                </p>
+            </div>
+
+            <div class="result-item">
+                <strong>🏄 Técnica</strong>
+                <p id="tecnica">
+                    Aguardando análise.
+                </p>
+            </div>
+
+            <div class="result-item">
+                <strong>🧠 Treino recomendado</strong>
+                <p id="treino">
+                    Aguardando análise.
+                </p>
+            </div>
+
+        </section>
+
+        <a
+            href="pro.html"
+            class="back-button">
+            ← Voltar para o WaveRise PRO
+        </a>
+
+    </main>
+
+    <script type="module" src="./analise-video.js"></script>
+
+</body>
+
+</html>
