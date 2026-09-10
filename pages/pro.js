@@ -79,7 +79,7 @@ function criarBotaoResetTeste() {
 // CONFIGURAÇÃO
 // ======================================================
 
-const BACKEND_URL = "http://192.168.0.9:3000";
+const BACKEND_URL = "https://waverise.onrender.com";
 
 
 // ======================================================
