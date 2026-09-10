@@ -62,6 +62,11 @@ function obterDataExpiracao(plano) {
 }
 
 
+// ======================================================
+// ATIVAR PRO PELO E-MAIL
+// Usado principalmente pela assinatura do cartão
+// ======================================================
+
 async function ativarProUsuario({
     email,
     plano = "mensal",
@@ -81,8 +86,7 @@ async function ativarProUsuario({
             .trim()
             .toLowerCase();
 
-    const inicio =
-        new Date();
+    const inicio = new Date();
 
     const expiracao =
         obterDataExpiracao(plano);
@@ -99,6 +103,7 @@ async function ativarProUsuario({
                 mercadopago_assinatura_id =
                     COALESCE($4, mercadopago_assinatura_id)
             WHERE LOWER(email) = LOWER($5)
+
             RETURNING
                 id,
                 nome,
@@ -119,9 +124,8 @@ async function ativarProUsuario({
         );
 
     if (resultado.rowCount === 0) {
-
         console.warn(
-            "⚠️ Pagamento aprovado, mas usuário não encontrado:",
+            "⚠️ Usuário não encontrado pelo e-mail:",
             emailNormalizado
         );
 
@@ -129,8 +133,83 @@ async function ativarProUsuario({
     }
 
     console.log(
-        "🌊 WaveRise PRO ativado:",
-        resultado.rows[0]
+        "✅ PRO ativado pelo e-mail:",
+        emailNormalizado
+    );
+
+    return resultado.rows[0];
+}
+
+
+// ======================================================
+// ATIVAR PRO PELO ID
+// Usado pelo PIX
+// ======================================================
+
+async function ativarProUsuarioPorId({
+    usuarioId,
+    plano = "mensal",
+    assinaturaId = null
+}) {
+
+    if (!usuarioId) {
+        console.warn(
+            "⚠️ Não foi possível ativar PRO: ID do usuário não informado."
+        );
+
+        return null;
+    }
+
+    const inicio = new Date();
+
+    const expiracao =
+        obterDataExpiracao(plano);
+
+    const resultado =
+        await pool.query(
+            `
+            UPDATE usuarios
+            SET
+                pro = TRUE,
+                pro_plano = $2,
+                pro_inicio = $3,
+                pro_expira = $4,
+                mercadopago_assinatura_id =
+                    COALESCE($5, mercadopago_assinatura_id)
+
+            WHERE id = $1
+
+            RETURNING
+                id,
+                nome,
+                email,
+                pro,
+                pro_plano,
+                pro_inicio,
+                pro_expira,
+                mercadopago_assinatura_id
+            `,
+            [
+                usuarioId,
+                plano,
+                inicio,
+                expiracao,
+                assinaturaId
+            ]
+        );
+
+    if (resultado.rowCount === 0) {
+        console.warn(
+            "⚠️ Usuário não encontrado pelo ID:",
+            usuarioId
+        );
+
+        return null;
+    }
+
+    console.log(
+        "✅ PRO ativado pelo ID:",
+        usuarioId
     );
 
     return resultado.rows[0];
@@ -147,38 +226,178 @@ async function desativarProUsuario(email) {
         return null;
     }
 
+    const emailNormalizado =
+        String(email)
+            .trim()
+            .toLowerCase();
+
     const resultado =
         await pool.query(
             `
             UPDATE usuarios
+
             SET
                 pro = FALSE,
                 pro_expira = CURRENT_TIMESTAMP
+
             WHERE LOWER(email) = LOWER($1)
+
             RETURNING
                 id,
-                nome,
                 email,
-                pro
+                pro,
+                pro_plano,
+                pro_expira
             `,
-            [
-                String(email)
-                    .trim()
-                    .toLowerCase()
-            ]
+            [emailNormalizado]
         );
 
     if (resultado.rowCount > 0) {
 
         console.log(
-            "🛑 WaveRise PRO desativado:",
-            resultado.rows[0]
+            "🔴 PRO desativado:",
+            emailNormalizado
         );
 
         return resultado.rows[0];
     }
 
     return null;
+}
+
+
+// ======================================================
+// LER REFERÊNCIA DO PIX
+//
+// Formato:
+//
+// wrp-8-mensal-a7f32c91
+//
+// wrp = WaveRise PRO
+// 8 = ID do usuário
+// mensal/anual = plano
+// últimos caracteres = identificador
+// ======================================================
+
+function lerReferenciaPix(externalReference) {
+
+    if (!externalReference) {
+        return null;
+    }
+
+    const match =
+        String(externalReference)
+            .match(
+                /^wrp-(\d+)-(mensal|anual)-([A-Za-z0-9]+)$/
+            );
+
+    if (!match) {
+        console.warn(
+            "⚠️ Referência PIX inválida:",
+            externalReference
+        );
+
+        return null;
+    }
+
+    return {
+        usuarioId: Number(match[1]),
+        plano: match[2]
+    };
+}
+
+
+// ======================================================
+// VALIDAR WEBHOOK MERCADO PAGO
+// ======================================================
+
+function validarWebhookMercadoPago(req) {
+
+    const secret =
+        process.env.MERCADOPAGO_WEBHOOK_SECRET;
+
+    // Se ainda não houver secret configurado,
+    // aceita para não quebrar o ambiente.
+    if (!secret) {
+
+        console.warn(
+            "⚠️ MERCADOPAGO_WEBHOOK_SECRET não configurado."
+        );
+
+        return true;
+    }
+
+    const xSignature =
+        req.headers["x-signature"];
+
+    const xRequestId =
+        req.headers["x-request-id"];
+
+    const dataId =
+        req.query["data.id"];
+
+    if (
+        !xSignature ||
+        !xRequestId ||
+        !dataId
+    ) {
+
+        console.warn(
+            "⚠️ Webhook sem dados necessários para validação."
+        );
+
+        return false;
+    }
+
+    let ts = "";
+    let v1 = "";
+
+    const partes =
+        xSignature.split(",");
+
+    for (const parte of partes) {
+
+        const [chave, valor] =
+            parte.split("=");
+
+        if (chave === "ts") {
+            ts = valor;
+        }
+
+        if (chave === "v1") {
+            v1 = valor;
+        }
+    }
+
+    if (!ts || !v1) {
+        return false;
+    }
+
+    const manifest =
+        `id:${dataId};request-id:${xRequestId};ts:${ts};`;
+
+    const assinaturaEsperada =
+        crypto
+            .createHmac(
+                "sha256",
+                secret
+            )
+            .update(manifest)
+            .digest("hex");
+
+    try {
+
+        return crypto.timingSafeEqual(
+            Buffer.from(
+                assinaturaEsperada
+            ),
+            Buffer.from(v1)
+        );
+
+    } catch {
+
+        return false;
+    }
 }
 
 
@@ -194,32 +413,8 @@ router.post(
         try {
 
             const {
-                plano,
-                email
+                plano
             } = req.body;
-
-
-            // ==================================================
-            // VALIDAR E-MAIL
-            // ==================================================
-
-            if (!email) {
-
-                return res.status(400).json({
-
-                    sucesso:
-                        false,
-
-                    erro:
-                        "O e-mail do comprador é obrigatório."
-
-                });
-            }
-
-
-            // ==================================================
-            // DEFINIR PLANO
-            // ==================================================
 
             const ehAnual =
                 plano === "anual";
@@ -248,50 +443,34 @@ router.post(
 
                     currency_id:
                         "BRL"
-
                 },
 
                 payment_methods_allowed: {
 
                     payment_types: [
-
                         {
                             id:
                                 "credit_card"
                         }
-
                     ]
-
                 },
 
                 back_url:
                     "https://www.mercadopago.com.br"
-
             };
 
-
-            // ==================================================
-            // CRIAR PLANO NO MERCADO PAGO
-            // ==================================================
 
             console.log(
                 "💳 Criando plano Mercado Pago:",
                 plano
             );
 
+
             const resultado =
                 await planoAssinatura.create({
-
                     body:
                         dadosPlano
-
                 });
-
-
-            console.log(
-                "✅ Plano Mercado Pago criado:",
-                resultado?.id
-            );
 
 
             return res.json({
@@ -301,7 +480,6 @@ router.post(
 
                 plano:
                     resultado
-
             });
 
 
@@ -325,7 +503,7 @@ router.post(
                 "Causas:",
                 JSON.stringify(
                     erro?.causes ||
-                        [],
+                    [],
                     null,
                     2
                 )
@@ -346,11 +524,8 @@ router.post(
                 causas:
                     erro?.causes ||
                     []
-
             });
-
         }
-
     }
 );
 
@@ -372,12 +547,8 @@ router.post(
             } = req.body;
 
 
-            // ==================================================
-            // LOG
-            // ==================================================
-
             console.log(
-                "📥 Solicitação PIX recebida:"
+                "📥 Solicitação PIX recebida"
             );
 
             console.log(
@@ -404,25 +575,26 @@ router.post(
 
                     erro:
                         "O e-mail do comprador é obrigatório."
-
                 });
-
             }
 
 
             // ==================================================
-            // CONFIRMAR USUÁRIO
+            // BUSCAR USUÁRIO NO BANCO
             // ==================================================
 
-            const usuario =
+            const usuarioResultado =
                 await pool.query(
                     `
                     SELECT
                         id,
                         nome,
                         email
+
                     FROM usuarios
+
                     WHERE LOWER(email) = LOWER($1)
+
                     LIMIT 1
                     `,
                     [
@@ -433,7 +605,9 @@ router.post(
                 );
 
 
-            if (usuario.rowCount === 0) {
+            if (
+                usuarioResultado.rowCount === 0
+            ) {
 
                 return res.status(404).json({
 
@@ -442,37 +616,68 @@ router.post(
 
                     erro:
                         "Usuário WaveRise não encontrado."
-
                 });
-
             }
 
 
+            const usuario =
+                usuarioResultado.rows[0];
+
+
+            console.log(
+                "👤 Usuário encontrado:",
+                usuario.id
+            );
+
+
             // ==================================================
-            // DEFINIR VALOR
+            // DEFINIR PLANO
             // ==================================================
 
-            const ehAnual =
-                plano === "anual";
+            const planoFinal =
+                plano === "anual"
+                    ? "anual"
+                    : "mensal";
+
 
             const valor =
-                obterValorPlano(plano);
+                obterValorPlano(
+                    planoFinal
+                );
+
 
             const nomePlano =
-                obterNomePlano(plano);
+                obterNomePlano(
+                    planoFinal
+                );
 
 
             // ==================================================
-            // REFERÊNCIA DO NOSSO SISTEMA
+            // REFERÊNCIA SEGURA DO PIX
+            //
+            // IMPORTANTE:
+            // NÃO colocamos e-mail aqui.
+            //
+            // Exemplo:
+            //
+            // wrp-8-mensal-a7f32c91
             // ==================================================
 
-            const referenciaId =
-                crypto.randomUUID();
+            const identificador =
+                crypto
+                    .randomUUID()
+                    .replace(/-/g, "")
+                    .slice(0, 8);
+
 
             const externalReference =
-                `waverise-pro|email=${encodeURIComponent(
-                    email
-                )}|plano=${plano || "mensal"}|id=${referenciaId}`;
+                `wrp-${usuario.id}-${planoFinal}-${identificador}`;
+
+
+            console.log(
+                "🔗 External Reference PIX:",
+                externalReference
+            );
 
 
             // ==================================================
@@ -490,6 +695,7 @@ router.post(
             console.log(
                 "💳 Enviando PIX para Mercado Pago..."
             );
+
 
             const resposta =
                 await fetch(
@@ -512,8 +718,8 @@ router.post(
 
                             "X-Idempotency-Key":
                                 idempotencyKey
-
                         },
+
 
                         body:
                             JSON.stringify({
@@ -529,6 +735,7 @@ router.post(
 
                                 processing_mode:
                                     "automatic",
+
 
                                 transactions: {
 
@@ -546,30 +753,24 @@ router.post(
 
                                                 type:
                                                     "bank_transfer"
-
                                             },
 
                                             expiration_time:
                                                 "P1D"
-
                                         }
-
                                     ]
-
                                 },
+
 
                                 payer: {
 
-                                    // Ambiente de teste
-                                    // do Mercado Pago.
+                                    // Usuário de teste
+                                    // do Mercado Pago Sandbox
 
                                     email:
                                         "test_user_br@testuser.com"
-
                                 }
-
                             })
-
                     }
                 );
 
@@ -621,10 +822,9 @@ router.post(
 
                     causas:
                         resultado?.causes ||
+                        resultado?.errors ||
                         []
-
                 });
-
             }
 
 
@@ -645,7 +845,7 @@ router.post(
 
 
             // ==================================================
-            // VERIFICAR DADOS
+            // LOG
             // ==================================================
 
             console.log(
@@ -664,7 +864,7 @@ router.post(
 
 
             // ==================================================
-            // RETORNAR DADOS
+            // RETORNAR DADOS PARA O FRONTEND
             // ==================================================
 
             return res.json({
@@ -673,8 +873,7 @@ router.post(
                     true,
 
                 plano:
-                    plano ||
-                    "mensal",
+                    planoFinal,
 
                 valor:
                     valor,
@@ -711,9 +910,7 @@ router.post(
                     ticketUrl:
                         metodoPagamento
                             ?.ticket_url
-
                 }
-
             });
 
 
@@ -724,11 +921,7 @@ router.post(
             );
 
             console.error(
-                JSON.stringify(
-                    erro,
-                    null,
-                    2
-                )
+                erro
             );
 
 
@@ -740,121 +933,10 @@ router.post(
                 erro:
                     erro?.message ||
                     "Não foi possível criar o pagamento PIX."
-
             });
-
         }
-
     }
 );
-
-
-// ======================================================
-// VALIDAR ASSINATURA DO WEBHOOK
-// ======================================================
-
-function validarWebhookMercadoPago(req) {
-
-    const secret =
-        process.env.MERCADOPAGO_WEBHOOK_SECRET;
-
-    // Durante a configuração inicial,
-    // se a variável ainda não existir,
-    // deixamos o webhook funcionar.
-    //
-    // Depois que a chave for configurada no Render,
-    // a validação HMAC será obrigatória.
-
-    if (!secret) {
-
-        console.warn(
-            "⚠️ MERCADOPAGO_WEBHOOK_SECRET não configurado."
-        );
-
-        return true;
-    }
-
-
-    const xSignature =
-        req.headers["x-signature"];
-
-    const xRequestId =
-        req.headers["x-request-id"];
-
-    const dataId =
-        req.query["data.id"];
-
-
-    if (
-        !xSignature ||
-        !xRequestId ||
-        !dataId
-    ) {
-
-        console.warn(
-            "⚠️ Webhook sem dados necessários para validação."
-        );
-
-        return false;
-    }
-
-
-    let ts = "";
-    let v1 = "";
-
-    const partes =
-        xSignature.split(",");
-
-    for (const parte of partes) {
-
-        const [chave, valor] =
-            parte.split("=");
-
-        if (chave === "ts") {
-            ts = valor;
-        }
-
-        if (chave === "v1") {
-            v1 = valor;
-        }
-
-    }
-
-
-    if (!ts || !v1) {
-        return false;
-    }
-
-
-    const manifest =
-        `id:${dataId};request-id:${xRequestId};ts:${ts};`;
-
-
-    const assinaturaEsperada =
-        crypto
-            .createHmac(
-                "sha256",
-                secret
-            )
-            .update(manifest)
-            .digest("hex");
-
-
-    try {
-
-        return crypto.timingSafeEqual(
-            Buffer.from(
-                assinaturaEsperada
-            ),
-            Buffer.from(v1)
-        );
-
-    } catch {
-
-        return false;
-    }
-
-}
 
 
 // ======================================================
@@ -864,9 +946,6 @@ function validarWebhookMercadoPago(req) {
 router.post(
     "/webhook",
     async (req, res) => {
-
-        // O Mercado Pago precisa receber
-        // resposta rapidamente.
 
         try {
 
@@ -890,7 +969,6 @@ router.post(
                         sucesso:
                             false
                     });
-
             }
 
 
@@ -901,6 +979,7 @@ router.post(
             const tipo =
                 req.body?.type ||
                 req.query?.type;
+
 
             const dataId =
                 req.body?.data?.id ||
@@ -916,21 +995,24 @@ router.post(
             );
 
 
-            // Sempre responder OK para
-            // notificações que não precisamos processar.
+            // ==================================================
+            // EVENTOS SEM DADOS
+            // ==================================================
 
             if (!tipo || !dataId) {
 
-                return res.status(200).json({
-                    recebido:
-                        true
-                });
-
+                return res
+                    .status(200)
+                    .json({
+                        recebido:
+                            true
+                    });
             }
 
 
             // ==================================================
-            // EVENTO: PAYMENT
+            // PAYMENT
+            // PIX / PAGAMENTOS
             // ==================================================
 
             if (tipo === "payment") {
@@ -944,9 +1026,7 @@ router.post(
 
                                 Authorization:
                                     `Bearer ${process.env.MERCADOPAGO_ACCESS_TOKEN}`
-
                             }
-
                         }
                     );
 
@@ -958,89 +1038,111 @@ router.post(
                 if (!resposta.ok) {
 
                     console.error(
-                        "❌ Não foi possível consultar pagamento:",
+                        "❌ Erro ao consultar pagamento:",
                         pagamento
                     );
 
-                    return res.status(200).json({
-                        recebido:
-                            true
-                    });
-
+                    return res
+                        .status(200)
+                        .json({
+                            recebido:
+                                true
+                        });
                 }
 
 
                 console.log(
-                    "💳 Status pagamento:",
+                    "💰 Status pagamento:",
                     pagamento?.status
                 );
 
 
-                // Pagamento aprovado
+                // ==================================================
+                // PAGAMENTO APROVADO
+                // ==================================================
 
                 if (
                     pagamento?.status ===
                     "approved"
                 ) {
 
-                    const email =
+                    const externalReference =
                         pagamento
-                            ?.payer
-                            ?.email;
-
-                    let plano =
-                        "mensal";
-
-
-                    // Tentar descobrir o plano
-                    // através da referência.
-
-                    const referencia =
-                        pagamento
-                            ?.external_reference ||
-                        pagamento
-                            ?.order
                             ?.external_reference;
 
 
-                    if (
-                        referencia
-                            ?.includes(
-                                "plano=anual"
-                            )
-                    ) {
+                    const dadosReferencia =
+                        lerReferenciaPix(
+                            externalReference
+                        );
 
-                        plano =
-                            "anual";
+
+                    // ==================================================
+                    // PIX
+                    // ==================================================
+
+                    if (dadosReferencia) {
+
+                        await ativarProUsuarioPorId({
+
+                            usuarioId:
+                                dadosReferencia.usuarioId,
+
+                            plano:
+                                dadosReferencia.plano,
+
+                            assinaturaId:
+                                pagamento
+                                    ?.id
+                                    ?.toString()
+                        });
 
                     }
 
+                    // ==================================================
+                    // CARTÃO
+                    // ==================================================
 
-                    await ativarProUsuario({
+                    else {
 
-                        email,
-                        plano,
+                        const email =
+                            pagamento
+                                ?.payer
+                                ?.email;
 
-                        assinaturaId:
-                            pagamento?.id
-                                ?.toString()
 
-                    });
+                        if (email) {
 
+                            await ativarProUsuario({
+
+                                email,
+
+                                plano:
+                                    "mensal",
+
+                                assinaturaId:
+                                    pagamento
+                                        ?.id
+                                        ?.toString()
+                            });
+                        }
+                    }
                 }
 
 
-                return res.status(200).json({
-                    recebido:
-                        true
-                });
-
+                return res
+                    .status(200)
+                    .json({
+                        recebido:
+                            true
+                    });
             }
 
 
-            // ==================================================
-            // EVENTO: ORDER
-            // ==================================================
+            // ======================================================
+            // ORDER
+            // PIX ORDERS API
+            // ======================================================
 
             if (tipo === "order") {
 
@@ -1053,9 +1155,7 @@ router.post(
 
                                 Authorization:
                                     `Bearer ${process.env.MERCADOPAGO_ACCESS_TOKEN}`
-
                             }
-
                         }
                     );
 
@@ -1067,149 +1167,106 @@ router.post(
                 if (!resposta.ok) {
 
                     console.error(
-                        "❌ Não foi possível consultar order:",
+                        "❌ Erro ao consultar Order:",
                         order
                     );
 
-                    return res.status(200).json({
-                        recebido:
-                            true
-                    });
-
+                    return res
+                        .status(200)
+                        .json({
+                            recebido:
+                                true
+                        });
                 }
 
 
                 console.log(
-                    "🧾 Status order:",
-                    order?.status
+                    "📦 Order Mercado Pago:",
+                    {
+                        id:
+                            order?.id,
+
+                        status:
+                            order?.status
+                    }
                 );
 
 
-                const pagamento =
+                // ==================================================
+                // VERIFICAR PAGAMENTO
+                // ==================================================
+
+                const pagamentos =
                     order
                         ?.transactions
-                        ?.payments
-                        ?.[0];
+                        ?.payments ||
+                    [];
 
 
                 const pagamentoAprovado =
-                    [
-                        "processed",
-                        "approved",
-                        "completed"
-                    ].includes(
-                        pagamento?.status
-                    ) ||
-                    [
-                        "processed",
-                        "approved",
-                        "completed"
-                    ].includes(
-                        order?.status
+                    pagamentos.find(
+                        pagamento =>
+                            pagamento?.status ===
+                            "processed" ||
+                            pagamento?.status ===
+                            "approved" ||
+                            pagamento?.status ===
+                            "completed"
                     );
 
 
-                if (
-                    pagamentoAprovado
-                ) {
+                if (pagamentoAprovado) {
 
-                    const referencia =
+                    const externalReference =
                         order
                             ?.external_reference;
 
 
-                    let email =
-                        order
-                            ?.payer
-                            ?.email;
+                    const dadosReferencia =
+                        lerReferenciaPix(
+                            externalReference
+                        );
 
 
-                    let plano =
-                        "mensal";
+                    if (dadosReferencia) {
+
+                        await ativarProUsuarioPorId({
+
+                            usuarioId:
+                                dadosReferencia.usuarioId,
+
+                            plano:
+                                dadosReferencia.plano,
+
+                            assinaturaId:
+                                order
+                                    ?.id
+                                    ?.toString()
+                        });
 
 
-                    // ==================================================
-                    // RECUPERAR E-MAIL DA NOSSA REFERÊNCIA
-                    // ==================================================
+                    } else {
 
-                    if (
-                        referencia
-                    ) {
-
-                        const matchEmail =
-                            referencia.match(
-                                /email=([^|]+)/
-                            );
-
-                        const matchPlano =
-                            referencia.match(
-                                /plano=([^|]+)/
-                            );
-
-
-                        if (
-                            matchEmail
-                        ) {
-
-                            try {
-
-                                email =
-                                    decodeURIComponent(
-                                        matchEmail[1]
-                                    );
-
-                            } catch {
-
-                                console.warn(
-                                    "⚠️ Não foi possível decodificar o e-mail."
-                                );
-
-                            }
-
-                        }
-
-
-                        if (
-                            matchPlano &&
-                            matchPlano[1] ===
-                                "anual"
-                        ) {
-
-                            plano =
-                                "anual";
-
-                        }
-
+                        console.warn(
+                            "⚠️ Order aprovada sem referência WaveRise válida."
+                        );
                     }
-
-
-                    await ativarProUsuario({
-
-                        email,
-
-                        plano,
-
-                        assinaturaId:
-                            order
-                                ?.id
-                                ?.toString()
-
-                    });
-
                 }
 
 
-                return res.status(200).json({
-                    recebido:
-                        true
-                });
-
+                return res
+                    .status(200)
+                    .json({
+                        recebido:
+                            true
+                    });
             }
 
 
-            // ==================================================
-            // EVENTO: SUBSCRIPTION_PREAPPROVAL
-            // ==================================================
+            // ======================================================
+            // SUBSCRIPTION PREAPPROVAL
+            // CARTÃO / ASSINATURA
+            // ======================================================
 
             if (
                 tipo ===
@@ -1225,9 +1282,7 @@ router.post(
 
                                 Authorization:
                                     `Bearer ${process.env.MERCADOPAGO_ACCESS_TOKEN}`
-
                             }
-
                         }
                     );
 
@@ -1239,102 +1294,101 @@ router.post(
                 if (!resposta.ok) {
 
                     console.error(
-                        "❌ Não foi possível consultar assinatura:",
+                        "❌ Erro ao consultar assinatura:",
                         assinatura
                     );
 
-                    return res.status(200).json({
-                        recebido:
-                            true
-                    });
-
+                    return res
+                        .status(200)
+                        .json({
+                            recebido:
+                                true
+                        });
                 }
 
 
                 console.log(
-                    "📋 Status assinatura:",
+                    "🔄 Status assinatura:",
                     assinatura?.status
                 );
 
 
-                const status =
-                    assinatura?.status;
-
-
-                const email =
-                    assinatura
-                        ?.payer_email;
-
-
-                let plano =
-                    "mensal";
-
-
-                if (
-                    assinatura
-                        ?.auto_recurring
-                        ?.frequency === 12
-                ) {
-
-                    plano =
-                        "anual";
-
-                }
-
-
                 // ==================================================
-                // ASSINATURA AUTORIZADA
+                // ASSINATURA ATIVA
                 // ==================================================
 
                 if (
-                    status ===
+                    assinatura?.status ===
                     "authorized"
                 ) {
 
-                    await ativarProUsuario({
+                    const email =
+                        assinatura
+                            ?.payer_email;
 
-                        email,
 
-                        plano,
+                    if (email) {
 
-                        assinaturaId:
-                            assinatura?.id
-                                ?.toString()
+                        const plano =
+                            assinatura
+                                ?.auto_recurring
+                                ?.frequency === 12
+                                ? "anual"
+                                : "mensal";
 
-                    });
 
+                        await ativarProUsuario({
+
+                            email,
+
+                            plano,
+
+                            assinaturaId:
+                                assinatura
+                                    ?.id
+                                    ?.toString()
+                        });
+                    }
                 }
 
 
                 // ==================================================
-                // ASSINATURA CANCELADA
+                // ASSINATURA CANCELADA / PAUSADA
                 // ==================================================
 
                 if (
-                    status ===
-                        "cancelled" ||
-                    status ===
-                        "paused"
+                    assinatura?.status ===
+                    "cancelled" ||
+                    assinatura?.status ===
+                    "paused"
                 ) {
 
-                    await desativarProUsuario(
-                        email
-                    );
+                    const email =
+                        assinatura
+                            ?.payer_email;
 
+
+                    if (email) {
+
+                        await desativarProUsuario(
+                            email
+                        );
+                    }
                 }
 
 
-                return res.status(200).json({
-                    recebido:
-                        true
-                });
-
+                return res
+                    .status(200)
+                    .json({
+                        recebido:
+                            true
+                    });
             }
 
 
-            // ==================================================
+            // ======================================================
             // OUTROS EVENTOS
-            // ==================================================
+            // ======================================================
 
             console.log(
                 "ℹ️ Evento Mercado Pago não processado:",
@@ -1342,10 +1396,12 @@ router.post(
             );
 
 
-            return res.status(200).json({
-                recebido:
-                    true
-            });
+            return res
+                .status(200)
+                .json({
+                    recebido:
+                        true
+                });
 
 
         } catch (erro) {
@@ -1358,18 +1414,17 @@ router.post(
                 erro
             );
 
-            // Mesmo em erro interno,
-            // respondemos 200 para evitar
-            // uma tempestade de reenvios
-            // durante a fase inicial.
 
-            return res.status(200).json({
-                recebido:
-                    true
-            });
+            // Mercado Pago deve receber 200
+            // para evitar reenvios desnecessários.
 
+            return res
+                .status(200)
+                .json({
+                    recebido:
+                        true
+                });
         }
-
     }
 );
 
@@ -1388,19 +1443,14 @@ router.get(
                 true,
 
             mensagem:
-                "Webhook WaveRise Mercado Pago ativo.",
-
-            endpoint:
-                "/pagamentos/webhook"
-
+                "Webhook Mercado Pago ativo."
         });
-
     }
 );
 
 
 // ======================================================
-// EXPORTAR ROTAS
+// ROTAS CARREGADAS
 // ======================================================
 
 console.log(
@@ -1416,5 +1466,9 @@ console.log(
         .filter(Boolean)
 );
 
+
+// ======================================================
+// EXPORTAR
+// ======================================================
 
 export default router;
