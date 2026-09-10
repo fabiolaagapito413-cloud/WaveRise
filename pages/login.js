@@ -1,6 +1,6 @@
 // ======================================================
 // WaveRise — Login / Cadastro
-// Supabase Auth
+// Supabase Auth + PostgreSQL
 // Web + Android Capacitor
 // ======================================================
 
@@ -8,7 +8,6 @@ import { createClient } from "@supabase/supabase-js";
 import { Capacitor } from "@capacitor/core";
 import { App } from "@capacitor/app";
 import { Browser } from "@capacitor/browser";
-
 
 // ======================================================
 // SUPABASE
@@ -20,12 +19,23 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_FqVlrPkVfJoSOmLYUrz-lQ_GOYZoMPe";
 
-const supabase =
-    createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+const supabase = createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
+// ======================================================
+// BACKEND WAVERISE
+// ======================================================
+
+// Computador:
+// http://localhost:3000
+//
+// Futuramente, quando o backend estiver publicado,
+// trocaremos esta URL pela URL online.
+
+const BACKEND_URL =
+    "http://localhost:3000";
 
 // ======================================================
 // CONFIGURAÇÃO
@@ -36,7 +46,6 @@ const EH_APP =
 
 const REDIRECT_ANDROID =
     "com.waverise.app://login-callback";
-
 
 // ======================================================
 // ELEMENTOS
@@ -72,7 +81,6 @@ const tabCadastro =
 const mensagem =
     document.getElementById("mensagem");
 
-
 // ======================================================
 // MENSAGEM
 // ======================================================
@@ -84,26 +92,29 @@ function mostrarMensagem(
 
     if (!mensagem) return;
 
-    mensagem.textContent =
-        texto;
+    mensagem.textContent = texto;
 
-    mensagem.className =
-        "mensagem";
+    mensagem.className = "mensagem";
 
     if (tipo) {
 
-        mensagem.classList.add(
-            tipo
-        );
+        mensagem.classList.add(tipo);
 
     }
 
 }
 
-async function sincronizarPerfil(usuario, nomeInformado = "") {
+// ======================================================
+// SINCRONIZAR USUÁRIO COM POSTGRESQL
+// ======================================================
+
+async function sincronizarUsuarioPostgres(
+    usuario,
+    nomeInformado = ""
+) {
 
     if (!usuario) {
-        return;
+        return false;
     }
 
     const metadata =
@@ -116,54 +127,100 @@ async function sincronizarPerfil(usuario, nomeInformado = "") {
         metadata.full_name ||
         "Surfista";
 
-    const foto =
-        metadata.avatar_url ||
-        metadata.picture ||
-        null;
+    const email =
+        usuario.email || "";
 
-    const {
-        error
-    } =
-        await supabase
-            .from("perfis")
-            .upsert(
-                {
-                    id:
-                        usuario.id,
+    if (!email) {
 
-                    nome:
-                        nome,
-
-                    email:
-                        usuario.email || "",
-
-                    foto:
-                        foto
-                },
-                {
-                    onConflict:
-                        "id"
-                }
-            );
-
-    if (error) {
-
-        console.error(
-            "Erro ao sincronizar perfil:",
-            error
+        console.warn(
+            "⚠️ Usuário sem e-mail. Não foi possível sincronizar."
         );
 
         return false;
 
     }
 
-    console.log(
-        "✅ Perfil sincronizado:",
-        usuario.id
-    );
+    try {
 
-    return true;
+        const resposta =
+            await fetch(
+                `${BACKEND_URL}/usuarios`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        nome,
+                        email
+                    })
+                }
+            );
+
+        const resultado =
+            await resposta.json();
+
+        if (!resposta.ok) {
+
+            console.error(
+                "❌ Erro ao sincronizar usuário:",
+                resultado
+            );
+
+            return false;
+
+        }
+
+        console.log(
+            "✅ Usuário sincronizado com PostgreSQL:",
+            resultado.usuario
+        );
+
+        // Guarda o ID do banco para uso futuro
+        if (resultado.usuario?.id) {
+
+            localStorage.setItem(
+                "usuarioIdWaveRise",
+                String(
+                    resultado.usuario.id
+                )
+            );
+
+        }
+
+        // Guarda também os dados básicos
+        localStorage.setItem(
+            "usuarioWaveRise",
+            JSON.stringify(
+                resultado.usuario
+            )
+        );
+
+        return true;
+
+    }
+
+    catch (erro) {
+
+        console.error(
+            "❌ Não foi possível acessar o backend:",
+            erro
+        );
+
+        /*
+         * Não bloqueamos o login se o backend
+         * estiver temporariamente indisponível.
+         */
+
+        return false;
+
+    }
+
 }
+
 // ======================================================
 // REDIRECIONAR
 // ======================================================
@@ -175,9 +232,8 @@ function redirecionarUsuario() {
 
 }
 
-
 // ======================================================
-// PROCESSAR CALLBACK DO GOOGLE
+// PROCESSAR CALLBACK OAUTH
 // ======================================================
 
 async function processarCallbackOAuth(
@@ -191,63 +247,35 @@ async function processarCallbackOAuth(
         url
     );
 
-
     try {
 
         const urlObj =
             new URL(url);
-
-
-        /*
-         * Supabase pode retornar os tokens
-         * no fragmento (#) no fluxo implícito.
-         */
 
         const hashParams =
             new URLSearchParams(
                 urlObj.hash.substring(1)
             );
 
-
         const queryParams =
             urlObj.searchParams;
 
-
         const accessToken =
-            hashParams.get(
-                "access_token"
-            ) ||
-            queryParams.get(
-                "access_token"
-            );
-
+            hashParams.get("access_token") ||
+            queryParams.get("access_token");
 
         const refreshToken =
-            hashParams.get(
-                "refresh_token"
-            ) ||
-            queryParams.get(
-                "refresh_token"
-            );
-
-
-        /*
-         * Se o Supabase estiver usando
-         * PKCE, pode retornar um code.
-         */
+            hashParams.get("refresh_token") ||
+            queryParams.get("refresh_token");
 
         const code =
-            queryParams.get(
-                "code"
-            );
-
+            queryParams.get("code");
 
         if (code) {
 
             console.log(
                 "🔐 Código OAuth recebido."
             );
-
 
             const {
                 error
@@ -257,7 +285,6 @@ async function processarCallbackOAuth(
                         code
                     );
 
-
             if (error) {
 
                 console.error(
@@ -266,7 +293,7 @@ async function processarCallbackOAuth(
                 );
 
                 mostrarMensagem(
-                    "Não foi possível concluir o login com Google.",
+                    "Não foi possível concluir o login.",
                     "erro"
                 );
 
@@ -285,7 +312,6 @@ async function processarCallbackOAuth(
                 "🔐 Tokens OAuth recebidos."
             );
 
-
             const {
                 error
             } =
@@ -299,7 +325,6 @@ async function processarCallbackOAuth(
                             refreshToken
 
                     });
-
 
             if (error) {
 
@@ -329,11 +354,24 @@ async function processarCallbackOAuth(
 
         }
 
+        // Buscar usuário autenticado
+        const {
+            data,
+            error
+        } =
+            await supabase.auth
+                .getUser();
 
-        /*
-         * Fecha o navegador externo
-         * depois que o app recebeu o retorno.
-         */
+        if (
+            !error &&
+            data?.user
+        ) {
+
+            await sincronizarUsuarioPostgres(
+                data.user
+            );
+
+        }
 
         if (EH_APP) {
 
@@ -354,18 +392,15 @@ async function processarCallbackOAuth(
 
         }
 
-
         mostrarMensagem(
             "Login realizado com sucesso! 🌊",
             "sucesso"
         );
 
-
         setTimeout(
             redirecionarUsuario,
             500
         );
-
 
         return true;
 
@@ -389,7 +424,6 @@ async function processarCallbackOAuth(
 
 }
 
-
 // ======================================================
 // DEEP LINK ANDROID
 // ======================================================
@@ -397,16 +431,8 @@ async function processarCallbackOAuth(
 async function configurarDeepLink() {
 
     if (!EH_APP) {
-
         return;
-
     }
-
-
-    /*
-     * Quando o aplicativo já está aberto
-     * e recebe o retorno do Google.
-     */
 
     await App.addListener(
         "appUrlOpen",
@@ -426,17 +452,10 @@ async function configurarDeepLink() {
         }
     );
 
-
-    /*
-     * Quando o aplicativo é aberto
-     * diretamente pelo link OAuth.
-     */
-
     try {
 
         const launchUrl =
             await App.getLaunchUrl();
-
 
         if (
             launchUrl?.url
@@ -446,7 +465,6 @@ async function configurarDeepLink() {
                 "🚀 App iniciado por URL:",
                 launchUrl.url
             );
-
 
             await processarCallbackOAuth(
                 launchUrl.url
@@ -467,7 +485,6 @@ async function configurarDeepLink() {
 
 }
 
-
 // ======================================================
 // VERIFICAR SESSÃO
 // ======================================================
@@ -480,8 +497,8 @@ async function verificarSessao() {
             data,
             error
         } =
-            await supabase.auth.getSession();
-
+            await supabase.auth
+                .getSession();
 
         if (error) {
 
@@ -494,8 +511,11 @@ async function verificarSessao() {
 
         }
 
-
         if (data.session) {
+
+            await sincronizarUsuarioPostgres(
+                data.session.user
+            );
 
             redirecionarUsuario();
 
@@ -514,9 +534,8 @@ async function verificarSessao() {
 
 }
 
-
 // ======================================================
-// LOGIN E-MAIL
+// LOGIN COM E-MAIL
 // ======================================================
 
 formLogin?.addEventListener(
@@ -525,19 +544,16 @@ formLogin?.addEventListener(
 
         evento.preventDefault();
 
-
         const email =
             document
                 .getElementById("loginEmail")
                 ?.value
                 .trim();
 
-
         const senha =
             document
                 .getElementById("loginSenha")
                 ?.value;
-
 
         if (!email || !senha) {
 
@@ -550,17 +566,12 @@ formLogin?.addEventListener(
 
         }
 
-
-        btnLogin.disabled =
-            true;
-
+        btnLogin.disabled = true;
 
         btnLogin.textContent =
             "Entrando...";
 
-
         mostrarMensagem("");
-
 
         try {
 
@@ -577,7 +588,6 @@ formLogin?.addEventListener(
                             senha
 
                     });
-
 
             if (error) {
 
@@ -597,7 +607,6 @@ formLogin?.addEventListener(
 
             }
 
-
             if (!data.session) {
 
                 mostrarMensagem(
@@ -609,12 +618,15 @@ formLogin?.addEventListener(
 
             }
 
+            // Sincroniza o usuário com PostgreSQL
+            await sincronizarUsuarioPostgres(
+                data.session.user
+            );
 
             mostrarMensagem(
                 "Login realizado com sucesso! 🌊",
                 "sucesso"
             );
-
 
             setTimeout(
                 redirecionarUsuario,
@@ -639,8 +651,7 @@ formLogin?.addEventListener(
 
         finally {
 
-            btnLogin.disabled =
-                false;
+            btnLogin.disabled = false;
 
             btnLogin.textContent =
                 "Entrar";
@@ -649,7 +660,6 @@ formLogin?.addEventListener(
 
     }
 );
-
 
 // ======================================================
 // CADASTRO
@@ -661,13 +671,11 @@ formCadastro?.addEventListener(
 
         evento.preventDefault();
 
-
         const nome =
             document
                 .getElementById("cadastroNome")
                 ?.value
                 .trim();
-
 
         const email =
             document
@@ -675,12 +683,10 @@ formCadastro?.addEventListener(
                 ?.value
                 .trim();
 
-
         const senha =
             document
                 .getElementById("cadastroSenha")
                 ?.value;
-
 
         const confirmacao =
             document
@@ -688,7 +694,6 @@ formCadastro?.addEventListener(
                     "cadastroSenhaConfirmacao"
                 )
                 ?.value;
-
 
         if (
             !nome ||
@@ -706,7 +711,6 @@ formCadastro?.addEventListener(
 
         }
 
-
         if (senha.length < 6) {
 
             mostrarMensagem(
@@ -717,7 +721,6 @@ formCadastro?.addEventListener(
             return;
 
         }
-
 
         if (
             senha !== confirmacao
@@ -732,19 +735,18 @@ formCadastro?.addEventListener(
 
         }
 
-
-        btnCadastro.disabled =
-            true;
-
+        btnCadastro.disabled = true;
 
         btnCadastro.textContent =
             "Criando conta...";
 
-
         mostrarMensagem("");
 
-
         try {
+
+            // ==========================================
+            // 1. CRIAR CONTA NO SUPABASE
+            // ==========================================
 
             const {
                 data,
@@ -771,7 +773,6 @@ formCadastro?.addEventListener(
 
                     });
 
-
             if (error) {
 
                 console.error(
@@ -790,6 +791,9 @@ formCadastro?.addEventListener(
 
             }
 
+            // ==========================================
+            // 2. CONFIRMAÇÃO DE E-MAIL
+            // ==========================================
 
             if (!data.session) {
 
@@ -804,12 +808,19 @@ formCadastro?.addEventListener(
 
             }
 
+            // ==========================================
+            // 3. SALVAR PERFIL NO POSTGRESQL
+            // ==========================================
+
+            await sincronizarUsuarioPostgres(
+                data.user,
+                nome
+            );
 
             mostrarMensagem(
                 "Conta criada com sucesso! 🌊",
                 "sucesso"
             );
-
 
             setTimeout(
                 redirecionarUsuario,
@@ -834,8 +845,7 @@ formCadastro?.addEventListener(
 
         finally {
 
-            btnCadastro.disabled =
-                false;
+            btnCadastro.disabled = false;
 
             btnCadastro.textContent =
                 "Criar minha conta";
@@ -844,7 +854,6 @@ formCadastro?.addEventListener(
 
     }
 );
-
 
 // ======================================================
 // RECUPERAÇÃO DE SENHA
@@ -860,7 +869,6 @@ btnEsqueciSenha?.addEventListener(
                 ?.value
                 .trim();
 
-
         if (!email) {
 
             mostrarMensagem(
@@ -872,11 +880,9 @@ btnEsqueciSenha?.addEventListener(
 
         }
 
-
         mostrarMensagem(
             "Enviando e-mail de recuperação..."
         );
-
 
         try {
 
@@ -896,7 +902,6 @@ btnEsqueciSenha?.addEventListener(
                         }
                     );
 
-
             if (error) {
 
                 console.error(
@@ -914,7 +919,6 @@ btnEsqueciSenha?.addEventListener(
                 return;
 
             }
-
 
             mostrarMensagem(
                 "Enviamos um link para redefinir sua senha.",
@@ -940,7 +944,6 @@ btnEsqueciSenha?.addEventListener(
     }
 );
 
-
 // ======================================================
 // GOOGLE
 // ======================================================
@@ -949,24 +952,16 @@ btnGoogle?.addEventListener(
     "click",
     async () => {
 
-        btnGoogle.disabled =
-            true;
-
+        btnGoogle.disabled = true;
 
         btnGoogle.textContent =
             "Abrindo Google...";
-
 
         mostrarMensagem(
             "Abrindo login do Google..."
         );
 
-
         try {
-
-            /*
-             * ANDROID / CAPACITOR
-             */
 
             if (EH_APP) {
 
@@ -992,13 +987,9 @@ btnGoogle?.addEventListener(
 
                         });
 
-
                 if (error) {
-
                     throw error;
-
                 }
-
 
                 if (!data?.url) {
 
@@ -1008,29 +999,18 @@ btnGoogle?.addEventListener(
 
                 }
 
-
                 console.log(
                     "🌐 Abrindo OAuth:",
                     data.url
                 );
 
-
                 await Browser.open({
-
-                    url:
-                        data.url
-
+                    url: data.url
                 });
-
 
                 return;
 
             }
-
-
-            /*
-             * WEB / COMPUTADOR
-             */
 
             const {
                 error
@@ -1050,11 +1030,8 @@ btnGoogle?.addEventListener(
 
                     });
 
-
             if (error) {
-
                 throw error;
-
             }
 
         }
@@ -1073,10 +1050,7 @@ btnGoogle?.addEventListener(
                 "erro"
             );
 
-
-            btnGoogle.disabled =
-                false;
-
+            btnGoogle.disabled = false;
 
             btnGoogle.textContent =
                 "Continuar com Google";
@@ -1085,7 +1059,6 @@ btnGoogle?.addEventListener(
 
     }
 );
-
 
 // ======================================================
 // FACEBOOK
@@ -1106,7 +1079,6 @@ btnFacebook?.addEventListener(
 
         try {
 
-            // ANDROID / CAPACITOR
             if (EH_APP) {
 
                 const {
@@ -1136,9 +1108,11 @@ btnFacebook?.addEventListener(
                 }
 
                 if (!data?.url) {
+
                     throw new Error(
                         "Supabase não retornou a URL do Facebook."
                     );
+
                 }
 
                 console.log(
@@ -1151,9 +1125,9 @@ btnFacebook?.addEventListener(
                 });
 
                 return;
+
             }
 
-            // WEB / COMPUTADOR
             const {
                 error
             } =
@@ -1186,7 +1160,9 @@ btnFacebook?.addEventListener(
             );
 
             mostrarMensagem(
-                traduzirErroAuth(erro),
+                traduzirErroAuth(
+                    erro
+                ),
                 "erro"
             );
 
@@ -1194,6 +1170,7 @@ btnFacebook?.addEventListener(
 
             btnFacebook.textContent =
                 "Continuar com Facebook";
+
         }
 
     }
@@ -1224,7 +1201,6 @@ tabLogin?.addEventListener(
     }
 );
 
-
 tabCadastro?.addEventListener(
     "click",
     () => {
@@ -1246,7 +1222,6 @@ tabCadastro?.addEventListener(
     }
 );
 
-
 // ======================================================
 // TRADUZIR ERROS
 // ======================================================
@@ -1261,7 +1236,6 @@ function traduzirErroAuth(
             ""
         ).toLowerCase();
 
-
     if (
         mensagemErro.includes(
             "invalid login credentials"
@@ -1271,7 +1245,6 @@ function traduzirErroAuth(
         return "E-mail ou senha incorretos.";
 
     }
-
 
     if (
         mensagemErro.includes(
@@ -1283,7 +1256,6 @@ function traduzirErroAuth(
 
     }
 
-
     if (
         mensagemErro.includes(
             "user already registered"
@@ -1293,7 +1265,6 @@ function traduzirErroAuth(
         return "Este e-mail já possui uma conta.";
 
     }
-
 
     if (
         mensagemErro.includes(
@@ -1305,7 +1276,6 @@ function traduzirErroAuth(
 
     }
 
-
     if (
         mensagemErro.includes(
             "rate limit"
@@ -1315,7 +1285,6 @@ function traduzirErroAuth(
         return "Muitas tentativas. Aguarde alguns minutos.";
 
     }
-
 
     if (
         mensagemErro.includes(
@@ -1327,7 +1296,6 @@ function traduzirErroAuth(
 
     }
 
-
     if (
         mensagemErro.includes(
             "redirect"
@@ -1338,14 +1306,12 @@ function traduzirErroAuth(
 
     }
 
-
     return (
         error?.message ||
         "Ocorreu um erro. Tente novamente."
     );
 
 }
-
 
 // ======================================================
 // OBSERVAR AUTH
@@ -1367,7 +1333,6 @@ supabase.auth.onAuthStateChange(
     }
 );
 
-
 // ======================================================
 // INICIALIZAÇÃO
 // ======================================================
@@ -1375,7 +1340,6 @@ supabase.auth.onAuthStateChange(
 configurarDeepLink();
 
 verificarSessao();
-
 
 console.log(
     "🔐 WaveRise Login carregado."
