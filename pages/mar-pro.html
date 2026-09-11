@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>WaveRise • Mar PRO</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./mar.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           WAVERISE MAR PRO
+        ===================================================== */
+
+        body {
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(108, 92, 231, 0.18),
+                    transparent 45%
+                ),
+                #0f1115;
+        }
+
+        .proPage {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 110px;
+        }
+
+        /* =====================================================
+           TOPO
+        ===================================================== */
+
+        .proTop {
+            padding: 20px 18px 10px;
+        }
+
+        .proBack {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #fff;
+            text-decoration: none;
+
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .proHero {
+            margin: 12px 16px 20px;
+            padding: 26px 22px;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(108, 92, 231, 0.95),
+                    rgba(79, 172, 254, 0.85)
+                );
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.30);
+        }
+
+        .proBadge {
+            display: inline-block;
+
+            padding: 6px 12px;
+
+            border-radius: 999px;
+
+            background: rgba(255,255,255,0.18);
+
+            color: #fff;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+        }
+
+        .proHero h1 {
+            margin: 12px 0 8px;
+
+            color: #fff;
+
+            font-size: 30px;
+        }
+
+        .proHero p {
+            margin: 0;
+
+            color: rgba(255,255,255,0.9);
+
+            line-height: 1.5;
+        }
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
+
+        .proCard {
+            margin: 16px;
+
+            padding: 20px;
+
+            border-radius: 20px;
+
+            background: #181b22;
+
+            border: 1px solid rgba(255,255,255,0.07);
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,0.18);
+        }
+
+        .proCard h2 {
+            margin: 0 0 6px;
+
+            color: #fff;
+
+            font-size: 20px;
+        }
+
+        .proCard p {
+            margin: 0 0 18px;
+
+            color: rgba(255,255,255,0.65);
+
+            line-height: 1.5;
+        }
+
+        /* =====================================================
+           MELHOR HORÁRIO
+        ===================================================== */
+
+        .timeline {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(120px, 1fr)
+                );
+
+            gap: 10px;
+        }
+
+        .hourCard {
+            padding: 14px;
+
+            border-radius: 16px;
+
+            background: #222630;
+
+            border: 1px solid rgba(255,255,255,0.06);
+
+            text-align: center;
+        }
+
+        .hourCard strong {
+            display: block;
+
+            color: #fff;
+
+            font-size: 18px;
+
+            margin-bottom: 8px;
+        }
+
+        .hourCard span {
+            display: block;
+
+            color: rgba(255,255,255,0.65);
+
+            font-size: 13px;
+
+            margin-top: 4px;
+        }
+
+        /* =====================================================
+           CONDIÇÕES
+        ===================================================== */
+
+        .conditionGrid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(130px, 1fr)
+                );
+
+            gap: 10px;
+        }
+
+        .conditionItem {
+            padding: 14px;
+
+            border-radius: 15px;
+
+            background: #222630;
+        }
+
+        .conditionItem small {
+            display: block;
+
+            color: rgba(255,255,255,0.55);
+
+            margin-bottom: 5px;
+        }
+
+        .conditionItem strong {
+            color: #fff;
+
+            font-size: 16px;
+        }
+
+        /* =====================================================
+           MARÉ / SOL / LUA
+        ===================================================== */
+
+        .astroGrid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(150px, 1fr)
+                );
+
+            gap: 10px;
+        }
+
+        .astroItem {
+            padding: 16px;
+
+            border-radius: 16px;
+
+            background: #222630;
+        }
+
+        .astroItem strong {
+            display: block;
+
+            color: #fff;
+
+            font-size: 18px;
+
+            margin-bottom: 6px;
+        }
+
+        .astroItem span {
+            color: rgba(255,255,255,0.65);
+
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           SCORE
+        ===================================================== */
+
+        .scoreBox {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 20px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(79,172,254,0.15),
+                    rgba(108,92,231,0.15)
+                );
+        }
+
+        .scoreNumber {
+            font-size: 42px;
+
+            font-weight: 800;
+
+            color: #fff;
+        }
+
+        .scoreLabel {
+            color: rgba(255,255,255,0.65);
+        }
+
+        /* =====================================================
+           COACH
+        ===================================================== */
+
+        .coachBox {
+            padding: 18px;
+
+            border-radius: 18px;
+
+            background: #222630;
+
+            color: rgba(255,255,255,0.85);
+
+            line-height: 1.6;
+        }
+
+        .proButton {
+            width: 100%;
+
+            padding: 14px 18px;
+
+            border: 0;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6c5ce7,
+                    #4facfe
+                );
+
+            color: #fff;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .proButton:active {
+            transform: scale(0.98);
+        }
+
+        /* =====================================================
+           7 DIAS
+        ===================================================== */
+
+        .forecastList {
+            display: grid;
+
+            gap: 10px;
+        }
+
+        .forecastDay {
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                auto
+                auto;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 14px;
+
+            border-radius: 15px;
+
+            background: #222630;
+        }
+
+        .forecastDay strong {
+            color: #fff;
+        }
+
+        .forecastDay span {
+            color: rgba(255,255,255,0.65);
+
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           AVISO
+        ===================================================== */
+
+        .proNotice {
+            margin: 20px 16px;
+
+            padding: 18px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            background:
+                rgba(108,92,231,0.10);
+
+            border:
+                1px solid rgba(108,92,231,0.25);
+        }
+
+        .proNotice strong {
+            display: block;
+
+            color: #fff;
+
+            margin-bottom: 6px;
+        }
+
+        .proNotice span {
+            color: rgba(255,255,255,0.65);
+
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .proHero h1 {
+                font-size: 25px;
+            }
+
+            .scoreBox {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .forecastDay {
+                grid-template-columns: 1fr auto;
+            }
+
+            .forecastDay span:last-child {
+                grid-column: 1 / -1;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<main class="proPage">
+
+    <!-- =====================================================
+         TOPO
+    ===================================================== -->
+
+    <div class="proTop">
+
+        <a
+            href="./mar.html"
+            class="proBack"
+        >
+            ← Voltar para Mar
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="proHero">
+
+        <span class="proBadge">
+            ⭐ WAVERISE PRO
+        </span>
+
+        <h1>
+            Mar inteligente para o seu surf
+        </h1>
+
+        <p>
+            Tenha uma visão mais completa das condições,
+            previsão e melhores oportunidades para entrar no mar.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         MELHOR HORÁRIO
+    ===================================================== -->
+
+    <section class="proCard">
+
+        <h2>
+            ⏰ Melhor horário para surfar
+        </h2>
+
+        <p>
+            Veja como as condições mudam ao longo do dia
+            e encontre a melhor janela para sua sessão.
+        </p>
+
+        <div
+            id="timelineSurf"
+            class="timeline"
+        >
+
+            <div class="hourCard">
+                <strong>06h</strong>
+                <span>Onda: --</span>
+                <span>Vento: --</span>
+                <span>Score: --</span>
+            </div>
+
+            <div class="hourCard">
+                <strong>09h</strong>
+                <span>Onda: --</span>
+                <span>Vento: --</span>
+                <span>Score: --</span>
+            </div>
+
+            <div class="hourCard">
+                <strong>12h</strong>
+                <span>Onda: --</span>
+                <span>Vento: --</span>
+                <span>Score: --</span>
+            </div>
+
+            <div class="hourCard">
+                <strong>15h</strong>
+                <span>Onda: --</span>
+                <span>Vento: --</span>
+                <span>Score: --</span>
+            </div>
+
+            <div class="hourCard">
+                <strong>18h</strong>
+                <span>Onda: --</span>
+                <span>Vento: --</span>
+                <span>Score: --</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CONDIÇÕES DETALHADAS
+    ===================================================== -->
+
+    <section class="proCard">
+
+        <h2>
+            🌊 Condições detalhadas
+        </h2>
+
+        <p>
+            Informações completas para entender melhor
+            o mar antes da sessão.
+        </p>
+
+        <div class="conditionGrid">
+
+            <div class="conditionItem">
+                <small>Onda</small>
+                <strong id="ondaMar">--</strong>
+            </div>
+
+            <div class="conditionItem">
+                <small>Swell</small>
+                <strong id="swellMar">--</strong>
+            </div>
+
+            <div class="conditionItem">
+                <small>Vento</small>
+                <strong id="ventoMar">--</strong>
+            </div>
+
+            <div class="conditionItem">
+                <small>Água</small>
+                <strong id="aguaMar">--</strong>
+            </div>
+
+            <div class="conditionItem">
+                <small>Direção</small>
+                <strong id="direcaoMar">--</strong>
+            </div>
+
+            <div class="conditionItem">
+                <small>Período</small>
+                <strong id="periodoMar">--</strong>
+            </div>
+
+            <div class="conditionItem">
+                <small>Tipo de mar</small>
+                <strong id="tipoMar">--</strong>
+            </div>
+
+            <div class="conditionItem">
+                <small>Temperatura do ar</small>
+                <strong id="arMar">--</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MARÉ
+    ===================================================== -->
+
+    <section class="proCard">
+
+        <h2>
+            🌊 Maré
+        </h2>
+
+        <p>
+            Acompanhe a próxima mudança de maré e sua altura.
+        </p>
+
+        <div class="astroGrid">
+
+            <div class="astroItem">
+                <strong id="mareMar">--</strong>
+                <span>Próxima maré</span>
+            </div>
+
+            <div class="astroItem">
+                <strong id="proximaMare">--</strong>
+                <span>Horário</span>
+            </div>
+
+            <div class="astroItem">
+                <strong id="alturaMare">--</strong>
+                <span>Altura</span>
+            </div>
+
+            <div class="astroItem">
+                <strong id="proximaMareSeguinte">--</strong>
+                <span>Próxima seguinte</span>
+            </div>
+
+            <div class="astroItem">
+                <strong id="horarioMareSeguinte">--</strong>
+                <span>Horário seguinte</span>
+            </div>
+
+            <div class="astroItem">
+                <strong id="alturaMareSeguinte">--</strong>
+                <span>Altura seguinte</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SOL E LUA
+    ===================================================== -->
+
+    <section class="proCard">
+
+        <h2>
+            ☀️ Sol e Lua
+        </h2>
+
+        <p>
+            Consulte os horários astronômicos da praia.
+        </p>
+
+        <div class="astroGrid">
+
+            <div class="astroItem">
+                <strong id="nascerMar">--</strong>
+                <span>Nascer do sol</span>
+            </div>
+
+            <div class="astroItem">
+                <strong id="porMar">--</strong>
+                <span>Pôr do sol</span>
+            </div>
+
+            <div class="astroItem">
+                <strong id="luaMar">--</strong>
+                <span>Lua</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SURF SCORE
+    ===================================================== -->
+
+    <section class="proCard">
+
+        <h2>
+            🏄 Surf Score
+        </h2>
+
+        <p>
+            Uma avaliação geral das condições atuais.
+        </p>
+
+        <div class="scoreBox">
+
+            <div>
+
+                <div
+                    id="scoreMar"
+                    class="scoreNumber"
+                >
+                    --
+                </div>
+
+                <div class="scoreLabel">
+                    Score atual
+                </div>
+
+            </div>
+
+            <div>
+
+                <strong id="condicaoMar">
+                    Aguardando condições...
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         COACH IA
+    ===================================================== -->
+
+    <section class="proCard">
+
+        <h2>
+            🤖 Coach WaveRise IA
+        </h2>
+
+        <p>
+            Receba uma leitura mais inteligente das condições
+            para entender quando e como aproveitar melhor o mar.
+        </p>
+
+        <div
+            id="coachMar"
+            class="coachBox"
+        >
+            Carregando análise...
+        </div>
+
+        <br>
+
+        <button
+            id="analisarCoach"
+            class="proButton"
+            type="button"
+        >
+            🤖 Analisar condições
+        </button>
+
+    </section>
+
+
+    <!-- =====================================================
+         PREVISÃO 7 DIAS
+    ===================================================== -->
+
+    <section class="proCard">
+
+        <h2>
+            📅 Previsão dos próximos 7 dias
+        </h2>
+
+        <p>
+            Acompanhe a tendência das condições para planejar
+            suas próximas sessões.
+        </p>
+
+        <div
+            id="previsao7dias"
+            class="forecastList"
+        >
+
+            <div class="forecastDay">
+                <strong>Hoje</strong>
+                <span>Onda: --</span>
+                <span>Condição: --</span>
+            </div>
+
+            <div class="forecastDay">
+                <strong>Amanhã</strong>
+                <span>Onda: --</span>
+                <span>Condição: --</span>
+            </div>
+
+            <div class="forecastDay">
+                <strong>+2 dias</strong>
+                <span>Onda: --</span>
+                <span>Condição: --</span>
+            </div>
+
+            <div class="forecastDay">
+                <strong>+3 dias</strong>
+                <span>Onda: --</span>
+                <span>Condição: --</span>
+            </div>
+
+            <div class="forecastDay">
+                <strong>+4 dias</strong>
+                <span>Onda: --</span>
+                <span>Condição: --</span>
+            </div>
+
+            <div class="forecastDay">
+                <strong>+5 dias</strong>
+                <span>Onda: --</span>
+                <span>Condição: --</span>
+            </div>
+
+            <div class="forecastDay">
+                <strong>+6 dias</strong>
+                <span>Onda: --</span>
+                <span>Condição: --</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         AVISO
+    ===================================================== -->
+
+    <div class="proNotice">
+
+        <strong>
+            ⭐ Recursos exclusivos do WaveRise PRO
+        </strong>
+
+        <span>
+            Mais inteligência para você escolher melhor
+            o horário, a praia e as condições da sua sessão.
+        </span>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     SCRIPTS
+===================================================== -->
+
+<script type="module">
+
+    import {
+        protegerPagina
+    } from "./auth.js";
+
+    protegerPagina();
+
+</script>
+
+<script
+    type="module"
+    src="./mar-pro.js"
+></script>

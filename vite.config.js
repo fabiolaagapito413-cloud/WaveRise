@@ -36,6 +36,7 @@ export default defineConfig({
                 conquistas: resolve("pages/conquistas.html"),
                 pranchas: resolve("pages/pranchas.html"),
                 mar: resolve("pages/mar.html"),
+                marPro: resolve("pages/mar-pro.html"),
                 calendario: resolve("pages/calendario.html"),
                 planoEvolucao: resolve("pages/plano-evolucao.html"),
                 melhorHorario: resolve("pages/melhor-horario.html"),

@@ -7,6 +7,11 @@ console.log("⭐ WaveRise PRO carregado!");
 
 import { createClient } from "@supabase/supabase-js";
 
+
+// ======================================================
+// SUPABASE
+// ======================================================
+
 const SUPABASE_URL =
     "https://qsrgdrqxpoydkugyrzyp.supabase.co";
 
@@ -19,17 +24,24 @@ const supabase =
         SUPABASE_KEY
     );
 
+
 // ======================================================
 // RESETAR PRO — MODO DE TESTE
 // ======================================================
 
 function criarBotaoResetTeste() {
 
-    const botao = document.createElement("button");
+    const botao =
+        document.createElement("button");
 
-    botao.id = "btnResetWaveRisePRO";
-    botao.type = "button";
-    botao.textContent = "🧪 Resetar assinatura de teste";
+    botao.id =
+        "btnResetWaveRisePRO";
+
+    botao.type =
+        "button";
+
+    botao.textContent =
+        "🧪 Resetar assinatura de teste";
 
     botao.style.cssText = `
         width:100%;
@@ -45,29 +57,49 @@ function criarBotaoResetTeste() {
 
     botao.onclick = () => {
 
-        const confirmar = confirm(
-            "🧪 RESETAR TESTE\n\n" +
-            "Isso vai remover a assinatura PRO salva " +
-            "neste dispositivo.\n\n" +
-            "Deseja continuar?"
-        );
+        const confirmar =
+            confirm(
+                "🧪 RESETAR TESTE\n\n" +
+                "Isso vai remover a assinatura PRO salva " +
+                "neste dispositivo.\n\n" +
+                "Deseja continuar?"
+            );
 
         if (!confirmar) {
             return;
         }
 
-        localStorage.removeItem("waveRisePRO");
-        localStorage.removeItem("waveRisePlano");
-        localStorage.removeItem("waveRiseProAtivadoEm");
-        localStorage.removeItem("waveRisePlanoPagamento");
-        localStorage.removeItem("waveRisePagamentoIniciadoEm");
-        localStorage.removeItem("waveRisePagamentoPendente");
+        localStorage.removeItem(
+            "waveRisePRO"
+        );
+
+        localStorage.removeItem(
+            "waveRisePlano"
+        );
+
+        localStorage.removeItem(
+            "waveRiseProAtivadoEm"
+        );
+
+        localStorage.removeItem(
+            "waveRisePlanoPagamento"
+        );
+
+        localStorage.removeItem(
+            "waveRisePagamentoIniciadoEm"
+        );
+
+        localStorage.removeItem(
+            "waveRisePagamentoPendente"
+        );
 
         location.reload();
     };
 
     const offer =
-        document.querySelector(".proOffer");
+        document.querySelector(
+            ".proOffer"
+        );
 
     if (offer) {
         offer.appendChild(botao);
@@ -79,7 +111,8 @@ function criarBotaoResetTeste() {
 // CONFIGURAÇÃO
 // ======================================================
 
-const BACKEND_URL = "https://waverise.onrender.com";
+const BACKEND_URL =
+    "https://waverise.onrender.com";
 
 
 // ======================================================
@@ -87,17 +120,41 @@ const BACKEND_URL = "https://waverise.onrender.com";
 // ======================================================
 
 const paginasPro = [
+
     "analise-foto.html",
+
     "analise-video.html",
+
     "coach-pro.html",
+
     "prancha-ideal.html",
+
     "melhor-horario.html",
+
     null,
+
     "plano-evolucao.html",
+
     "comparar-praias.html",
+
     "score-pessoal.html",
+
     null
 ];
+
+
+// ======================================================
+// VERIFICAR SE PRO ESTÁ ATIVO
+// ======================================================
+
+function usuarioTemPRO() {
+
+    return (
+        localStorage.getItem(
+            "waveRisePRO"
+        ) === "true"
+    );
+}
 
 
 // ======================================================
@@ -106,17 +163,66 @@ const paginasPro = [
 
 function abrirPro(pagina) {
 
+    // ==============================================
+    // RECURSO AINDA NÃO IMPLEMENTADO
+    // ==============================================
+
     if (!pagina) {
 
         alert(
             "⭐ WAVERISE PRO\n\n" +
-            "Este recurso será desenvolvido na próxima etapa."
+            "Este recurso será desenvolvido " +
+            "na próxima etapa."
         );
 
         return;
     }
 
-    window.location.href = `./${pagina}`;
+
+    // ==============================================
+    // VERIFICAR ASSINATURA
+    // ==============================================
+
+    if (!usuarioTemPRO()) {
+
+        alert(
+            "🔒 RECURSO EXCLUSIVO PRO\n\n" +
+            "Este recurso está disponível apenas " +
+            "para assinantes do WaveRise PRO.\n\n" +
+            "Assine o PRO para desbloquear."
+        );
+
+        // Leva o usuário para a área
+        // de assinatura dentro da própria página.
+
+        const oferta =
+            document.querySelector(
+                ".proOffer"
+            );
+
+        if (oferta) {
+
+            oferta.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+
+        return;
+    }
+
+
+    // ==============================================
+    // USUÁRIO PRO
+    // ==============================================
+
+    console.log(
+        "⭐ Recurso PRO liberado:",
+        pagina
+    );
+
+    window.location.href =
+        `./${pagina}`;
 }
 
 
@@ -125,23 +231,33 @@ function abrirPro(pagina) {
 // ======================================================
 
 const cards =
-    document.querySelectorAll(".proBenefit");
-
-cards.forEach((card, index) => {
-
-    const pagina =
-        paginasPro[index];
-
-    card.style.cursor = "pointer";
-
-    card.addEventListener(
-        "click",
-        () => {
-            abrirPro(pagina);
-        }
+    document.querySelectorAll(
+        ".proBenefit"
     );
 
-});
+
+cards.forEach(
+    (card, index) => {
+
+        const pagina =
+            paginasPro[index];
+
+        card.style.cursor =
+            "pointer";
+
+        card.addEventListener(
+            "click",
+            () => {
+
+                abrirPro(
+                    pagina
+                );
+
+            }
+        );
+
+    }
+);
 
 
 // ======================================================
@@ -149,19 +265,29 @@ cards.forEach((card, index) => {
 // ======================================================
 
 const planoMensal =
-    document.getElementById("planoMensal");
+    document.getElementById(
+        "planoMensal"
+    );
 
 const planoAnual =
-    document.getElementById("planoAnual");
+    document.getElementById(
+        "planoAnual"
+    );
 
 const btnAssinar =
-    document.getElementById("btnAssinarPro");
+    document.getElementById(
+        "btnAssinarPro"
+    );
 
 const proStatus =
-    document.getElementById("proStatus");
+    document.getElementById(
+        "proStatus"
+    );
 
 const btnVoltar =
-    document.getElementById("btnVoltar");
+    document.getElementById(
+        "btnVoltar"
+    );
 
 
 // ======================================================
@@ -197,7 +323,8 @@ function atualizarPlano() {
 
 
     if (
-        planoSelecionado === "anual"
+        planoSelecionado ===
+        "anual"
     ) {
 
         planoAnual.classList.add(
@@ -211,7 +338,6 @@ function atualizarPlano() {
         );
 
     }
-
 }
 
 
@@ -237,7 +363,6 @@ if (planoMensal) {
 
         }
     );
-
 }
 
 
@@ -263,8 +388,8 @@ if (planoAnual) {
 
         }
     );
-
 }
+
 
 // ======================================================
 // OBTER E-MAIL DO USUÁRIO
@@ -272,17 +397,23 @@ if (planoAnual) {
 
 async function obterEmailUsuario() {
 
-    // Primeiro: pega diretamente a sessão do Supabase.
+    // ==============================================
+    // PRIMEIRO: SUPABASE
+    // ==============================================
+
     try {
 
         const {
             data: {
                 session
             }
-        } = await supabase.auth.getSession();
+        } =
+            await supabase.auth.getSession();
+
 
         const emailSupabase =
             session?.user?.email;
+
 
         if (emailSupabase) {
 
@@ -291,18 +422,26 @@ async function obterEmailUsuario() {
                 emailSupabase
             );
 
+
             localStorage.setItem(
                 "emailWaveRise",
                 emailSupabase
             );
 
+
             localStorage.setItem(
                 "usuarioWaveRise",
                 JSON.stringify({
-                    email: emailSupabase,
-                    id: session.user.id
+
+                    email:
+                        emailSupabase,
+
+                    id:
+                        session.user.id
+
                 })
             );
+
 
             return emailSupabase;
         }
@@ -315,49 +454,75 @@ async function obterEmailUsuario() {
         );
     }
 
-    // Fallback: localStorage.
+
+    // ==============================================
+    // FALLBACK: LOCAL STORAGE
+    // ==============================================
 
     const chaves = [
+
         "emailWaveRise",
+
         "usuarioWaveRise",
+
         "usuario",
+
         "usuarioLogado",
+
         "waveRiseUsuario"
+
     ];
 
-    for (const chave of chaves) {
+
+    for (
+        const chave of chaves
+    ) {
 
         const valor =
-            localStorage.getItem(chave);
+            localStorage.getItem(
+                chave
+            );
+
 
         if (!valor) {
             continue;
         }
 
-        // Caso seja diretamente um e-mail.
+
+        // Caso seja diretamente um e-mail
 
         if (
             valor.includes("@") &&
-            !valor.trim().startsWith("{")
+            !valor
+                .trim()
+                .startsWith("{")
         ) {
 
             return valor.trim();
+
         }
 
-        // Caso seja um objeto JSON.
+
+        // Caso seja objeto JSON
 
         try {
 
             const usuario =
-                JSON.parse(valor);
+                JSON.parse(
+                    valor
+                );
+
 
             const email =
                 usuario?.email ||
                 usuario?.user?.email ||
                 usuario?.usuario?.email;
 
+
             if (email) {
+
                 return email;
+
             }
 
         } catch (erro) {
@@ -368,8 +533,10 @@ async function obterEmailUsuario() {
         }
     }
 
+
     return "";
 }
+
 
 // ======================================================
 // VERIFICAR PRO
@@ -378,14 +545,42 @@ async function obterEmailUsuario() {
 function verificarPRO() {
 
     const proAtivo =
-        localStorage.getItem(
-            "waveRisePRO"
-        ) === "true";
+        usuarioTemPRO();
 
 
     if (!proAtivo) {
+
+        if (proStatus) {
+
+            proStatus.classList.remove(
+                "ativo"
+            );
+
+        }
+
+        if (btnAssinar) {
+
+            btnAssinar.disabled =
+                false;
+
+            btnAssinar.textContent =
+                "⭐ Quero ser PRO";
+
+            btnAssinar.style.opacity =
+                "1";
+        }
+
         return;
     }
+
+
+    // ==============================================
+    // PRO ATIVO
+    // ==============================================
+
+    console.log(
+        "⭐ WaveRise PRO ativo."
+    );
 
 
     if (proStatus) {
@@ -407,9 +602,7 @@ function verificarPRO() {
 
         btnAssinar.style.opacity =
             "0.65";
-
     }
-
 }
 
 
@@ -424,13 +617,17 @@ function criarModalPagamento() {
             "waveRisePagamentoModal"
         );
 
+
     if (antigo) {
         antigo.remove();
     }
 
 
     const modal =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     modal.id =
         "waveRisePagamentoModal";
@@ -644,13 +841,15 @@ function criarModalPagamento() {
 
 
     const preco =
-        planoSelecionado === "anual"
+        planoSelecionado ===
+        "anual"
             ? "R$ 149,90"
             : "R$ 19,90";
 
 
     const nomePlano =
-        planoSelecionado === "anual"
+        planoSelecionado ===
+        "anual"
             ? "Plano Anual"
             : "Plano Mensal";
 
@@ -674,12 +873,14 @@ function criarModalPagamento() {
 
             document.getElementById(
                 "waveRisePixArea"
-            ).style.display = "none";
+            ).style.display =
+                "none";
+
 
             document.getElementById(
                 "waveRiseOpcoesPagamento"
-            ).style.display = "block";
-
+            ).style.display =
+                "block";
         };
 
 
@@ -693,7 +894,6 @@ function criarModalPagamento() {
         "btnPagamentoCartao"
     ).onclick =
         criarPagamentoCartao;
-
 }
 
 
@@ -704,7 +904,7 @@ function criarModalPagamento() {
 async function criarPagamentoPix() {
 
     const email =
-    await obterEmailUsuario();
+        await obterEmailUsuario();
 
 
     if (!email) {
@@ -723,10 +923,12 @@ async function criarPagamentoPix() {
             "waveRiseOpcoesPagamento"
         );
 
+
     const areaPix =
         document.getElementById(
             "waveRisePixArea"
         );
+
 
     const status =
         document.getElementById(
@@ -737,8 +939,10 @@ async function criarPagamentoPix() {
     opcoes.style.display =
         "none";
 
+
     areaPix.style.display =
         "block";
+
 
     status.textContent =
         "⏳ Gerando seu PIX...";
@@ -795,7 +999,6 @@ async function criarPagamentoPix() {
                 dados.erro ||
                 "Não foi possível gerar o PIX."
             );
-
         }
 
 
@@ -808,7 +1011,6 @@ async function criarPagamentoPix() {
             throw new Error(
                 "O Mercado Pago não retornou os dados do PIX."
             );
-
         }
 
 
@@ -829,7 +1031,6 @@ async function criarPagamentoPix() {
 
             imagem.style.display =
                 "block";
-
         }
 
 
@@ -856,7 +1057,6 @@ async function criarPagamentoPix() {
                 "btnCopiarPix"
             ).style.display =
                 "block";
-
         }
 
 
@@ -888,10 +1088,12 @@ async function criarPagamentoPix() {
                         pix.copiaCola
                     );
 
+
                     document.getElementById(
                         "btnCopiarPix"
                     ).textContent =
                         "✅ PIX copiado!";
+
 
                 } catch (erro) {
 
@@ -901,11 +1103,11 @@ async function criarPagamentoPix() {
                         "copy"
                     );
 
+
                     document.getElementById(
                         "btnCopiarPix"
                     ).textContent =
                         "✅ PIX copiado!";
-
                 }
 
             };
@@ -952,18 +1154,20 @@ async function criarPagamentoPix() {
 
         alert(
             "❌ Não foi possível gerar o PIX.\n\n" +
-            (erro?.message || "Tente novamente.")
+            (
+                erro?.message ||
+                "Tente novamente."
+            )
         );
 
 
         opcoes.style.display =
             "block";
 
+
         areaPix.style.display =
             "none";
-
     }
-
 }
 
 
@@ -972,9 +1176,10 @@ async function criarPagamentoPix() {
 // ======================================================
 
 async function criarPagamentoCartao() {
-     
+
     const email =
         await obterEmailUsuario();
+
 
     if (!email) {
 
@@ -985,6 +1190,8 @@ async function criarPagamentoCartao() {
 
         return;
     }
+
+
     const opcoes =
         document.getElementById(
             "waveRiseOpcoesPagamento"
@@ -1013,19 +1220,19 @@ async function criarPagamentoCartao() {
                     },
 
                     body:
-                JSON.stringify({
+                        JSON.stringify({
 
-                    plano:
-                        planoSelecionado,
+                            plano:
+                                planoSelecionado,
 
-                    email:
-                        email
+                            email:
+                                email
 
-                })
+                        })
 
-            });
+                }
+            );
 
-        
 
         const dados =
             await resposta.json();
@@ -1046,7 +1253,6 @@ async function criarPagamentoCartao() {
                 dados.erro ||
                 "Não foi possível iniciar o pagamento."
             );
-
         }
 
 
@@ -1059,7 +1265,6 @@ async function criarPagamentoCartao() {
             throw new Error(
                 "O Mercado Pago não retornou o link de pagamento."
             );
-
         }
 
 
@@ -1093,15 +1298,16 @@ async function criarPagamentoCartao() {
 
         alert(
             "❌ Não foi possível iniciar o pagamento.\n\n" +
-            (erro?.message || "Tente novamente.")
+            (
+                erro?.message ||
+                "Tente novamente."
+            )
         );
 
 
         opcoes.style.display =
             "block";
-
     }
-
 }
 
 
@@ -1119,7 +1325,6 @@ if (btnAssinar) {
 
         }
     );
-
 }
 
 
@@ -1138,7 +1343,6 @@ if (btnVoltar) {
 
         }
     );
-
 }
 
 
@@ -1162,6 +1366,7 @@ atualizarPlano();
 verificarPRO();
 
 criarBotaoResetTeste();
+
 
 // ======================================================
 // DIAGNÓSTICO

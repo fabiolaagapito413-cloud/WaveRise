@@ -19,7 +19,9 @@
 
 <header class="heroPequeno">
 
-<button class="btnVoltar" onclick="history.back()">
+<button
+class="btnVoltar"
+onclick="history.back()">
 
 ←
 
@@ -35,6 +37,11 @@
 
 </header>
 
+
+<!-- =====================================================
+     PERFIL
+====================================================== -->
+
 <section class="card perfilCard">
 
 <div class="fotoPerfilBox">
@@ -45,7 +52,9 @@ src="../assets/avatar.png"
 alt="Perfil"
 class="fotoPerfil">
 
-<label for="inputFoto" class="editarFoto">
+<label
+for="inputFoto"
+class="editarFoto">
 
 📷 Alterar Foto
 
@@ -59,17 +68,20 @@ hidden>
 
 </div>
 
+
 <h2 id="nomePerfil">
 
 Surfista
 
 </h2>
 
+
 <p id="nivelPerfil">
 
 Nível 1 • Iniciante
 
 </p>
+
 
 <div class="xpBox">
 
@@ -83,6 +95,7 @@ class="xpFill">
 
 </div>
 
+
 <p id="xpPerfil">
 
 0 / 15000 XP
@@ -92,17 +105,29 @@ class="xpFill">
 </div>
 
 </section>
+
+
+<!-- =====================================================
+     EQUIPAMENTOS
+====================================================== -->
+
 <section class="card">
 
 <h2>🏄 Equipamentos</h2>
 
+
 <div class="condicoesGrid">
+
 
 <div class="infoCard">
 
-<span class="icone">🏄</span>
+<span class="icone">
+🏄
+</span>
 
-<h3>Prancha Favorita</h3>
+<h3>
+Prancha Favorita
+</h3>
 
 <strong id="pranchaFavorita">
 
@@ -112,11 +137,16 @@ class="xpFill">
 
 </div>
 
+
 <div class="infoCard">
 
-<span class="icone">🌊</span>
+<span class="icone">
+🌊
+</span>
 
-<h3>Praia Favorita</h3>
+<h3>
+Praia Favorita
+</h3>
 
 <strong id="praiaFavorita">
 
@@ -126,21 +156,33 @@ class="xpFill">
 
 </div>
 
+
 </div>
 
 </section>
+
+
+<!-- =====================================================
+     ESTATÍSTICAS
+====================================================== -->
 
 <section class="card">
 
 <h2>📊 Estatísticas</h2>
 
+
 <div class="condicoesGrid">
+
 
 <div class="infoCard">
 
-<span class="icone">🌊</span>
+<span class="icone">
+🌊
+</span>
 
-<h3>Sessões</h3>
+<h3>
+Sessões
+</h3>
 
 <strong id="perfilSessoes">
 
@@ -150,11 +192,16 @@ class="xpFill">
 
 </div>
 
+
 <div class="infoCard">
 
-<span class="icone">🏄</span>
+<span class="icone">
+🏄
+</span>
 
-<h3>Ondas</h3>
+<h3>
+Ondas
+</h3>
 
 <strong id="perfilOndas">
 
@@ -164,11 +211,16 @@ class="xpFill">
 
 </div>
 
+
 <div class="infoCard">
 
-<span class="icone">⏱</span>
+<span class="icone">
+⏱
+</span>
 
-<h3>Horas</h3>
+<h3>
+Horas
+</h3>
 
 <strong id="perfilHoras">
 
@@ -178,11 +230,16 @@ class="xpFill">
 
 </div>
 
+
 <div class="infoCard">
 
-<span class="icone">⭐</span>
+<span class="icone">
+⭐
+</span>
 
-<h3>Melhor Nota</h3>
+<h3>
+Melhor Nota
+</h3>
 
 <strong id="perfilNota">
 
@@ -192,51 +249,78 @@ class="xpFill">
 
 </div>
 
+
 </div>
 
 </section>
+
+
+<!-- =====================================================
+     CONQUISTAS
+====================================================== -->
 
 <section class="card">
 
 <h2>🏅 Conquistas</h2>
 
-<div id="medalhasPerfil" class="condicoesGrid">
+
+<div
+id="medalhasPerfil"
+class="condicoesGrid">
+
 
 <div class="infoCard">
 
 🥉
 
-<p>Bronze</p>
+<p>
+Bronze
+</p>
 
 </div>
+
 
 <div class="infoCard">
 
 🥈
 
-<p>Prata</p>
+<p>
+Prata
+</p>
 
 </div>
+
 
 <div class="infoCard">
 
 🥇
 
-<p>Ouro</p>
+<p>
+Ouro
+</p>
 
 </div>
+
 
 <div class="infoCard">
 
 🏆
 
-<p>Lenda</p>
+<p>
+Lenda
+</p>
 
 </div>
+
 
 </div>
 
 </section>
+
+
+<!-- =====================================================
+     EDITAR PERFIL
+====================================================== -->
 
 <section class="card">
 
@@ -250,53 +334,174 @@ class="botaoPrincipal">
 
 </section>
 
+
+<!-- =====================================================
+     SAIR
+====================================================== -->
+
+<section class="card">
+
+<button
+id="btnSair"
+class="botaoPrincipal"
+type="button">
+
+🚪 Sair da conta
+
+</button>
+
+</section>
+
+
+<!-- =====================================================
+     MENU INFERIOR
+====================================================== -->
+
 <nav class="menuBottom">
+
 
 <a href="../index.html">
 
-<span>🏠</span>
+<span>
+🏠
+</span>
 
-<small>Início</small>
+<small>
+Início
+</small>
 
 </a>
+
 
 <a href="mar.html">
 
-<span>🌊</span>
+<span>
+🌊
+</span>
 
-<small>Mar</small>
+<small>
+Mar
+</small>
 
 </a>
+
 
 <a href="diario.html">
 
-<span>📖</span>
+<span>
+📖
+</span>
 
-<small>Diário</small>
+<small>
+Diário
+</small>
 
 </a>
+
 
 <a href="coach.html">
 
-<span>🤖</span>
+<span>
+🤖
+</span>
 
-<small>Coach</small>
+<small>
+Coach
+</small>
+
+</a>
+
+
+<a
+class="ativo"
+href="perfil.html">
+
+<span>
+👤
+</span>
+
+<small>
+Perfil
+</small>
 
 </a>
 
-<a class="ativo" href="perfil.html">
-
-<span>👤</span>
-
-<small>Perfil</small>
-
-</a>
 
 </nav>
 
 </div>
 
-<script type="module" src="perfil.js"></script>
+
+<!-- =====================================================
+     PERFIL JS
+====================================================== -->
+
+<script
+type="module"
+src="perfil.js">
+</script>
+
+
+<!-- =====================================================
+     AUTENTICAÇÃO
+====================================================== -->
+
+<script type="module">
+
+import {
+    protegerPagina,
+    sair
+} from "./auth.js";
+
+
+const usuario =
+    await protegerPagina();
+
+
+if (usuario) {
+
+    const btnSair =
+        document.getElementById("btnSair");
+
+
+    btnSair?.addEventListener(
+        "click",
+        async () => {
+
+            btnSair.disabled = true;
+
+            btnSair.textContent =
+                "Saindo...";
+
+
+            try {
+
+                await sair();
+
+            } catch (erro) {
+
+                console.error(
+                    "Erro ao sair:",
+                    erro
+                );
+
+
+                btnSair.disabled =
+                    false;
+
+                btnSair.textContent =
+                    "🚪 Sair da conta";
+
+            }
+
+        }
+    );
+
+}
+
+</script>
+
 
 </body>
+
 </html>

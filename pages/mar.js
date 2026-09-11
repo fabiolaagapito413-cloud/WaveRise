@@ -1,6 +1,6 @@
 // ======================================================
 // WaveRise 5.0
-// Mar Premium
+// MAR — VERSÃO GRATUITA
 // ======================================================
 
 import {
@@ -10,18 +10,8 @@ import {
 
 import {
     buscarCondicoes,
-    buscarMare,
     atualizarTela
 } from "./stormglass.js";
-
-import {
-    buscarPrevisao,
-    buscarSol
-} from "./previsao.js";
-
-import {
-    calcularLua
-} from "./lua.js";
 
 import {
     atualizarCoach,
@@ -33,10 +23,6 @@ import {
     mostrarFavoritos,
     limparFavoritos
 } from "./favoritos.js";
-
-import {
-    atualizarTimeline
-} from "./timeline.js";
 
 
 // ======================================================
@@ -64,8 +50,7 @@ window.addEventListener(
 
 async function iniciar() {
 
-    mapa =
-        iniciarMapa("mapa");
+    mapa = iniciarMapa("mapa");
 
     configurarEventos();
 
@@ -76,7 +61,7 @@ async function iniciar() {
     restaurarUltimaPraia();
 
     console.log(
-        "🌊 WaveRise iniciado."
+        "🌊 WaveRise Mar iniciado."
     );
 
 }
@@ -127,20 +112,6 @@ function configurarEventos() {
             }
         );
 
-
-    document
-        .getElementById("analisarCoach")
-        ?.addEventListener(
-            "click",
-            () => {
-
-                alert(
-                    "🤖 Coach IA analisando as condições..."
-                );
-
-            }
-        );
-
 }
 
 
@@ -157,9 +128,7 @@ function restaurarUltimaPraia() {
 
 
     if (!ultima) {
-
         return;
-
     }
 
 
@@ -171,8 +140,7 @@ function restaurarUltimaPraia() {
 
     if (input) {
 
-        input.value =
-            ultima;
+        input.value = ultima;
 
     }
 
@@ -189,9 +157,7 @@ function atualizarTexto(
 ) {
 
     const elemento =
-        document.getElementById(
-            id
-        );
+        document.getElementById(id);
 
 
     if (elemento) {
@@ -217,9 +183,7 @@ async function pesquisarPraia() {
 
 
     if (!input) {
-
         return;
-
     }
 
 
@@ -240,11 +204,15 @@ async function pesquisarPraia() {
 
     try {
 
+        console.log(
+            "🔎 Procurando praia:",
+            praia
+        );
+
+
         const resposta =
             await fetch(
-
                 `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(praia)}`
-
             );
 
 
@@ -315,6 +283,7 @@ async function pesquisarPraia() {
     catch (erro) {
 
         console.error(
+            "❌ Erro ao pesquisar praia:",
             erro
         );
 
@@ -345,6 +314,11 @@ function usarGPS() {
         return;
 
     }
+
+
+    console.log(
+        "📍 Solicitando localização..."
+    );
 
 
     navigator.geolocation.getCurrentPosition(
@@ -381,18 +355,25 @@ function usarGPS() {
 
         },
 
+
         (erro) => {
 
             console.error(
-                "GPS:",
+                "❌ GPS:",
                 erro
             );
 
 
             alert(
-                "Não foi possível obter sua localização."
+                "Não foi possível obter sua localização. Verifique a permissão de localização."
             );
 
+        },
+
+        {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 60000
         }
 
     );
@@ -401,7 +382,7 @@ function usarGPS() {
 
 
 // ======================================================
-// FAVORITOS
+// FAVORITAR PRAIA
 // ======================================================
 
 function favoritarPraia() {
@@ -426,6 +407,12 @@ function favoritarPraia() {
 
     mostrarFavoritos(
         abrirFavorito
+    );
+
+
+    console.log(
+        "❤️ Praia favorita salva:",
+        praiaAtual
     );
 
 }
@@ -475,7 +462,7 @@ async function abrirFavorito(
 
 
 // ======================================================
-// CARREGAR DADOS
+// CARREGAR DADOS DO MAR
 // ======================================================
 
 async function carregarDados() {
@@ -483,12 +470,8 @@ async function carregarDados() {
     try {
 
         if (
-            !Number.isFinite(
-                latitudeAtual
-            ) ||
-            !Number.isFinite(
-                longitudeAtual
-            )
+            !Number.isFinite(latitudeAtual) ||
+            !Number.isFinite(longitudeAtual)
         ) {
 
             throw new Error(
@@ -499,150 +482,39 @@ async function carregarDados() {
 
 
         console.log(
-            "🌊 Carregando dados do Mar..."
+            "🌊 Carregando condições atuais do mar..."
         );
 
 
-        // =====================================
+        // ==================================================
         // STORMGLASS
-        // =====================================
+        // ==================================================
 
         const dados =
             await buscarCondicoes(
-
                 latitudeAtual,
                 longitudeAtual
-
             );
 
 
-        // =====================================
-        // MARÉ REAL - STORMGLASS
-        // =====================================
+        if (!dados) {
 
-        try {
-
-            const mare =
-                await buscarMare(
-
-                    latitudeAtual,
-                    longitudeAtual
-
-                );
-
-
-            dados.mare =
-                mare.proximaMare || "--";
-
-
-            dados.proximaMare =
-                mare.horarioMare || "--";
-
-
-            dados.alturaMare =
-                mare.alturaMare || "--";
-
-
-            dados.proximaMareSeguinte =
-                mare.proximaMareSeguinte ||
-                "--";
-
-
-            dados.horarioMareSeguinte =
-                mare.horarioMareSeguinte ||
-                "--";
-
-
-            dados.alturaMareSeguinte =
-                mare.alturaMareSeguinte ||
-                "--";
-
-
-            dados.estacaoMare =
-                mare.estacao ||
-                "--";
-
-
-            console.log(
-                "🌊 Maré real carregada:",
-                mare
+            throw new Error(
+                "Não foi possível obter os dados do mar."
             );
 
         }
 
-        catch (erroMare) {
 
-            console.warn(
-                "⚠️ Não foi possível carregar a maré:",
-                erroMare
-            );
-
-
-            // Não derruba o restante
-            // do Mar se a maré falhar.
-
-            dados.mare =
-                "--";
+        console.log(
+            "🌊 Dados recebidos:",
+            dados
+        );
 
 
-            dados.proximaMare =
-                "--";
-
-
-            dados.alturaMare =
-                "--";
-
-
-            dados.proximaMareSeguinte =
-                "--";
-
-
-            dados.horarioMareSeguinte =
-                "--";
-
-
-            dados.alturaMareSeguinte =
-                "--";
-
-
-            dados.estacaoMare =
-                "--";
-
-        }
-
-
-        // =====================================
-        // SOL
-        // =====================================
-
-        const sol =
-            await buscarSol(
-
-                latitudeAtual,
-                longitudeAtual
-
-            );
-
-
-        dados.nascer =
-            sol.nascer;
-
-
-        dados.por =
-            sol.por;
-
-
-        // =====================================
-        // LUA
-        // =====================================
-
-        dados.lua =
-            calcularLua();
-
-
-        // =====================================
+        // ==================================================
         // HERO
-        // =====================================
+        // ==================================================
 
         atualizarHero(
             praiaAtual,
@@ -650,136 +522,44 @@ async function carregarDados() {
         );
 
 
-        // =====================================
+        // ==================================================
         // CONDIÇÕES
-        // =====================================
+        // ==================================================
 
         atualizarTela(
             dados
         );
 
 
-        // =====================================
-        // COACH
-        // =====================================
+        // ==================================================
+        // COACH BÁSICO
+        // ==================================================
 
         atualizarCoach(
             dados
         );
 
 
+        // ==================================================
+        // SURF SCORE
+        // ==================================================
+
         atualizarNota(
             dados
         );
 
 
-        // =====================================
-        // TIMELINE
-        // =====================================
+        // ==================================================
+        // SALVAR DADOS PARA A HOME
+        // ==================================================
 
-        if (
-            dados.hours
-        ) {
-
-            atualizarTimeline(
-                dados.hours
-            );
-
-        }
-
-
-        // =====================================
-        // PREVISÃO
-        // =====================================
-
-        await buscarPrevisao(
-
-            latitudeAtual,
-            longitudeAtual
-
-        );
-
-
-        // =====================================
-        // HOME
-        // =====================================
-
-        localStorage.setItem(
-
-            "marHojeWaveRise",
-
-            JSON.stringify({
-
-                praia:
-                    praiaAtual,
-
-                onda:
-                    dados.onda,
-
-                swell:
-                    dados.swell,
-
-                periodo:
-                    dados.periodo,
-
-                vento:
-                    dados.vento,
-
-                agua:
-                    dados.agua,
-
-                score:
-                    dados.surfScore,
-
-                condicao:
-                    dados.condicao,
-
-                prancha:
-                    dados.prancha,
-
-                horario:
-                    dados.horario,
-
-                mare:
-                    dados.mare,
-
-                proximaMare:
-                    dados.proximaMare,
-
-                alturaMare:
-                    dados.alturaMare,
-
-                proximaMareSeguinte:
-                    dados.proximaMareSeguinte,
-
-                horarioMareSeguinte:
-                    dados.horarioMareSeguinte,
-
-                alturaMareSeguinte:
-                    dados.alturaMareSeguinte,
-
-                estacaoMare:
-                    dados.estacaoMare,
-
-                nascer:
-                    dados.nascer,
-
-                por:
-                    dados.por,
-
-                lua:
-                    dados.lua,
-
-                data:
-                    Date.now()
-
-            })
-
+        salvarMarHoje(
+            dados
         );
 
 
         console.log(
-            "✅ Dados carregados com sucesso."
+            "✅ Dados do Mar carregados."
         );
 
     }
@@ -792,17 +572,99 @@ async function carregarDados() {
         );
 
 
-        alert(`
-ERRO WAVERISE
-
-Mensagem:
-${erro.message}
-
-Stack:
-${erro.stack}
-        `);
+        alert(
+            `Não foi possível carregar as condições do mar.\n\n${erro.message}`
+        );
 
     }
+
+}
+
+
+// ======================================================
+// SALVAR MAR DE HOJE
+// ======================================================
+
+function salvarMarHoje(
+    dados
+) {
+
+    const dadosSalvos = {
+
+        praia:
+            praiaAtual,
+
+        latitude:
+            latitudeAtual,
+
+        longitude:
+            longitudeAtual,
+
+        onda:
+            dados.onda ?? null,
+
+        swell:
+            dados.swell ?? null,
+
+        periodo:
+            dados.periodo ?? null,
+
+        vento:
+            dados.vento ?? null,
+
+        agua:
+            dados.agua ?? null,
+
+        direcao:
+            dados.direcao ?? null,
+
+        tipoVento:
+            dados.tipoVento ?? null,
+
+        temperaturaAr:
+            dados.temperaturaAr ?? null,
+
+        score:
+            dados.surfScore ?? null,
+
+        condicao:
+            dados.condicao ?? "--",
+
+        data:
+            Date.now()
+
+    };
+
+
+    localStorage.setItem(
+        "marHojeWaveRise",
+        JSON.stringify(dadosSalvos)
+    );
+
+
+    // Também salvamos as coordenadas
+    // separadamente para o Mar PRO.
+
+    localStorage.setItem(
+        "ultimaLocalizacaoMarWaveRise",
+        JSON.stringify({
+
+            latitude:
+                latitudeAtual,
+
+            longitude:
+                longitudeAtual,
+
+            praia:
+                praiaAtual
+
+        })
+    );
+
+
+    console.log(
+        "💾 Mar de hoje salvo."
+    );
 
 }
 
@@ -824,45 +686,101 @@ function atualizarHero(
 
     atualizarTexto(
         "heroCondicao",
-        dados.condicao
+        dados.condicao ?? "--"
     );
 
 
     atualizarTexto(
         "heroNota",
-        dados.surfScore
+        dados.surfScore ?? "--"
     );
 
+
+    // ==================================================
+    // ONDA
+    // ==================================================
 
     atualizarTexto(
         "heroOnda",
-        `${dados.onda.toFixed(1)} m`
+        formatarNumero(
+            dados.onda,
+            " m"
+        )
     );
+
+
+    // ==================================================
+    // VENTO
+    // ==================================================
+
+    let ventoKm = "--";
+
+
+    if (
+        typeof dados.vento === "number"
+    ) {
+
+        ventoKm =
+            `${(
+                dados.vento * 3.6
+            ).toFixed(0)} km/h`;
+
+    }
 
 
     atualizarTexto(
         "heroVento",
-        `${(
-            dados.vento * 3.6
-        ).toFixed(0)} km/h`
+        ventoKm
     );
 
+
+    // ==================================================
+    // ÁGUA
+    // ==================================================
 
     atualizarTexto(
         "heroAgua",
-        `${dados.agua.toFixed(1)} °C`
+        formatarNumero(
+            dados.agua,
+            " °C"
+        )
     );
 
 
+    // ==================================================
+    // DIREÇÃO
+    // ==================================================
+
     atualizarTexto(
-        "heroPrancha",
-        dados.prancha
+        "heroDirecao",
+        dados.direcao ?? "--"
     );
 
+}
 
-    atualizarTexto(
-        "heroHorario",
-        dados.horario
+
+// ======================================================
+// FORMATAR NÚMERO
+// ======================================================
+
+function formatarNumero(
+    valor,
+    unidade = ""
+) {
+
+    if (
+        typeof valor !== "number" ||
+        !Number.isFinite(valor)
+    ) {
+
+        return "--";
+
+    }
+
+
+    return (
+        valor.toFixed(1) +
+        unidade
     );
 
 }
@@ -901,5 +819,5 @@ window.usarGPS =
 // ======================================================
 
 console.log(
-    "🌊 Mar Premium carregado com sucesso."
+    "🌊 WaveRise Mar carregado com sucesso."
 );
