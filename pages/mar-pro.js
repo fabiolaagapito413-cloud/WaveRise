@@ -1,8 +1,3 @@
-// ======================================================
-// WaveRise 5.0
-// Mar PRO
-// ======================================================
-
 import {
     buscarCondicoes,
     buscarMare,
@@ -26,6 +21,30 @@ import {
 import {
     atualizarTimeline
 } from "./timeline.js";
+
+
+// ======================================================
+// PROTEÇÃO DO MAR PRO
+// ======================================================
+
+const proAtivo =
+    localStorage.getItem("waveRisePRO") === "true";
+
+if (!proAtivo) {
+
+    alert(
+        "🔒 RECURSO EXCLUSIVO PRO\n\n" +
+        "Este recurso está disponível apenas " +
+        "para assinantes do WaveRise PRO.\n\n" +
+        "Assine o PRO para desbloquear."
+    );
+
+    window.location.href = "./pro.html";
+
+    throw new Error(
+        "Acesso ao Mar PRO bloqueado."
+    );
+}
 
 
 // ======================================================
@@ -58,9 +77,6 @@ async function iniciar() {
         "⭐ WaveRise Mar PRO iniciado."
     );
 
-    // --------------------------------------------------
-    // Se já temos coordenadas, carrega imediatamente
-    // --------------------------------------------------
 
     if (
         coordenadasValidas()
@@ -72,11 +88,6 @@ async function iniciar() {
 
     }
 
-
-    // --------------------------------------------------
-    // Se não temos coordenadas, tenta localizar a praia
-    // pelo nome salvo
-    // --------------------------------------------------
 
     if (praiaAtual) {
 
@@ -113,6 +124,7 @@ function configurarEventos() {
             "analisarCoach"
         );
 
+
     if (botaoCoach) {
 
         botaoCoach.addEventListener(
@@ -136,19 +148,19 @@ function restaurarDadosMar() {
             "marHojeWaveRise"
         );
 
+
     if (!salvo) {
 
         console.log(
             "ℹ️ Nenhum dado anterior do mar encontrado."
         );
 
-        // Mesmo sem dados do Mar, tenta usar
-        // a última praia salva.
 
         praiaAtual =
             localStorage.getItem(
                 "ultimaPraia"
             ) || "";
+
 
         return;
 
@@ -163,10 +175,6 @@ function restaurarDadosMar() {
             );
 
 
-        // --------------------------------------------------
-        // PRAIA
-        // --------------------------------------------------
-
         if (dados.praia) {
 
             praiaAtual =
@@ -174,10 +182,6 @@ function restaurarDadosMar() {
 
         }
 
-
-        // --------------------------------------------------
-        // COORDENADAS
-        // --------------------------------------------------
 
         if (
             Number.isFinite(
@@ -190,6 +194,7 @@ function restaurarDadosMar() {
 
         }
 
+
         if (
             Number.isFinite(
                 Number(dados.longitude)
@@ -201,10 +206,6 @@ function restaurarDadosMar() {
 
         }
 
-
-        // --------------------------------------------------
-        // PREENCHER DADOS SALVOS
-        // --------------------------------------------------
 
         preencherDadosSalvos(
             dados
@@ -369,9 +370,7 @@ function preencherDadosSalvos(
     );
 
 
-    // --------------------------------------------------
     // MARÉ
-    // --------------------------------------------------
 
     atualizarTexto(
         "mareMar",
@@ -409,9 +408,7 @@ function preencherDadosSalvos(
     );
 
 
-    // --------------------------------------------------
     // SOL
-    // --------------------------------------------------
 
     atualizarTexto(
         "nascerSol",
@@ -425,9 +422,7 @@ function preencherDadosSalvos(
     );
 
 
-    // --------------------------------------------------
     // LUA
-    // --------------------------------------------------
 
     atualizarTexto(
         "faseLua",
@@ -451,6 +446,7 @@ function atualizarTexto(
             id
         );
 
+
     if (elemento) {
 
         elemento.textContent =
@@ -468,16 +464,20 @@ function atualizarTexto(
 function coordenadasValidas() {
 
     return (
+
         Number.isFinite(
             latitudeAtual
         ) &&
+
         Number.isFinite(
             longitudeAtual
         ) &&
+
         !(
             latitudeAtual === 0 &&
             longitudeAtual === 0
         )
+
     );
 
 }
@@ -493,21 +493,29 @@ function formatarNumero(
 ) {
 
     if (
+
         valor === undefined ||
+
         valor === null ||
+
         valor === "" ||
+
         !Number.isFinite(
             Number(valor)
         )
+
     ) {
 
         return "--";
 
     }
 
+
     return (
+
         Number(valor).toFixed(1) +
         unidade
+
     );
 
 }
@@ -522,23 +530,32 @@ function formatarVento(
 ) {
 
     if (
+
         valor === undefined ||
+
         valor === null ||
+
         valor === "" ||
+
         !Number.isFinite(
             Number(valor)
         )
+
     ) {
 
         return "--";
 
     }
 
+
     return (
+
         (
             Number(valor) * 3.6
         ).toFixed(0) +
+
         " km/h"
+
     );
 
 }
@@ -566,9 +583,13 @@ async function localizarPraiaPorNome() {
 
 
     const url =
+
         "https://nominatim.openstreetmap.org/search" +
+
         "?format=json" +
+
         "&limit=1" +
+
         `&q=${encodeURIComponent(
             praiaAtual + ", Brasil"
         )}`;
@@ -594,8 +615,11 @@ async function localizarPraiaPorNome() {
 
 
     if (
+
         !Array.isArray(locais) ||
+
         !locais.length
+
     ) {
 
         throw new Error(
@@ -651,6 +675,7 @@ function salvarCoordenadas() {
 
 
     let dados = {};
+
 
     try {
 
@@ -724,9 +749,7 @@ async function carregarDadosPRO() {
         );
 
 
-        // ==================================================
         // STORMGLASS
-        // ==================================================
 
         const dados =
             await buscarCondicoes(
@@ -735,9 +758,7 @@ async function carregarDadosPRO() {
             );
 
 
-        // ==================================================
         // MARÉ
-        // ==================================================
 
         try {
 
@@ -793,9 +814,7 @@ async function carregarDadosPRO() {
         }
 
 
-        // ==================================================
         // SOL
-        // ==================================================
 
         try {
 
@@ -831,9 +850,7 @@ async function carregarDadosPRO() {
         }
 
 
-        // ==================================================
         // LUA
-        // ==================================================
 
         try {
 
@@ -849,47 +866,42 @@ async function carregarDadosPRO() {
                 erro
             );
 
+
             dados.lua =
                 "--";
 
         }
 
 
-        // ==================================================
         // ATUALIZAR CONDIÇÕES
-        // ==================================================
 
         atualizarTela(
             dados
         );
 
 
-        // ==================================================
         // COACH
-        // ==================================================
 
         atualizarCoach(
             dados
         );
 
 
-        // ==================================================
         // SCORE
-        // ==================================================
 
         atualizarNota(
             dados
         );
 
 
-        // ==================================================
         // TIMELINE
-        // ==================================================
 
         if (
+
             Array.isArray(
                 dados.hours
             )
+
         ) {
 
             atualizarTimeline(
@@ -899,9 +911,7 @@ async function carregarDadosPRO() {
         }
 
 
-        // ==================================================
         // PREVISÃO
-        // ==================================================
 
         try {
 
@@ -922,27 +932,21 @@ async function carregarDadosPRO() {
         }
 
 
-        // ==================================================
         // HERO
-        // ==================================================
 
         atualizarHero(
             dados
         );
 
 
-        // ==================================================
-        // DADOS ATUAIS DA PÁGINA
-        // ==================================================
+        // DADOS ATUAIS
 
         preencherDadosAtuais(
             dados
         );
 
 
-        // ==================================================
-        // SALVAR COORDENADAS + DADOS
-        // ==================================================
+        // SALVAR
 
         salvarDadosPRO(
             dados
@@ -972,7 +976,10 @@ async function carregarDadosPRO() {
         if (coach) {
 
             coach.textContent =
-                "Não foi possível atualizar os dados agora. Tente novamente em alguns instantes.";
+
+                "Não foi possível atualizar os dados agora. " +
+
+                "Tente novamente em alguns instantes.";
 
         }
 
@@ -1055,9 +1062,7 @@ function preencherDadosAtuais(
     dados
 ) {
 
-    // --------------------------------------------------
     // SCORE
-    // --------------------------------------------------
 
     atualizarTexto(
         "notaGrande",
@@ -1071,9 +1076,7 @@ function preencherDadosAtuais(
     );
 
 
-    // --------------------------------------------------
     // CONDIÇÕES
-    // --------------------------------------------------
 
     atualizarTexto(
         "ondasMar",
@@ -1139,9 +1142,7 @@ function preencherDadosAtuais(
     );
 
 
-    // --------------------------------------------------
     // MARÉ
-    // --------------------------------------------------
 
     atualizarTexto(
         "mareMar",
@@ -1179,9 +1180,7 @@ function preencherDadosAtuais(
     );
 
 
-    // --------------------------------------------------
     // SOL
-    // --------------------------------------------------
 
     atualizarTexto(
         "nascerSol",
@@ -1195,9 +1194,7 @@ function preencherDadosAtuais(
     );
 
 
-    // --------------------------------------------------
     // LUA
-    // --------------------------------------------------
 
     atualizarTexto(
         "faseLua",
@@ -1325,6 +1322,7 @@ async function analisarCoach() {
         botao.disabled =
             true;
 
+
         botao.textContent =
             "🤖 Analisando...";
 
@@ -1352,6 +1350,7 @@ async function analisarCoach() {
 
             botao.disabled =
                 false;
+
 
             botao.textContent =
                 "✨ Analisar sessão";

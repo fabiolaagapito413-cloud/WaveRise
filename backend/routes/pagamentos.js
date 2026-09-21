@@ -34,7 +34,7 @@ const planoAssinatura =
 function obterValorPlano(plano) {
     return plano === "anual"
         ? 149.90
-        : 19.90;
+        : 9.90;
 }
 
 
@@ -439,7 +439,7 @@ router.post(
                     transaction_amount:
                         ehAnual
                             ? 149.90
-                            : 19.90,
+                            : 9.90,
 
                     currency_id:
                         "BRL"

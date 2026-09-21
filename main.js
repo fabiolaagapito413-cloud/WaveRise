@@ -5,6 +5,7 @@
 
 console.log("🌊 WaveRise iniciado");
 
+
 // ======================================================
 // ELEMENTOS
 // ======================================================
@@ -22,8 +23,6 @@ const homePraia = document.getElementById("homePraia");
 const nivelHome = document.getElementById("nivelHome");
 const barraXP = document.getElementById("barraXP");
 const xpTexto = document.getElementById("xpTexto");
-
-const homeCoach = document.getElementById("homeCoach");
 
 const ultimaPraia = document.getElementById("ultimaPraia");
 const ultimaPrancha = document.getElementById("ultimaPrancha");
@@ -403,45 +402,6 @@ if (marHoje) {
             marHoje.score ?? "--";
     }
 
-
-    // ==================================================
-    // COACH IA DA HOME
-    // ==================================================
-
-    if (homeCoach) {
-
-        const score =
-            Number(marHoje.score) || 0;
-
-        if (score >= 90) {
-
-            homeCoach.innerHTML = `
-                🌊 <strong>Condições excelentes!</strong><br><br>
-                🏄 Praia: ${marHoje.praia || "--"}<br>
-                ⭐ Surf Score: ${score}<br>
-                🕒 ${marHoje.horario || "--"}<br><br>
-                Aproveite o mar hoje!
-            `;
-
-        } else if (score >= 70) {
-
-            homeCoach.innerHTML = `
-                🏄 <strong>Boas condições para o surf.</strong><br><br>
-                🌊 Praia: ${marHoje.praia || "--"}<br>
-                ⭐ Surf Score: ${score}<br><br>
-                Vale a pena entrar no mar.
-            `;
-
-        } else {
-
-            homeCoach.innerHTML = `
-                💨 <strong>Condições fracas hoje.</strong><br><br>
-                ⭐ Surf Score: ${score}<br><br>
-                Talvez seja um bom dia para treinar técnica ou preparar os equipamentos.
-            `;
-        }
-    }
-
 } else {
 
     if (homePraia) {
@@ -464,14 +424,6 @@ if (marHoje) {
     if (scoreTexto) {
         scoreTexto.textContent =
             "Abra o Mar Premium e pesquise uma praia.";
-    }
-
-    if (homeCoach) {
-
-        homeCoach.innerHTML = `
-            👋 Bem-vindo ao WaveRise!<br><br>
-            Pesquise uma praia no Mar Premium para receber recomendações do Coach IA.
-        `;
     }
 }
 
@@ -517,15 +469,6 @@ document
     ?.addEventListener("click", () => {
 
         abrirPagina("pages/diario.html");
-
-    });
-
-
-document
-    .getElementById("abrirCoach")
-    ?.addEventListener("click", () => {
-
-        abrirPagina("pages/coach.html");
 
     });
 
@@ -588,15 +531,6 @@ document
     ?.addEventListener("click", () => {
 
         abrirPagina("pages/pranchas.html");
-
-    });
-
-
-document
-    .getElementById("btnCoach")
-    ?.addEventListener("click", () => {
-
-        abrirPagina("pages/coach.html");
 
     });
 

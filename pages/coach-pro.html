@@ -1096,7 +1096,20 @@
          JAVASCRIPT
     ====================================================== -->
 
-   <script type="module" src="coach-pro.js"></script>
+<script type="module">
+
+    import { protegerPaginaPro } from "./auth.js";
+
+    const usuario =
+        await protegerPaginaPro();
+
+    if (usuario) {
+
+        await import("./coach-pro.js");
+
+    }
+
+</script>
 
 
 </body>

@@ -32,8 +32,7 @@ export async function obterUsuario() {
     const {
         data,
         error
-    } =
-        await supabase.auth.getUser();
+    } = await supabase.auth.getUser();
 
 
     if (error) {
@@ -62,8 +61,7 @@ export async function obterSessao() {
     const {
         data,
         error
-    } =
-        await supabase.auth.getSession();
+    } = await supabase.auth.getSession();
 
 
     if (error) {
@@ -113,9 +111,7 @@ export async function protegerPagina() {
             window.location.pathname;
 
 
-        /*
-         * Evita redirecionar o próprio login.
-         */
+        // Evita redirecionar o próprio login
 
         if (
             !paginaAtual.endsWith(
@@ -134,6 +130,105 @@ export async function protegerPagina() {
 
 
     return sessao.user;
+
+}
+
+
+// ======================================================
+// VERIFICAR SE USUÁRIO É PRO
+// ======================================================
+
+export async function verificarPro() {
+
+    const usuario =
+        await obterUsuario();
+
+
+    if (!usuario) {
+
+        return false;
+
+    }
+
+
+    try {
+
+        const resposta =
+            await fetch(
+                `https://waverise.onrender.com/usuarios/${usuario.id}`
+            );
+
+
+        if (!resposta.ok) {
+
+            console.error(
+                "Erro ao consultar status PRO:",
+                resposta.status
+            );
+
+            return false;
+
+        }
+
+
+        const dados =
+            await resposta.json();
+
+
+        return dados.pro === true;
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao verificar PRO:",
+            erro
+        );
+
+        return false;
+
+    }
+
+}
+
+
+// ======================================================
+// PROTEGER PÁGINA EXCLUSIVA PRO
+// ======================================================
+
+export async function protegerPaginaPro() {
+
+    const usuario =
+        await protegerPagina();
+
+
+    if (!usuario) {
+
+        return null;
+
+    }
+
+
+    const ehPro =
+        await verificarPro();
+
+
+    if (!ehPro) {
+
+        alert(
+            "⭐ Este recurso é exclusivo do WaveRise PRO."
+        );
+
+
+        window.location.href =
+            "./pro.html";
+
+
+        return null;
+
+    }
+
+
+    return usuario;
 
 }
 
@@ -246,5 +341,5 @@ export default supabase;
 
 
 console.log(
-    "🔐 WaveRise Auth carregado."
+    "🌊 WaveRise Auth carregado"
 );

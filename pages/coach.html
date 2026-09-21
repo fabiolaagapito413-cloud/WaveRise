@@ -350,6 +350,7 @@
             id="abrirCoachPro"
             class="proButton"
             type="button"
+            onclick="mostrarAvisoCoachPro()"
         >
             ⭐ Conhecer o Coach PRO
         </button>
@@ -437,17 +438,25 @@
 
 
 <!-- =================================================
-     JAVASCRIPT
+     AVISO DO PRO
 ================================================== -->
-<script type="module">
 
-    document
-        .getElementById("abrirCoachPro")
-        ?.addEventListener("click", () => {
+<script>
 
-            window.location.href =
-                "./coach-pro.html";
+    function mostrarAvisoCoachPro() {
 
-        });
+        alert(
+            "🔒 RECURSO EXCLUSIVO PRO\n\n" +
+            "Este recurso está disponível apenas " +
+            "para assinantes do WaveRise PRO.\n\n" +
+            "Assine o PRO para desbloquear."
+        );
+
+    }
 
 </script>
+
+
+</body>
+
+</html>

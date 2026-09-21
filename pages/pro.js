@@ -26,10 +26,78 @@ const supabase =
 
 
 // ======================================================
-// RESETAR PRO — MODO DE TESTE
+// PRO — MODO DE TESTE
 // ======================================================
 
 function criarBotaoResetTeste() {
+
+    // ==============================================
+    // ATIVAR PRO — MODO DE TESTE
+    // ==============================================
+
+    const ativar =
+        document.createElement("button");
+
+    ativar.id =
+        "btnAtivarWaveRisePRO";
+
+    ativar.type =
+        "button";
+
+    ativar.textContent =
+        "🧪 Ativar PRO para teste";
+
+    ativar.style.cssText = `
+        width:100%;
+        margin-top:12px;
+        padding:12px;
+        border:1px solid rgba(80,210,255,.25);
+        border-radius:14px;
+        background:rgba(40,185,255,.08);
+        color:#8fe8ff;
+        font-size:13px;
+        font-weight:700;
+        cursor:pointer;
+    `;
+
+    ativar.onclick = () => {
+
+        localStorage.setItem(
+            "waveRisePRO",
+            "true"
+        );
+
+        localStorage.setItem(
+            "waveRisePlano",
+            "teste"
+        );
+
+        localStorage.setItem(
+            "waveRiseProAtivadoEm",
+            Date.now().toString()
+        );
+
+        alert(
+            "🧪 WaveRise PRO ativado para teste!\n\n" +
+            "Todos os recursos PRO estão liberados neste dispositivo."
+        );
+
+        location.reload();
+    };
+
+    const offer =
+        document.querySelector(
+            ".proOffer"
+        );
+
+    if (offer) {
+        offer.appendChild(ativar);
+    }
+
+
+    // ==============================================
+    // RESETAR PRO — MODO DE TESTE
+    // ==============================================
 
     const botao =
         document.createElement("button");
@@ -96,13 +164,13 @@ function criarBotaoResetTeste() {
         location.reload();
     };
 
-    const offer =
+    const offerReset =
         document.querySelector(
             ".proOffer"
         );
 
-    if (offer) {
-        offer.appendChild(botao);
+    if (offerReset) {
+        offerReset.appendChild(botao);
     }
 }
 
@@ -192,9 +260,6 @@ function abrirPro(pagina) {
             "Assine o PRO para desbloquear."
         );
 
-        // Leva o usuário para a área
-        // de assinatura dentro da própria página.
-
         const oferta =
             document.querySelector(
                 ".proOffer"
@@ -235,7 +300,6 @@ const cards =
         ".proBenefit"
     );
 
-
 cards.forEach(
     (card, index) => {
 
@@ -258,8 +322,6 @@ cards.forEach(
 
     }
 );
-
-
 // ======================================================
 // ELEMENTOS
 // ======================================================
@@ -452,6 +514,7 @@ async function obterEmailUsuario() {
             "⚠️ Não foi possível obter a sessão do Supabase:",
             erro
         );
+
     }
 
 
@@ -530,7 +593,9 @@ async function obterEmailUsuario() {
             console.warn(
                 `⚠️ Não foi possível ler ${chave}.`
             );
+
         }
+
     }
 
 
@@ -558,6 +623,7 @@ function verificarPRO() {
 
         }
 
+
         if (btnAssinar) {
 
             btnAssinar.disabled =
@@ -568,6 +634,7 @@ function verificarPRO() {
 
             btnAssinar.style.opacity =
                 "1";
+
         }
 
         return;
@@ -602,6 +669,7 @@ function verificarPRO() {
 
         btnAssinar.style.opacity =
             "0.65";
+
     }
 }
 
@@ -844,7 +912,7 @@ function criarModalPagamento() {
         planoSelecionado ===
         "anual"
             ? "R$ 149,90"
-            : "R$ 19,90";
+            : "R$ 9,90";
 
 
     const nomePlano =
@@ -881,6 +949,7 @@ function criarModalPagamento() {
                 "waveRiseOpcoesPagamento"
             ).style.display =
                 "block";
+
         };
 
 
@@ -895,8 +964,6 @@ function criarModalPagamento() {
     ).onclick =
         criarPagamentoCartao;
 }
-
-
 // ======================================================
 // CRIAR PIX
 // ======================================================
@@ -1031,6 +1098,7 @@ async function criarPagamentoPix() {
 
             imagem.style.display =
                 "block";
+
         }
 
 
@@ -1057,6 +1125,7 @@ async function criarPagamentoPix() {
                 "btnCopiarPix"
             ).style.display =
                 "block";
+
         }
 
 
@@ -1066,10 +1135,10 @@ async function criarPagamentoPix() {
 
         status.innerHTML =
             `
-            <strong>💠 PIX gerado!</strong><br>
-            <small>
-                Escaneie o QR Code ou copie o código abaixo.
-            </small>
+                <strong>💠 PIX gerado!</strong><br>
+                <small>
+                    Escaneie o QR Code ou copie o código abaixo.
+                </small>
             `;
 
 
@@ -1108,6 +1177,7 @@ async function criarPagamentoPix() {
                         "btnCopiarPix"
                     ).textContent =
                         "✅ PIX copiado!";
+
                 }
 
             };
@@ -1167,6 +1237,7 @@ async function criarPagamentoPix() {
 
         areaPix.style.display =
             "none";
+
     }
 }
 
@@ -1307,10 +1378,9 @@ async function criarPagamentoCartao() {
 
         opcoes.style.display =
             "block";
+
     }
 }
-
-
 // ======================================================
 // BOTÃO ASSINAR PRO
 // ======================================================
@@ -1325,6 +1395,7 @@ if (btnAssinar) {
 
         }
     );
+
 }
 
 
@@ -1343,6 +1414,7 @@ if (btnVoltar) {
 
         }
     );
+
 }
 
 
