@@ -1356,3 +1356,20 @@ RESPONSIVO
     }
 
 }
+/*==================================================
+POLÍTICA DE PRIVACIDADE
+==================================================*/
+
+.linkPrivacidade {
+    display: block;
+    text-align: center;
+    margin: 10px 0 25px;
+    color: #8FCFFF;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.linkPrivacidade:hover {
+    color: #62E4FF;
+    text-decoration: underline;
+}

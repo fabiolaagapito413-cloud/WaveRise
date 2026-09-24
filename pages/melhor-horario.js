@@ -4,16 +4,78 @@
 
 console.log("⏰ WaveRise — Melhor Horário iniciado");
 
-
-/* =========================================
-   CONFIGURAÇÃO
-========================================= */
-
-const STORAGE_LOCAL =
-    "localizacaoWaveRise";
-
+const STORAGE_LOCAL = "localizacaoWaveRise";
 
 let ultimaLocalizacao = null;
+
+
+/* =========================================
+   PRAIAS
+========================================= */
+
+const PRAIAS = {
+
+    santos: {
+        nome: "Santos — SP",
+        latitude: -23.9675,
+        longitude: -46.3289
+    },
+
+    "sao-vicente": {
+        nome: "São Vicente — SP",
+        latitude: -23.9631,
+        longitude: -46.3919
+    },
+
+    guaruja: {
+        nome: "Guarujá — SP",
+        latitude: -23.9931,
+        longitude: -46.2564
+    },
+
+    "praia-grande": {
+        nome: "Praia Grande — SP",
+        latitude: -24.0084,
+        longitude: -46.4125
+    },
+
+    maresias: {
+        nome: "Maresias — SP",
+        latitude: -23.7953,
+        longitude: -45.5545
+    },
+
+    juquehy: {
+        nome: "Juquehy — SP",
+        latitude: -23.7667,
+        longitude: -45.7167
+    },
+
+    ubatuba: {
+        nome: "Ubatuba — SP",
+        latitude: -23.4339,
+        longitude: -45.0711
+    },
+
+    itamanbuca: {
+        nome: "Itamambuca — Ubatuba, SP",
+        latitude: -23.4000,
+        longitude: -45.0130
+    },
+
+    saquarema: {
+        nome: "Saquarema — RJ",
+        latitude: -22.9306,
+        longitude: -42.5042
+    },
+
+    itauna: {
+        nome: "Itaúna — Saquarema, RJ",
+        latitude: -22.9357,
+        longitude: -42.4867
+    }
+
+};
 
 
 /* =========================================
@@ -46,6 +108,18 @@ function iniciarPagina() {
     const btnAtualizar =
         document.getElementById(
             "btnAtualizar"
+        );
+
+
+    const btnPraia =
+        document.getElementById(
+            "btnPraia"
+        );
+
+
+    const praiaSelecionada =
+        document.getElementById(
+            "praiaSelecionada"
         );
 
 
@@ -125,20 +199,15 @@ function iniciarPagina() {
        VERIFICAR ELEMENTOS
     ====================================== */
 
-    if (!btnLocalizacao) {
+    if (
+        !btnLocalizacao ||
+        !btnAtualizar ||
+        !btnPraia ||
+        !praiaSelecionada
+    ) {
 
         console.error(
-            "❌ Elemento #btnLocalizacao não encontrado."
-        );
-
-        return;
-    }
-
-
-    if (!btnAtualizar) {
-
-        console.error(
-            "❌ Elemento #btnAtualizar não encontrado."
+            "❌ Elementos principais não encontrados."
         );
 
         return;
@@ -181,6 +250,7 @@ function iniciarPagina() {
                 valor
             )
         );
+
     }
 
 
@@ -193,6 +263,7 @@ function iniciarPagina() {
                 minute: "2-digit"
             }
         );
+
     }
 
 
@@ -206,11 +277,12 @@ function iniciarPagina() {
                 month: "2-digit"
             }
         );
+
     }
 
 
     /* =====================================
-       ATUALIZAR STATUS
+       STATUS
     ====================================== */
 
     function atualizarStatus(
@@ -242,7 +314,88 @@ function iniciarPagina() {
 
 
     /* =====================================
-       GEOLOCALIZAÇÃO
+       APLICAR LOCALIZAÇÃO
+    ====================================== */
+
+    function aplicarLocalizacao(
+        latitude,
+        longitude,
+        nomeLocal,
+        origem = "praia"
+    ) {
+
+        ultimaLocalizacao = {
+
+            latitude:
+                Number(latitude),
+
+            longitude:
+                Number(longitude),
+
+            nome:
+                nomeLocal,
+
+            origem
+
+        };
+
+
+        try {
+
+            localStorage.setItem(
+
+                STORAGE_LOCAL,
+
+                JSON.stringify(
+                    ultimaLocalizacao
+                )
+
+            );
+
+        } catch (erro) {
+
+            console.warn(
+                "⚠️ Não foi possível salvar localização.",
+                erro
+            );
+
+        }
+
+
+        atualizarStatus(
+            `📍 ${nomeLocal}`
+        );
+
+
+        atualizarCoordenadas(
+
+            `${Number(latitude).toFixed(5)}, ${Number(longitude).toFixed(5)}`
+
+        );
+
+
+        btnAtualizar.disabled =
+            false;
+
+
+        btnLocalizacao.disabled =
+            false;
+
+
+        btnLocalizacao.textContent =
+            "📍 Atualizar localização";
+
+
+        carregarPrevisao(
+            Number(latitude),
+            Number(longitude)
+        );
+
+    }
+
+
+    /* =====================================
+       LOCALIZAÇÃO GPS
     ====================================== */
 
     function obterLocalizacao() {
@@ -257,14 +410,17 @@ function iniciarPagina() {
         ) {
 
             atualizarStatus(
-                "Seu dispositivo não suporta localização."
+                "Localização indisponível neste dispositivo."
             );
+
 
             atualizarCoordenadas(
-                "A geolocalização não está disponível."
+                "Escolha uma praia abaixo para continuar."
             );
 
+
             return;
+
         }
 
 
@@ -292,13 +448,7 @@ function iniciarPagina() {
 
         navigator.geolocation.getCurrentPosition(
 
-            async (posicao) => {
-
-                console.log(
-                    "✅ Localização obtida:",
-                    posicao
-                );
-
+            (posicao) => {
 
                 const latitude =
                     posicao.coords.latitude;
@@ -308,76 +458,16 @@ function iniciarPagina() {
                     posicao.coords.longitude;
 
 
-                ultimaLocalizacao = {
+                aplicarLocalizacao(
 
                     latitude,
 
-                    longitude
+                    longitude,
 
-                };
+                    "Localização atual",
 
+                    "gps"
 
-                /* =========================
-                   SALVAR LOCALIZAÇÃO
-                ========================== */
-
-                try {
-
-                    localStorage.setItem(
-
-                        STORAGE_LOCAL,
-
-                        JSON.stringify(
-                            ultimaLocalizacao
-                        )
-
-                    );
-
-                } catch (erro) {
-
-                    console.warn(
-                        "⚠️ Não foi possível salvar localização.",
-                        erro
-                    );
-
-                }
-
-
-                /* =========================
-                   MOSTRAR LOCALIZAÇÃO
-                ========================== */
-
-                atualizarStatus(
-                    "📍 Localização encontrada"
-                );
-
-
-                atualizarCoordenadas(
-
-                    `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`
-
-                );
-
-
-                btnLocalizacao.disabled =
-                    false;
-
-
-                btnAtualizar.disabled =
-                    false;
-
-
-                btnLocalizacao.textContent =
-                    "📍 Atualizar localização";
-
-
-                /* =========================
-                   CARREGAR PREVISÃO
-                ========================== */
-
-                await carregarPrevisao(
-                    latitude,
-                    longitude
                 );
 
             },
@@ -385,8 +475,8 @@ function iniciarPagina() {
 
             (erro) => {
 
-                console.error(
-                    "❌ Erro de localização:",
+                console.warn(
+                    "📍 Localização não disponível:",
                     erro
                 );
 
@@ -403,75 +493,45 @@ function iniciarPagina() {
                     "📍 Tentar novamente";
 
 
-                /* =========================
-                   ERROS ESPECÍFICOS
-                ========================== */
+                atualizarStatus(
+                    "📍 Não foi possível usar sua localização."
+                );
+
+
+                atualizarCoordenadas(
+                    "Escolha uma praia abaixo para analisar as condições."
+                );
+
 
                 if (
-                    erro.code ===
-                    1
+                    erro.code === 1
                 ) {
 
                     atualizarStatus(
                         "📍 Permissão de localização negada."
                     );
 
-
-                    atualizarCoordenadas(
-                        "Ative a localização do WaveRise nas permissões do celular."
-                    );
-
-
-                    return;
                 }
 
-
-                if (
-                    erro.code ===
-                    2
+                else if (
+                    erro.code === 2
                 ) {
 
                     atualizarStatus(
                         "📍 Não foi possível encontrar sua localização."
                     );
 
-
-                    atualizarCoordenadas(
-                        "Verifique se o GPS/localização do celular está ativado."
-                    );
-
-
-                    return;
                 }
 
-
-                if (
-                    erro.code ===
-                    3
+                else if (
+                    erro.code === 3
                 ) {
 
                     atualizarStatus(
                         "📍 A localização demorou demais."
                     );
 
-
-                    atualizarCoordenadas(
-                        "Tente novamente em um local com melhor sinal de GPS."
-                    );
-
-
-                    return;
                 }
-
-
-                atualizarStatus(
-                    "Não foi possível obter sua localização."
-                );
-
-
-                atualizarCoordenadas(
-                    "Verifique as permissões e tente novamente."
-                );
 
             },
 
@@ -482,10 +542,10 @@ function iniciarPagina() {
                     true,
 
                 timeout:
-                    30000,
+                    15000,
 
                 maximumAge:
-                    0
+                    300000
 
             }
 
@@ -510,11 +570,8 @@ function iniciarPagina() {
 
             if (!valor) {
 
-                console.log(
-                    "ℹ️ Nenhuma localização salva."
-                );
-
                 return false;
+
             }
 
 
@@ -525,18 +582,19 @@ function iniciarPagina() {
             if (
                 !salva ||
                 !Number.isFinite(
-                    Number(salva.latitude)
+                    Number(
+                        salva.latitude
+                    )
                 ) ||
                 !Number.isFinite(
-                    Number(salva.longitude)
+                    Number(
+                        salva.longitude
+                    )
                 )
             ) {
 
-                console.warn(
-                    "⚠️ Localização salva inválida."
-                );
-
                 return false;
+
             }
 
 
@@ -550,13 +608,23 @@ function iniciarPagina() {
                 longitude:
                     Number(
                         salva.longitude
-                    )
+                    ),
+
+                nome:
+                    salva.nome ||
+                    "Localização salva",
+
+                origem:
+                    salva.origem ||
+                    "salva"
 
             };
 
 
             atualizarStatus(
-                "📍 Usando localização salva"
+
+                `📍 ${ultimaLocalizacao.nome}`
+
             );
 
 
@@ -564,12 +632,6 @@ function iniciarPagina() {
 
                 `${ultimaLocalizacao.latitude.toFixed(5)}, ${ultimaLocalizacao.longitude.toFixed(5)}`
 
-            );
-
-
-            console.log(
-                "📍 Localização salva:",
-                ultimaLocalizacao
             );
 
 
@@ -584,21 +646,25 @@ function iniciarPagina() {
 
             return true;
 
-        } catch (erro) {
+        }
+
+        catch (erro) {
 
             console.error(
                 "❌ Erro ao carregar localização salva:",
                 erro
             );
 
+
             return false;
+
         }
 
     }
 
 
     /* =====================================
-       PREVISÃO MARÍTIMA
+       CARREGAR PREVISÃO
     ====================================== */
 
     async function carregarPrevisao(
@@ -619,7 +685,9 @@ function iniciarPagina() {
 
                 <div class="estadoInicial">
 
-                    <span>🌊</span>
+                    <span>
+                        🌊
+                    </span>
 
                     <p>
                         Analisando as condições do mar...
@@ -643,83 +711,94 @@ function iniciarPagina() {
         try {
 
             /* =================================
-               DATA LOCAL
+               API MARÍTIMA
             ================================= */
 
-            const hoje =
-                new Date();
-
-
-            const inicio =
-                formatarDataAPI(
-                    hoje
-                );
-
-
-            const amanha =
-                new Date(
-                    hoje
-                );
-
-
-            amanha.setDate(
-                amanha.getDate() + 1
-            );
-
-
-            const fim =
-                formatarDataAPI(
-                    amanha
-                );
-
-
-            /* =================================
-               URL OPEN-METEO
-            ================================= */
-
-            const url =
+            const urlMar =
                 "https://marine-api.open-meteo.com/v1/marine" +
 
                 `?latitude=${encodeURIComponent(latitude)}` +
 
                 `&longitude=${encodeURIComponent(longitude)}` +
 
-                `&hourly=wave_height,wave_direction,wave_period` +
+                "&hourly=wave_height,wave_direction,wave_period" +
 
-                `&timezone=auto` +
+                "&timezone=auto" +
 
-                `&forecast_days=2`;
+                "&forecast_days=2";
+
+
+            /* =================================
+               API METEOROLÓGICA
+            ================================= */
+
+            const urlTempo =
+                "https://api.open-meteo.com/v1/forecast" +
+
+                `?latitude=${encodeURIComponent(latitude)}` +
+
+                `&longitude=${encodeURIComponent(longitude)}` +
+
+                "&hourly=temperature_2m,wind_speed_10m,wind_direction_10m" +
+
+                "&timezone=auto" +
+
+                "&forecast_days=2";
 
 
             console.log(
-                "🌐 URL previsão:",
-                url
+                "🌐 Buscando mar e tempo..."
             );
 
 
-            const resposta =
-                await fetch(
-                    url
-                );
+            const [
+                respostaMar,
+                respostaTempo
+            ] = await Promise.all([
+
+                fetch(
+                    urlMar
+                ),
+
+                fetch(
+                    urlTempo
+                )
+
+            ]);
 
 
-            if (!resposta.ok) {
+            if (
+                !respostaMar.ok
+            ) {
 
                 throw new Error(
-                    `Erro HTTP ${resposta.status}`
+                    `Erro no serviço marítimo: HTTP ${respostaMar.status}`
                 );
 
             }
 
 
-            const dados =
-                await resposta.json();
+            if (
+                !respostaTempo.ok
+            ) {
+
+                throw new Error(
+                    `Erro no serviço meteorológico: HTTP ${respostaTempo.status}`
+                );
+
+            }
 
 
-            console.log(
-                "🌊 Dados recebidos:",
-                dados
-            );
+            const [
+                dados,
+                tempoDados
+            ] = await Promise.all([
+
+                respostaMar.json(),
+
+                respostaTempo.json()
+
+            ]);
 
 
             if (
@@ -736,9 +815,27 @@ function iniciarPagina() {
             }
 
 
+            if (
+                !tempoDados.hourly ||
+                !Array.isArray(
+                    tempoDados.hourly.time
+                )
+            ) {
+
+                throw new Error(
+                    "Previsão meteorológica não disponível."
+                );
+
+            }
+
+
             const horarios =
                 analisarHorarios(
-                    dados
+
+                    dados,
+
+                    tempoDados
+
                 );
 
 
@@ -747,7 +844,9 @@ function iniciarPagina() {
             );
 
 
-        } catch (erro) {
+        }
+
+        catch (erro) {
 
             console.error(
                 "❌ Erro previsão:",
@@ -761,11 +860,14 @@ function iniciarPagina() {
 
                     <div class="estadoInicial">
 
-                        <span>⚠️</span>
+                        <span>
+                            ⚠️
+                        </span>
 
                         <p>
                             Não conseguimos carregar
-                            a previsão marítima agora.
+                            a previsão agora.
+                            Tente atualizar novamente.
                         </p>
 
                     </div>
@@ -778,7 +880,7 @@ function iniciarPagina() {
             if (coachMensagem) {
 
                 coachMensagem.textContent =
-                    "A previsão não pôde ser carregada. Verifique sua conexão e tente atualizar novamente.";
+                    "Não consegui carregar os dados agora. Tente atualizar a previsão novamente.";
 
             }
 
@@ -788,46 +890,12 @@ function iniciarPagina() {
 
 
     /* =====================================
-       DATA PARA API
-    ====================================== */
-
-    function formatarDataAPI(
-        data
-    ) {
-
-        const ano =
-            data.getFullYear();
-
-
-        const mes =
-            String(
-                data.getMonth() + 1
-            ).padStart(
-                2,
-                "0"
-            );
-
-
-        const dia =
-            String(
-                data.getDate()
-            ).padStart(
-                2,
-                "0"
-            );
-
-
-        return `${ano}-${mes}-${dia}`;
-
-    }
-
-
-    /* =====================================
-       ANÁLISE DOS HORÁRIOS
+       ANALISAR HORÁRIOS
     ====================================== */
 
     function analisarHorarios(
-        dados
+        dados,
+        tempoDados
     ) {
 
         const resultado = [];
@@ -849,6 +917,42 @@ function iniciarPagina() {
             dados.hourly.wave_period || [];
 
 
+        const temposTempo =
+            tempoDados.hourly.time || [];
+
+
+        const temperaturas =
+            tempoDados.hourly.temperature_2m || [];
+
+
+        const ventos =
+            tempoDados.hourly.wind_speed_10m || [];
+
+
+        const direcoesVento =
+            tempoDados.hourly.wind_direction_10m || [];
+
+
+        const indiceTempo =
+            new Map(
+
+                temposTempo.map(
+
+                    (
+                        hora,
+                        indice
+                    ) => [
+
+                        hora,
+                        indice
+
+                    ]
+
+                )
+
+            );
+
+
         for (
             let i = 0;
             i < tempos.length;
@@ -868,6 +972,7 @@ function iniciarPagina() {
             ) {
 
                 continue;
+
             }
 
 
@@ -875,9 +980,7 @@ function iniciarPagina() {
                 data.getHours();
 
 
-            /* =============================
-               SOMENTE HORÁRIO DE DIA
-            ============================== */
+            /* SOMENTE HORÁRIO DE DIA */
 
             if (
                 hora < 6 ||
@@ -910,6 +1013,48 @@ function iniciarPagina() {
                 );
 
 
+            const indiceMeteorologia =
+                indiceTempo.get(
+                    tempos[i]
+                );
+
+
+            const temperatura =
+                indiceMeteorologia !== undefined
+
+                    ? Number(
+                        temperaturas[
+                            indiceMeteorologia
+                        ]
+                    )
+
+                    : null;
+
+
+            const velocidadeVento =
+                indiceMeteorologia !== undefined
+
+                    ? Number(
+                        ventos[
+                            indiceMeteorologia
+                        ]
+                    )
+
+                    : null;
+
+
+            const direcaoVento =
+                indiceMeteorologia !== undefined
+
+                    ? Number(
+                        direcoesVento[
+                            indiceMeteorologia
+                        ]
+                    )
+
+                    : null;
+
+
             /* =============================
                SCORE DA ALTURA
             ============================== */
@@ -925,7 +1070,9 @@ function iniciarPagina() {
                 scoreAltura =
                     35;
 
-            } else if (
+            }
+
+            else if (
                 altura >= 0.5 &&
                 altura < 0.7
             ) {
@@ -933,7 +1080,9 @@ function iniciarPagina() {
                 scoreAltura =
                     25;
 
-            } else if (
+            }
+
+            else if (
                 altura > 1.8 &&
                 altura <= 2.5
             ) {
@@ -941,14 +1090,18 @@ function iniciarPagina() {
                 scoreAltura =
                     27;
 
-            } else if (
+            }
+
+            else if (
                 altura > 2.5
             ) {
 
                 scoreAltura =
                     18;
 
-            } else {
+            }
+
+            else {
 
                 scoreAltura =
                     10;
@@ -970,28 +1123,36 @@ function iniciarPagina() {
                 scorePeriodo =
                     30;
 
-            } else if (
+            }
+
+            else if (
                 periodo >= 10
             ) {
 
                 scorePeriodo =
                     25;
 
-            } else if (
+            }
+
+            else if (
                 periodo >= 8
             ) {
 
                 scorePeriodo =
                     20;
 
-            } else if (
+            }
+
+            else if (
                 periodo >= 6
             ) {
 
                 scorePeriodo =
                     14;
 
-            } else {
+            }
+
+            else {
 
                 scorePeriodo =
                     8;
@@ -1014,7 +1175,9 @@ function iniciarPagina() {
                 scoreHorario =
                     25;
 
-            } else if (
+            }
+
+            else if (
                 hora >= 15 &&
                 hora <= 17
             ) {
@@ -1022,13 +1185,70 @@ function iniciarPagina() {
                 scoreHorario =
                     22;
 
-            } else {
+            }
+
+            else {
 
                 scoreHorario =
                     16;
 
             }
 
+
+            /* =============================
+               SCORE DO VENTO
+            ============================== */
+
+            let scoreVento =
+                10;
+
+
+            if (
+                Number.isFinite(
+                    velocidadeVento
+                )
+            ) {
+
+                if (
+                    velocidadeVento <= 10
+                ) {
+
+                    scoreVento =
+                        10;
+
+                }
+
+                else if (
+                    velocidadeVento <= 18
+                ) {
+
+                    scoreVento =
+                        7;
+
+                }
+
+                else if (
+                    velocidadeVento <= 25
+                ) {
+
+                    scoreVento =
+                        4;
+
+                }
+
+                else {
+
+                    scoreVento =
+                        1;
+
+                }
+
+            }
+
+
+            /* =============================
+               SCORE FINAL
+            ============================== */
 
             const score =
                 limitar(
@@ -1037,7 +1257,8 @@ function iniciarPagina() {
 
                         scoreAltura +
                         scorePeriodo +
-                        scoreHorario
+                        scoreHorario +
+                        scoreVento
 
                     ),
 
@@ -1059,6 +1280,27 @@ function iniciarPagina() {
 
                 direcao,
 
+                temperatura:
+                    Number.isFinite(
+                        temperatura
+                    )
+                        ? temperatura
+                        : null,
+
+                vento:
+                    Number.isFinite(
+                        velocidadeVento
+                    )
+                        ? velocidadeVento
+                        : null,
+
+                direcaoVento:
+                    Number.isFinite(
+                        direcaoVento
+                    )
+                        ? direcaoVento
+                        : null,
+
                 score
 
             });
@@ -1068,8 +1310,26 @@ function iniciarPagina() {
 
         resultado.sort(
 
-            (a, b) =>
-                b.score - a.score
+            (a, b) => {
+
+                if (
+                    b.score !== a.score
+                ) {
+
+                    return (
+                        b.score -
+                        a.score
+                    );
+
+                }
+
+
+                return (
+                    a.data.getTime() -
+                    b.data.getTime()
+                );
+
+            }
 
         );
 
@@ -1100,7 +1360,9 @@ function iniciarPagina() {
 
                     <div class="estadoInicial">
 
-                        <span>🌙</span>
+                        <span>
+                            🌙
+                        </span>
 
                         <p>
                             Não encontramos horários
@@ -1113,7 +1375,9 @@ function iniciarPagina() {
 
             }
 
+
             return;
+
         }
 
 
@@ -1123,9 +1387,11 @@ function iniciarPagina() {
 
         /* =================================
            MELHOR HORÁRIO
-        ================================== */
+        ================================= */
 
-        if (melhorHorario) {
+        if (
+            melhorHorario
+        ) {
 
             melhorHorario.textContent =
                 formatarHora(
@@ -1135,7 +1401,9 @@ function iniciarPagina() {
         }
 
 
-        if (melhorData) {
+        if (
+            melhorData
+        ) {
 
             melhorData.textContent =
                 formatarData(
@@ -1145,7 +1413,9 @@ function iniciarPagina() {
         }
 
 
-        if (notaMelhorHorario) {
+        if (
+            notaMelhorHorario
+        ) {
 
             notaMelhorHorario.textContent =
                 melhor.score;
@@ -1153,7 +1423,9 @@ function iniciarPagina() {
         }
 
 
-        if (descricaoMelhorHorario) {
+        if (
+            descricaoMelhorHorario
+        ) {
 
             descricaoMelhorHorario.textContent =
                 gerarDescricao(
@@ -1165,9 +1437,11 @@ function iniciarPagina() {
 
         /* =================================
            CONDIÇÕES
-        ================================== */
+        ================================= */
 
-        if (ondas) {
+        if (
+            ondas
+        ) {
 
             ondas.textContent =
                 `${melhor.altura.toFixed(1)} m`;
@@ -1175,33 +1449,43 @@ function iniciarPagina() {
         }
 
 
-        /*
-         * O endpoint marítimo usado aqui
-         * não fornece vento.
-         */
-
-        if (vento) {
+        if (
+            vento
+        ) {
 
             vento.textContent =
-                "--";
+
+                Number.isFinite(
+                    melhor.vento
+                )
+
+                    ? `${Math.round(melhor.vento)} km/h`
+
+                    : "--";
 
         }
 
 
-        /*
-         * Temperatura também não está sendo
-         * solicitada nesse endpoint.
-         */
-
-        if (temperatura) {
+        if (
+            temperatura
+        ) {
 
             temperatura.textContent =
-                "--";
+
+                Number.isFinite(
+                    melhor.temperatura
+                )
+
+                    ? `${Math.round(melhor.temperatura)}°C`
+
+                    : "--";
 
         }
 
 
-        if (tempo) {
+        if (
+            tempo
+        ) {
 
             tempo.textContent =
                 `${melhor.periodo.toFixed(0)} s`;
@@ -1211,9 +1495,11 @@ function iniciarPagina() {
 
         /* =================================
            LISTA DE HORÁRIOS
-        ================================== */
+        ================================= */
 
-        if (listaHorarios) {
+        if (
+            listaHorarios
+        ) {
 
             listaHorarios.innerHTML =
 
@@ -1234,10 +1520,12 @@ function iniciarPagina() {
                             index === 0
 
                                 ? `
+
                                     <span class="melhorTag">
                                         MELHOR
                                     </span>
-                                  `
+
+                                `
 
                                 : "";
 
@@ -1266,14 +1554,25 @@ function iniciarPagina() {
                                         ·
                                         ${item.periodo.toFixed(0)}
                                         s
+                                        ·
+                                        ${
+                                            Number.isFinite(
+                                                item.vento
+                                            )
+
+                                                ? Math.round(
+                                                    item.vento
+                                                ) + " km/h"
+
+                                                : "--"
+                                        }
 
                                     </strong>
 
 
                                     <small>
 
-                                        Qualidade estimada
-                                        da janela
+                                        Onda · período · vento
 
                                     </small>
 
@@ -1301,9 +1600,11 @@ function iniciarPagina() {
 
         /* =================================
            COACH
-        ================================== */
+        ================================= */
 
-        if (coachMensagem) {
+        if (
+            coachMensagem
+        ) {
 
             coachMensagem.textContent =
                 gerarMensagemCoach(
@@ -1333,7 +1634,9 @@ function iniciarPagina() {
             item.score >= 85
         ) {
 
-            return "Excelente janela segundo os dados disponíveis.";
+            return (
+                "Excelente janela segundo os dados disponíveis."
+            );
 
         }
 
@@ -1342,7 +1645,9 @@ function iniciarPagina() {
             item.score >= 70
         ) {
 
-            return "Boa janela para considerar uma sessão.";
+            return (
+                "Boa janela para considerar uma sessão."
+            );
 
         }
 
@@ -1351,12 +1656,16 @@ function iniciarPagina() {
             item.score >= 55
         ) {
 
-            return "Condição intermediária. Vale acompanhar.";
+            return (
+                "Condição intermediária. Vale acompanhar."
+            );
 
         }
 
 
-        return "Condição mais fraca entre os horários analisados.";
+        return (
+            "Condição mais fraca entre os horários analisados."
+        );
 
     }
 
@@ -1380,11 +1689,13 @@ function iniciarPagina() {
         ) {
 
             return `
+
                 O melhor horário encontrado é ${hora}.
-                A previsão indica uma janela com boas
-                características de onda e período.
-                Confirme vento, maré e condições reais
+                A previsão combina uma boa janela
+                de ondas e período, com vento favorável.
+                Confirme as condições reais da praia
                 antes de entrar no mar.
+
             `;
 
         }
@@ -1395,21 +1706,26 @@ function iniciarPagina() {
         ) {
 
             return `
+
                 Eu priorizaria ${hora}.
-                A janela parece interessante, mas vale
-                conferir vento, maré e condições reais
-                da praia antes da sessão.
+                A janela parece interessante pelos
+                dados disponíveis, mas vale conferir
+                vento, maré e condições reais da praia
+                antes da sessão.
+
             `;
 
         }
 
 
         return `
-            Entre os horários analisados, ${hora}
-            apresenta a melhor pontuação.
-            Como a qualidade não está muito alta,
-            vale acompanhar a previsão e as condições
+
+            Entre os horários analisados,
+            ${hora} apresenta a melhor pontuação.
+            A qualidade não está muito alta,
+            então acompanhe a previsão e as condições
             reais antes de decidir.
+
         `;
 
     }
@@ -1420,12 +1736,61 @@ function iniciarPagina() {
     ====================================== */
 
     btnLocalizacao.addEventListener(
+
         "click",
+
         () => {
 
             obterLocalizacao();
 
         }
+
+    );
+
+
+    /* =====================================
+       BOTÃO PRAIA
+    ====================================== */
+
+    btnPraia.addEventListener(
+
+        "click",
+
+        () => {
+
+            const chave =
+                praiaSelecionada.value;
+
+
+            const praia =
+                PRAIAS[chave];
+
+
+            if (!praia) {
+
+                alert(
+                    "Escolha uma praia para continuar."
+                );
+
+                return;
+
+            }
+
+
+            aplicarLocalizacao(
+
+                praia.latitude,
+
+                praia.longitude,
+
+                praia.nome,
+
+                "praia"
+
+            );
+
+        }
+
     );
 
 
@@ -1434,7 +1799,9 @@ function iniciarPagina() {
     ====================================== */
 
     btnAtualizar.addEventListener(
+
         "click",
+
         () => {
 
             console.log(
@@ -1454,33 +1821,66 @@ function iniciarPagina() {
 
                 );
 
-            } else {
+            }
 
-                obterLocalizacao();
+            else {
+
+                const chave =
+                    praiaSelecionada.value;
+
+
+                const praia =
+                    PRAIAS[chave];
+
+
+                if (praia) {
+
+                    aplicarLocalizacao(
+
+                        praia.latitude,
+
+                        praia.longitude,
+
+                        praia.nome,
+
+                        "praia"
+
+                    );
+
+                }
+
+                else {
+
+                    obterLocalizacao();
+
+                }
 
             }
 
         }
+
     );
 
 
     /* =====================================
-       CARREGAR LOCALIZAÇÃO SALVA
+       LOCALIZAÇÃO SALVA
     ====================================== */
 
     const possuiLocalizacao =
         carregarLocalizacaoSalva();
 
 
-    if (!possuiLocalizacao) {
+    if (
+        !possuiLocalizacao
+    ) {
 
         atualizarStatus(
-            "Localização ainda não definida."
+            "Escolha uma praia ou use sua localização."
         );
 
 
         atualizarCoordenadas(
-            "Permita o acesso à localização para analisar o mar."
+            "Você pode continuar sem liberar o GPS."
         );
 
     }

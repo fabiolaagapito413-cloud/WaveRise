@@ -64,6 +64,14 @@ app.use(
     pagamentosRoutes
 );
 
+app.get("/privacidade", (req, res) => {
+    res.sendFile(
+        "privacidade.html",
+        {
+            root: "../pages"
+        }
+    );
+});
 
 // ======================================================
 // SERVIDOR

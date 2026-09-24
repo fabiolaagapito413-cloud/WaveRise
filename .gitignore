@@ -4,3 +4,11 @@ dist/
 .DS_Store
 android/keystore.properties
 android/*.jks
+
+# Arquivos locais e sensíveis
+erro.txt
+login-atual.txt
+login-limpo.txt
+render-url.txt
+waverise_backup.sql
+waverise_backup_render.sql

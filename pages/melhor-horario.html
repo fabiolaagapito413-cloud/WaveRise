@@ -12,16 +12,10 @@
 
     <title>Melhor Horário — WaveRise</title>
 
-
-    <!-- CSS GLOBAL -->
-
     <link
         rel="stylesheet"
         href="../style.css"
     >
-
-
-    <!-- CSS DA PÁGINA -->
 
     <link
         rel="stylesheet"
@@ -30,16 +24,9 @@
 
 </head>
 
-
 <body>
 
-
-    <!-- ==================================================
-         HEADER
-    ================================================== -->
-
     <header class="mhHeader">
-
 
         <a
             href="../index.html"
@@ -48,7 +35,6 @@
         >
             ←
         </a>
-
 
         <div>
 
@@ -62,34 +48,23 @@
 
         </div>
 
-
         <div class="proBadge">
             PRO
         </div>
 
-
     </header>
 
-
-
-    <!-- ==================================================
-         CONTEÚDO
-    ================================================== -->
 
     <main class="melhorHorario">
 
 
-        <!-- ==================================================
-             HERO
-        ================================================== -->
+        <!-- HERO -->
 
         <section class="mhHero">
-
 
             <div class="heroIcon">
                 🕐
             </div>
-
 
             <div>
 
@@ -97,11 +72,9 @@
                     WAVE RISE PRO
                 </span>
 
-
                 <h1>
                     Melhor horário para surfar
                 </h1>
-
 
                 <p>
                     Descubra quais horários apresentam
@@ -110,25 +83,18 @@
 
             </div>
 
-
         </section>
 
 
-
-        <!-- ==================================================
-             LOCALIZAÇÃO
-        ================================================== -->
+        <!-- LOCAL DA SESSÃO -->
 
         <section class="mhCard">
 
-
             <div class="cardTitulo">
-
 
                 <div class="tituloIcon">
                     📍
                 </div>
-
 
                 <div>
 
@@ -136,16 +102,13 @@
                         Local da sessão
                     </h2>
 
-
                     <p id="localStatus">
                         Localização não definida
                     </p>
 
                 </div>
 
-
             </div>
-
 
 
             <button
@@ -153,43 +116,95 @@
                 class="btnPrincipal"
                 type="button"
             >
-
                 📍 Usar minha localização
-
             </button>
 
+
+            <div class="seletorPraia">
+
+                <label for="praiaSelecionada">
+                    Ou escolha uma praia
+                </label>
+
+                <select id="praiaSelecionada">
+
+                    <option value="">
+                        Selecione uma praia
+                    </option>
+
+                    <option value="santos">
+                        Santos — SP
+                    </option>
+
+                    <option value="sao-vicente">
+                        São Vicente — SP
+                    </option>
+
+                    <option value="guaruja">
+                        Guarujá — SP
+                    </option>
+
+                    <option value="praia-grande">
+                        Praia Grande — SP
+                    </option>
+
+                    <option value="maresias">
+                        Maresias — SP
+                    </option>
+
+                    <option value="juquehy">
+                        Juquehy — SP
+                    </option>
+
+                    <option value="ubatuba">
+                        Ubatuba — SP
+                    </option>
+
+                    <option value="itamanbuca">
+                        Itamambuca — Ubatuba, SP
+                    </option>
+
+                    <option value="saquarema">
+                        Saquarema — RJ
+                    </option>
+
+                    <option value="itauna">
+                        Itaúna — Saquarema, RJ
+                    </option>
+
+                </select>
+
+
+                <button
+                    id="btnPraia"
+                    class="btnPrincipal"
+                    type="button"
+                >
+                    🌊 Usar esta praia
+                </button>
+
+            </div>
 
 
             <div
                 class="coordenadas"
                 id="coordenadas"
             >
-
                 Aguardando localização...
-
             </div>
-
 
         </section>
 
 
+        <!-- MELHOR HORÁRIO -->
 
-        <!-- ==================================================
-             MELHOR HORÁRIO
-        ================================================== -->
-
-        <section
-            class="mhCard destaque"
-        >
-
+        <section class="mhCard destaque">
 
             <div class="melhorTitulo">
-
 
                 <span>
                     ⭐
                 </span>
-
 
                 <div>
 
@@ -197,47 +212,36 @@
                         RECOMENDAÇÃO
                     </span>
 
-
                     <h2>
                         Melhor horário
                     </h2>
 
                 </div>
 
-
             </div>
 
 
-
             <div class="horarioPrincipal">
-
 
                 <strong id="melhorHorario">
                     --
                 </strong>
 
-
                 <span id="melhorData">
                     --
                 </span>
 
-
             </div>
 
 
-
             <div class="notaHorario">
-
 
                 <div
                     class="notaNumero"
                     id="notaMelhorHorario"
                 >
-
                     --
-
                 </div>
-
 
                 <div>
 
@@ -245,35 +249,26 @@
                         Qualidade do horário
                     </strong>
 
-
                     <p id="descricaoMelhorHorario">
                         Aguardando dados do mar...
                     </p>
 
                 </div>
 
-
             </div>
-
 
         </section>
 
 
-
-        <!-- ==================================================
-             CONDIÇÕES
-        ================================================== -->
+        <!-- CONDIÇÕES -->
 
         <section class="mhCard">
 
-
             <div class="cardTitulo">
-
 
                 <div class="tituloIcon">
                     🌊
                 </div>
-
 
                 <div>
 
@@ -281,22 +276,17 @@
                         Condições
                     </h2>
 
-
                     <p>
                         Previsão do melhor período
                     </p>
 
                 </div>
 
-
             </div>
-
 
 
             <div class="condicoesGrid">
 
-
-                <!-- ONDAS -->
 
                 <div class="condicao">
 
@@ -304,11 +294,9 @@
                         🌊
                     </span>
 
-
                     <strong id="ondas">
                         --
                     </strong>
-
 
                     <small>
                         Ondas
@@ -317,20 +305,15 @@
                 </div>
 
 
-
-                <!-- VENTO -->
-
                 <div class="condicao">
 
                     <span>
                         💨
                     </span>
 
-
                     <strong id="vento">
                         --
                     </strong>
-
 
                     <small>
                         Vento
@@ -339,20 +322,15 @@
                 </div>
 
 
-
-                <!-- TEMPERATURA -->
-
                 <div class="condicao">
 
                     <span>
                         🌡️
                     </span>
 
-
                     <strong id="temperatura">
                         --
                     </strong>
-
 
                     <small>
                         Temperatura
@@ -361,20 +339,15 @@
                 </div>
 
 
-
-                <!-- PERÍODO -->
-
                 <div class="condicao">
 
                     <span>
                         ⏱️
                     </span>
 
-
                     <strong id="tempo">
                         --
                     </strong>
-
 
                     <small>
                         Período
@@ -382,28 +355,20 @@
 
                 </div>
 
-
             </div>
-
 
         </section>
 
 
-
-        <!-- ==================================================
-             HORÁRIOS DO DIA
-        ================================================== -->
+        <!-- HORÁRIOS DO DIA -->
 
         <section class="mhCard">
 
-
             <div class="cardTitulo">
-
 
                 <div class="tituloIcon">
                     🕐
                 </div>
-
 
                 <div>
 
@@ -411,16 +376,13 @@
                         Horários do dia
                     </h2>
 
-
                     <p>
                         Comparação das melhores janelas
                     </p>
 
                 </div>
 
-
             </div>
-
 
 
             <div
@@ -428,45 +390,33 @@
                 class="listaHorarios"
             >
 
-
                 <div class="estadoInicial">
 
                     <span>
                         🌊
                     </span>
 
-
                     <p>
-                        Ative sua localização para
-                        analisar os horários.
+                        Escolha uma praia ou use sua localização
+                        para analisar os horários.
                     </p>
 
                 </div>
 
-
             </div>
-
 
         </section>
 
 
+        <!-- COACH IA -->
 
-        <!-- ==================================================
-             COACH IA
-        ================================================== -->
-
-        <section
-            class="mhCard coachCard"
-        >
-
+        <section class="mhCard coachCard">
 
             <div class="cardTitulo">
-
 
                 <div class="tituloIcon">
                     🤖
                 </div>
-
 
                 <div>
 
@@ -474,67 +424,49 @@
                         Coach IA
                     </h2>
 
-
                     <p>
                         Recomendação personalizada
                     </p>
 
                 </div>
 
-
             </div>
 
 
-
             <div class="coachMensagem">
-
 
                 <span class="coachAvatar">
                     🤖
                 </span>
 
-
                 <p id="coachMensagem">
-
                     Assim que analisarmos as condições,
                     o Coach IA vai indicar o melhor momento
                     para sua sessão.
-
                 </p>
 
-
             </div>
-
 
         </section>
 
 
-
-        <!-- ==================================================
-             ATUALIZAR PREVISÃO
-        ================================================== -->
+        <!-- ATUALIZAR -->
 
         <button
             id="btnAtualizar"
             class="btnAtualizar"
             type="button"
         >
-
             🔄 Atualizar previsão
-
         </button>
 
 
     </main>
 
 
-
-    <!-- ==================================================
-         MENU INFERIOR
-    ================================================== -->
+    <!-- MENU INFERIOR -->
 
     <nav class="bottomMenu">
-
 
         <a href="../index.html">
 
@@ -547,7 +479,6 @@
             </small>
 
         </a>
-
 
 
         <a href="diario.html">
@@ -563,7 +494,6 @@
         </a>
 
 
-
         <a href="coach-pro.html">
 
             <span>
@@ -575,7 +505,6 @@
             </small>
 
         </a>
-
 
 
         <a href="evolucao.html">
@@ -591,7 +520,6 @@
         </a>
 
 
-
         <a href="perfil.html">
 
             <span>
@@ -604,20 +532,13 @@
 
         </a>
 
-
     </nav>
 
-
-
-    <!-- ==================================================
-         JAVASCRIPT
-    ================================================== -->
 
     <script
         type="module"
         src="melhor-horario.js"
     ></script>
-
 
 </body>
 
