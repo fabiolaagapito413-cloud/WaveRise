@@ -68,7 +68,7 @@ app.get("/privacidade", (req, res) => {
     res.sendFile(
         "privacidade.html",
         {
-            root: "../pages"
+            root: new URL("../pages/", import.meta.url).pathname
         }
     );
 });
