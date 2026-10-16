@@ -6,9 +6,9 @@
 console.log("🧠 WaveRise — Plano de Evolução iniciado");
 
 
-/* ======================================================
-   CONFIGURAÇÃO
-====================================================== */
+// ======================================================
+// CONFIGURAÇÃO
+// ======================================================
 
 const HISTORICO_KEY = "historicoSurfWaveRise";
 const PERFIL_KEY = "perfilWaveRise";
@@ -22,9 +22,9 @@ const CHAVES_ANALISE = [
 ];
 
 
-/* ======================================================
-   ELEMENTOS
-====================================================== */
+// ======================================================
+// ELEMENTOS
+// ======================================================
 
 const elementos = {
 
@@ -67,9 +67,6 @@ const elementos = {
     metaAnalise:
         document.getElementById("metaAnalise"),
 
-    coachMensagem:
-        document.getElementById("coachMensagem"),
-
     treino1Titulo:
         document.getElementById("treino1Titulo"),
 
@@ -96,9 +93,9 @@ const elementos = {
 };
 
 
-/* ======================================================
-   STORAGE
-====================================================== */
+// ======================================================
+// STORAGE
+// ======================================================
 
 function lerStorage(chave) {
 
@@ -125,9 +122,9 @@ function lerStorage(chave) {
 }
 
 
-/* ======================================================
-   NÚMERO
-====================================================== */
+// ======================================================
+// NÚMERO
+// ======================================================
 
 function numero(valor, padrao = 0) {
 
@@ -153,9 +150,9 @@ function numero(valor, padrao = 0) {
 }
 
 
-/* ======================================================
-   LIMITAR
-====================================================== */
+// ======================================================
+// LIMITAR
+// ======================================================
 
 function limitar(valor) {
 
@@ -169,9 +166,9 @@ function limitar(valor) {
 }
 
 
-/* ======================================================
-   CARREGAR DADOS
-====================================================== */
+// ======================================================
+// CARREGAR DADOS
+// ======================================================
 
 function carregarHistorico() {
 
@@ -196,9 +193,9 @@ function carregarPerfil() {
 }
 
 
-/* ======================================================
-   ANÁLISES VISUAIS
-====================================================== */
+// ======================================================
+// ANÁLISES VISUAIS
+// ======================================================
 
 function carregarAnalises() {
 
@@ -235,9 +232,9 @@ function carregarAnalises() {
 }
 
 
-/* ======================================================
-   ESTATÍSTICAS
-====================================================== */
+// ======================================================
+// ESTATÍSTICAS
+// ======================================================
 
 function calcularEstatisticas(historico) {
 
@@ -255,12 +252,16 @@ function calcularEstatisticas(historico) {
         }
 
 
+        // ONDAS
+
         ondas += numero(
             sessao.ondasPegadas ??
             sessao.ondas ??
             0
         );
 
+
+        // NOTA
 
         const nota =
             sessao.nota ??
@@ -310,9 +311,9 @@ function calcularEstatisticas(historico) {
 }
 
 
-/* ======================================================
-   WAVERISE SCORE
-====================================================== */
+// ======================================================
+// WAVERISE SCORE
+// ======================================================
 
 function calcularScore(estatisticas) {
 
@@ -364,9 +365,9 @@ function calcularScore(estatisticas) {
 }
 
 
-/* ======================================================
-   DEFINIR FASE
-====================================================== */
+// ======================================================
+// DEFINIR FASE
+// ======================================================
 
 function determinarFase(score) {
 
@@ -387,9 +388,9 @@ function determinarFase(score) {
 }
 
 
-/* ======================================================
-   DADOS DAS FASES
-====================================================== */
+// ======================================================
+// DADOS DAS FASES
+// ======================================================
 
 const fases = {
 
@@ -436,9 +437,9 @@ const fases = {
 };
 
 
-/* ======================================================
-   ATUALIZAR FASE
-====================================================== */
+// ======================================================
+// ATUALIZAR FASE
+// ======================================================
 
 function atualizarFase(faseAtual) {
 
@@ -451,12 +452,20 @@ function atualizarFase(faseAtual) {
     }
 
 
-    elementos.statusFase.textContent =
-        dados.titulo;
+    if (elementos.statusFase) {
+
+        elementos.statusFase.textContent =
+            dados.titulo;
+
+    }
 
 
-    elementos.statusDescricao.textContent =
-        dados.descricao;
+    if (elementos.statusDescricao) {
+
+        elementos.statusDescricao.textContent =
+            dados.descricao;
+
+    }
 
 
     for (
@@ -523,9 +532,9 @@ function atualizarFase(faseAtual) {
 }
 
 
-/* ======================================================
-   PROGRESSO
-====================================================== */
+// ======================================================
+// PROGRESSO
+// ======================================================
 
 function calcularProgresso(estatisticas) {
 
@@ -568,137 +577,178 @@ function calcularProgresso(estatisticas) {
 }
 
 
-/* ======================================================
-   ATUALIZAR PROGRESSO
-====================================================== */
+// ======================================================
+// ATUALIZAR PROGRESSO
+// ======================================================
 
 function atualizarProgresso(valor) {
 
-    elementos.progressoValor.textContent =
-        `${valor}%`;
+    if (elementos.progressoValor) {
+
+        elementos.progressoValor.textContent =
+            `${valor}%`;
+
+    }
 
 
-    elementos.barraProgresso.style.width =
-        `${valor}%`;
+    if (elementos.barraProgresso) {
+
+        elementos.barraProgresso.style.width =
+            `${valor}%`;
+
+    }
 
 }
 
 
-/* ======================================================
-   RESUMO
-====================================================== */
+// ======================================================
+// RESUMO
+// ======================================================
 
 function atualizarResumo(
     estatisticas,
     score
 ) {
 
-    elementos.resumoSessoes.textContent =
-        estatisticas.sessoes;
+    if (elementos.resumoSessoes) {
+
+        elementos.resumoSessoes.textContent =
+            estatisticas.sessoes;
+
+    }
 
 
-    elementos.resumoOndas.textContent =
-        estatisticas.ondas;
+    if (elementos.resumoOndas) {
+
+        elementos.resumoOndas.textContent =
+            estatisticas.ondas;
+
+    }
 
 
-    elementos.resumoNota.textContent =
-        estatisticas.mediaNota > 0
+    if (elementos.resumoNota) {
 
-            ? estatisticas.mediaNota.toFixed(1)
+        elementos.resumoNota.textContent =
+            estatisticas.mediaNota > 0
 
-            : "--";
+                ? estatisticas.mediaNota.toFixed(1)
+
+                : "--";
+
+    }
 
 
-    elementos.resumoScore.textContent =
-        score > 0
+    if (elementos.resumoScore) {
 
-            ? `${score}/100`
+        elementos.resumoScore.textContent =
+            score > 0
 
-            : "--";
+                ? `${score}/100`
+
+                : "--";
+
+    }
 
 }
 
 
-/* ======================================================
-   METAS
-====================================================== */
+// ======================================================
+// METAS
+// ======================================================
 
 function atualizarMetas(
     estatisticas,
     possuiAnalise
 ) {
 
-    /* Sessões */
 
-    if (
-        estatisticas.sessoes >= 3
-    ) {
+    // SESSÕES
 
-        elementos.metaSessoes.textContent =
-            "✓";
+    if (elementos.metaSessoes) {
 
-    } else {
+        if (
+            estatisticas.sessoes >= 3
+        ) {
 
-        elementos.metaSessoes.textContent =
-            `${estatisticas.sessoes}/3`;
+            elementos.metaSessoes.textContent =
+                "✓";
 
-    }
+        } else {
 
+            elementos.metaSessoes.textContent =
+                `${estatisticas.sessoes}/3`;
 
-    /* Ondas */
-
-    if (
-        estatisticas.ondas >= 50
-    ) {
-
-        elementos.metaOndas.textContent =
-            "✓";
-
-    } else {
-
-        elementos.metaOndas.textContent =
-            `${estatisticas.ondas}/50`;
+        }
 
     }
 
 
-    /* Nota */
+    // ONDAS
 
-    if (
-        estatisticas.mediaNota >= 8
-    ) {
+    if (elementos.metaOndas) {
 
-        elementos.metaNota.textContent =
-            "✓";
+        if (
+            estatisticas.ondas >= 50
+        ) {
 
-    } else if (
-        estatisticas.mediaNota > 0
-    ) {
+            elementos.metaOndas.textContent =
+                "✓";
 
-        elementos.metaNota.textContent =
-            `${estatisticas.mediaNota.toFixed(1)}/8`;
+        } else {
 
-    } else {
+            elementos.metaOndas.textContent =
+                `${estatisticas.ondas}/50`;
 
-        elementos.metaNota.textContent =
-            "○";
+        }
 
     }
 
 
-    /* Análise */
+    // NOTA
 
-    elementos.metaAnalise.textContent =
-        possuiAnalise
-            ? "✓"
-            : "○";
+    if (elementos.metaNota) {
+
+        if (
+            estatisticas.mediaNota >= 8
+        ) {
+
+            elementos.metaNota.textContent =
+                "✓";
+
+        } else if (
+            estatisticas.mediaNota > 0
+        ) {
+
+            elementos.metaNota.textContent =
+                `${estatisticas.mediaNota.toFixed(1)}/8`;
+
+        } else {
+
+            elementos.metaNota.textContent =
+                "○";
+
+        }
+
+    }
+
+
+    // ANÁLISE VISUAL
+
+    if (elementos.metaAnalise) {
+
+        elementos.metaAnalise.textContent =
+            possuiAnalise
+                ? "✓"
+                : "○";
+
+    }
 
 }
 
 
-/* ======================================================
-   TREINO FASE 1
-====================================================== */
+// ======================================================
+// TREINO FASE 1
+// ======================================================
 
 function treinoFase1() {
 
@@ -732,9 +782,9 @@ function treinoFase1() {
 }
 
 
-/* ======================================================
-   TREINO FASE 2
-====================================================== */
+// ======================================================
+// TREINO FASE 2
+// ======================================================
 
 function treinoFase2() {
 
@@ -768,9 +818,9 @@ function treinoFase2() {
 }
 
 
-/* ======================================================
-   TREINO FASE 3
-====================================================== */
+// ======================================================
+// TREINO FASE 3
+// ======================================================
 
 function treinoFase3() {
 
@@ -804,9 +854,9 @@ function treinoFase3() {
 }
 
 
-/* ======================================================
-   TREINO FASE 4
-====================================================== */
+// ======================================================
+// TREINO FASE 4
+// ======================================================
 
 function treinoFase4() {
 
@@ -840,9 +890,9 @@ function treinoFase4() {
 }
 
 
-/* ======================================================
-   ATUALIZAR TREINO
-====================================================== */
+// ======================================================
+// ATUALIZAR TREINO
+// ======================================================
 
 function atualizarTreino(faseAtual) {
 
@@ -867,72 +917,9 @@ function atualizarTreino(faseAtual) {
 }
 
 
-/* ======================================================
-   MENSAGEM DO COACH
-====================================================== */
-
-function gerarMensagemCoach(
-    faseAtual,
-    sessoes,
-    possuiAnalise
-) {
-
-    let mensagem;
-
-
-    if (sessoes === 0) {
-
-        mensagem =
-            "Comece registrando sua primeira sessão. A partir dela, o WaveRise poderá entender melhor seu surf e personalizar seu plano.";
-
-    }
-
-    else if (faseAtual === 1) {
-
-        mensagem =
-            "Seu foco agora é construir uma base sólida. Priorize frequência, equilíbrio, pop-up e consistência antes de buscar manobras mais complexas.";
-
-    }
-
-    else if (faseAtual === 2) {
-
-        mensagem =
-            "Você já está ganhando experiência. Agora o objetivo é repetir boas ondas com mais controle, velocidade e leitura da parede.";
-
-    }
-
-    else if (faseAtual === 3) {
-
-        mensagem =
-            "Seu próximo salto está na técnica. Foque em Bottom Turn, Cutback, geração de velocidade e conexão entre movimentos.";
-
-    }
-
-    else {
-
-        mensagem =
-            "Você chegou à fase de performance. O foco agora é refinamento: velocidade, precisão, linhas críticas e combinação de manobras.";
-
-    }
-
-
-    if (possuiAnalise) {
-
-        mensagem +=
-            " Continue usando as análises visuais para complementar seu acompanhamento técnico.";
-
-    }
-
-
-    elementos.coachMensagem.textContent =
-        mensagem;
-
-}
-
-
-/* ======================================================
-   INICIALIZAÇÃO
-====================================================== */
+// ======================================================
+// INICIALIZAÇÃO
+// ======================================================
 
 function iniciarPlano() {
 
@@ -986,27 +973,31 @@ function iniciarPlano() {
             analises.length > 0;
 
 
-        /* Objetivo */
+        // OBJETIVO
 
-        elementos.objetivo.textContent =
-            objetivo;
+        if (elementos.objetivo) {
+
+            elementos.objetivo.textContent =
+                objetivo;
+
+        }
 
 
-        /* Fase */
+        // FASE
 
         atualizarFase(
             faseAtual
         );
 
 
-        /* Progresso */
+        // PROGRESSO
 
         atualizarProgresso(
             progresso
         );
 
 
-        /* Resumo */
+        // RESUMO
 
         atualizarResumo(
             estatisticas,
@@ -1014,7 +1005,7 @@ function iniciarPlano() {
         );
 
 
-        /* Metas */
+        // METAS
 
         atualizarMetas(
             estatisticas,
@@ -1022,19 +1013,10 @@ function iniciarPlano() {
         );
 
 
-        /* Treino */
+        // TREINO
 
         atualizarTreino(
             faseAtual
-        );
-
-
-        /* Coach */
-
-        gerarMensagemCoach(
-            faseAtual,
-            estatisticas.sessoes,
-            possuiAnalise
         );
 
 
@@ -1072,24 +1054,14 @@ function iniciarPlano() {
             erro
         );
 
-
-        if (
-            elementos.coachMensagem
-        ) {
-
-            elementos.coachMensagem.textContent =
-                "Não foi possível carregar seu plano. Verifique o console do navegador.";
-
-        }
-
     }
 
 }
 
 
-/* ======================================================
-   EXECUTAR
-====================================================== */
+// ======================================================
+// EXECUTAR
+// ======================================================
 
 if (
     document.readyState === "loading"

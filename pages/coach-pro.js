@@ -5,9 +5,7 @@
 
 console.log("🤖 WaveRise Coach IA Pro iniciado");
 
-// ======================================================
-// CONFIGURAÇÃO
-// ======================================================
+const BACKEND_URL = "https://waverise.onrender.com";
 
 const HISTORICO_KEY = "historicoSurfWaveRise";
 const PERFIL_KEY = "perfilWaveRise";
@@ -20,22 +18,11 @@ const CHAVES_ANALISE = [
     "historicoAnalisesWaveRise"
 ];
 
-
-// ======================================================
-// ELEMENTOS
-// ======================================================
-
-const elementos = {
-
+const el = {
     diagnostico: document.getElementById("diagnostico"),
-
-    // CORRIGIDO: HTML usa waveScore
     score: document.getElementById("waveScore"),
-
     scoreDescricao: document.getElementById("scoreDescricao"),
-
     pontosFortes: document.getElementById("pontosFortes"),
-
     melhorias: document.getElementById("melhorias"),
 
     valorEquilibrio: document.getElementById("valorEquilibrio"),
@@ -71,9 +58,7 @@ const elementos = {
     progressoMissao: document.getElementById("progressoMissao"),
 
     treino: document.getElementById("treino"),
-
-    proximoObjetivo:
-        document.getElementById("proximoObjetivo"),
+    proximoObjetivo: document.getElementById("proximoObjetivo"),
 
     nivel: document.getElementById("nivel"),
     xp: document.getElementById("xp"),
@@ -82,35 +67,68 @@ const elementos = {
 
     relatorio: document.getElementById("relatorio"),
 
-    planoObjetivo:
-        document.getElementById("planoObjetivo"),
-
-    planoPrazo:
-        document.getElementById("planoPrazo"),
-
-    planoFrequencia:
-        document.getElementById("planoFrequencia"),
-
-    planoFase:
-        document.getElementById("planoFase"),
-
-    planoMeta:
-        document.getElementById("planoMeta"),
-
-    planoTreino:
-        document.getElementById("planoTreino"),
-
-    planoProgresso:
-        document.getElementById("planoProgresso"),
-
-    barraPlano:
-        document.getElementById("barraPlano")
+    planoObjetivo: document.getElementById("planoObjetivo"),
+    planoPrazo: document.getElementById("planoPrazo"),
+    planoFrequencia: document.getElementById("planoFrequencia"),
+    planoFase: document.getElementById("planoFase"),
+    planoMeta: document.getElementById("planoMeta"),
+    planoTreino: document.getElementById("planoTreino"),
+    planoProgresso: document.getElementById("planoProgresso"),
+    barraPlano: document.getElementById("barraPlano")
 };
 
 
 // ======================================================
-// UTILIDADES
+// LOCAL STORAGE
 // ======================================================
+
+function lerStorage(chave, padrao = null) {
+
+    try {
+
+        const valor = localStorage.getItem(chave);
+
+        return valor
+            ? JSON.parse(valor)
+            : padrao;
+
+    } catch {
+
+        return padrao;
+
+    }
+
+}
+
+
+// ======================================================
+// FUNÇÕES AUXILIARES
+// ======================================================
+
+function texto(elemento, valor) {
+
+    if (elemento) {
+        elemento.textContent = valor ?? "--";
+    }
+
+}
+
+
+function limitar(valor, padrao = 0) {
+
+    const n = Number(valor);
+
+    if (!Number.isFinite(n)) {
+        return padrao;
+    }
+
+    return Math.max(
+        0,
+        Math.min(100, Math.round(n))
+    );
+
+}
+
 
 function numero(valor, padrao = 0) {
 
@@ -122,106 +140,62 @@ function numero(valor, padrao = 0) {
         return padrao;
     }
 
-    const convertido =
-        Number(
-            String(valor)
-                .replace(",", ".")
-                .replace(/[^\d.-]/g, "")
-        );
-
-    return Number.isFinite(convertido)
-        ? convertido
-        : padrao;
-}
-
-
-function limitar(valor) {
-
-    return Math.max(
-        0,
-        Math.min(
-            100,
-            Math.round(numero(valor))
-        )
+    const n = Number(
+        String(valor)
+            .replace(",", ".")
+            .replace(/[^\d.-]/g, "")
     );
 
-}
-
-
-function texto(elemento, valor) {
-
-    if (!elemento) {
-        return;
-    }
-
-    elemento.textContent = valor;
+    return Number.isFinite(n)
+        ? n
+        : padrao;
 
 }
 
 
 // ======================================================
-// STORAGE
+// CARREGAR DADOS
 // ======================================================
-
-function lerStorage(chave) {
-
-    try {
-
-        const valor =
-            localStorage.getItem(chave);
-
-        if (!valor) {
-            return null;
-        }
-
-        return JSON.parse(valor);
-
-    } catch (erro) {
-
-        console.warn(
-            `⚠️ Erro ao ler ${chave}:`,
-            erro
-        );
-
-        return null;
-    }
-}
-
 
 function carregarHistorico() {
 
-    const dados =
-        lerStorage(HISTORICO_KEY);
+    const dados = lerStorage(
+        HISTORICO_KEY,
+        []
+    );
 
     return Array.isArray(dados)
         ? dados
         : [];
+
 }
 
 
 function carregarPerfil() {
 
-    const dados =
-        lerStorage(PERFIL_KEY);
+    const dados = lerStorage(
+        PERFIL_KEY,
+        {}
+    );
 
     return dados &&
         typeof dados === "object"
         ? dados
         : {};
+
 }
 
 
-function carregarAnalisesVisuais() {
+function carregarAnalises() {
 
-    const analises = [];
+    const resultado = [];
 
-    CHAVES_ANALISE.forEach(chave => {
+    for (const chave of CHAVES_ANALISE) {
 
-        const dados =
-            lerStorage(chave);
+        const dados = lerStorage(chave);
 
         if (!dados) {
-            return;
+            continue;
         }
 
         if (Array.isArray(dados)) {
@@ -229,20 +203,21 @@ function carregarAnalisesVisuais() {
             dados.forEach(item => {
 
                 if (item) {
-                    analises.push(item);
+                    resultado.push(item);
                 }
 
             });
 
         } else {
 
-            analises.push(dados);
+            resultado.push(dados);
 
         }
 
-    });
+    }
 
-    return analises;
+    return resultado;
+
 }
 
 
@@ -253,21 +228,26 @@ function carregarAnalisesVisuais() {
 function calcularEstatisticas(historico) {
 
     let ondas = 0;
+
     let tempoMinutos = 0;
+
     let somaNotas = 0;
+
     let quantidadeNotas = 0;
 
     const praias = {};
 
-    historico.forEach(sessao => {
+
+    for (const sessao of historico) {
 
         if (!sessao) {
-            return;
+            continue;
         }
+
 
         ondas += numero(
             sessao.ondasPegadas ??
-            sessao.ondas ??
+            sessao.ondas,
             0
         );
 
@@ -275,8 +255,7 @@ function calcularEstatisticas(historico) {
         const tempo =
             sessao.tempoNoMar ??
             sessao.tempo ??
-            sessao.duracao ??
-            0;
+            sessao.duracao;
 
 
         if (typeof tempo === "number") {
@@ -320,10 +299,10 @@ function calcularEstatisticas(historico) {
                 !Number.isNaN(Number(tempo))
             ) {
 
-                tempoMinutos +=
-                    Number(tempo);
+                tempoMinutos += Number(tempo);
 
             }
+
         }
 
 
@@ -339,17 +318,10 @@ function calcularEstatisticas(historico) {
             nota !== ""
         ) {
 
-            const valor =
-                numero(nota);
+            somaNotas += numero(nota);
 
-            if (
-                Number.isFinite(valor)
-            ) {
+            quantidadeNotas++;
 
-                somaNotas += valor;
-                quantidadeNotas++;
-
-            }
         }
 
 
@@ -370,26 +342,29 @@ function calcularEstatisticas(historico) {
                     (praias[nome] || 0) + 1;
 
             }
+
         }
 
-    });
-
-
-    const mediaNota =
-        quantidadeNotas > 0
-            ? somaNotas / quantidadeNotas
-            : 0;
+    }
 
 
     return {
 
         sessoes: historico.length,
+
         ondas,
+
         tempoMinutos,
-        mediaNota,
+
+        mediaNota:
+            quantidadeNotas
+                ? somaNotas / quantidadeNotas
+                : 0,
+
         praias
 
     };
+
 }
 
 
@@ -397,24 +372,20 @@ function calcularEstatisticas(historico) {
 // XP
 // ======================================================
 
-function calcularXP(estatisticas) {
-
-    const xpSessoes =
-        estatisticas.sessoes * 50;
-
-    const xpOndas =
-        estatisticas.ondas * 2;
-
-    const xpTempo =
-        Math.floor(
-            estatisticas.tempoMinutos / 10
-        );
+function calcularXP(est) {
 
     return Math.round(
-        xpSessoes +
-        xpOndas +
-        xpTempo
+
+        est.sessoes * 50 +
+
+        est.ondas * 2 +
+
+        Math.floor(
+            est.tempoMinutos / 10
+        )
+
     );
+
 }
 
 
@@ -425,16 +396,25 @@ function calcularXP(estatisticas) {
 function calcularNivel(xp) {
 
     if (xp >= 5000) return 10;
+
     if (xp >= 4000) return 9;
+
     if (xp >= 3200) return 8;
+
     if (xp >= 2500) return 7;
+
     if (xp >= 1900) return 6;
+
     if (xp >= 1400) return 5;
+
     if (xp >= 1000) return 4;
+
     if (xp >= 650) return 3;
+
     if (xp >= 300) return 2;
 
     return 1;
+
 }
 
 
@@ -442,38 +422,35 @@ function calcularNivel(xp) {
 // SCORE
 // ======================================================
 
-function calcularScore(estatisticas) {
+function calcularScore(est) {
 
-    if (
-        estatisticas.sessoes === 0
-    ) {
-
+    if (!est.sessoes) {
         return 0;
     }
 
 
     const frequencia =
         limitar(
-            estatisticas.sessoes * 10
+            est.sessoes * 10
         );
 
 
     const experiencia =
         limitar(
-            estatisticas.ondas / 2
+            est.ondas / 2
         );
 
 
     const tempo =
         limitar(
-            estatisticas.tempoMinutos / 3
+            est.tempoMinutos / 3
         );
 
 
     const tecnica =
-        estatisticas.mediaNota > 0
+        est.mediaNota > 0
             ? limitar(
-                estatisticas.mediaNota * 10
+                est.mediaNota * 10
             )
             : 50;
 
@@ -481,91 +458,749 @@ function calcularScore(estatisticas) {
     return Math.round(
 
         frequencia * 0.20 +
+
         experiencia * 0.20 +
+
         tempo * 0.20 +
+
         tecnica * 0.40
 
     );
+
 }
 
 
 // ======================================================
-// SCORE NA TELA
+// BARRAS
 // ======================================================
 
-function atualizarScore(score) {
+function atualizarBarra(
+    valorEl,
+    barraEl,
+    valor
+) {
+
+    const v =
+        valor === null ||
+        valor === undefined
+            ? 0
+            : limitar(valor);
+
 
     texto(
-        elementos.score,
-        score > 0
-            ? score
-            : "--"
+        valorEl,
+        valor === null ||
+        valor === undefined
+            ? "--"
+            : `${v}%`
     );
 
 
-    let descricao;
+    if (barraEl) {
+
+        barraEl.style.width =
+            `${v}%`;
+
+    }
+
+}
 
 
-    if (score === 0) {
+function atualizarManobra(
+    valorEl,
+    barraEl,
+    valor
+) {
 
-        descricao =
-            "Registre sua primeira sessão para começar.";
+    atualizarBarra(
+        valorEl,
+        barraEl,
+        valor
+    );
 
-    } else if (score < 40) {
+}
 
-        descricao =
-            "Você está começando sua jornada. Continue surfando!";
 
-    } else if (score < 60) {
+// ======================================================
+// PEGAR PRIMEIRO NÚMERO VÁLIDO
+// ======================================================
 
-        descricao =
-            "Boa evolução. Agora vamos buscar mais consistência.";
+function primeiroNumero(...valores) {
 
-    } else if (score < 75) {
+    for (const valor of valores) {
 
-        descricao =
-            "Você está evoluindo bem. O próximo foco é técnica.";
+        const n = Number(valor);
 
-    } else if (score < 90) {
+        if (Number.isFinite(n)) {
 
-        descricao =
-            "Excelente desempenho. Seu surf está ficando consistente.";
+            return n;
 
-    } else {
+        }
 
-        descricao =
-            "Nível avançado. Agora o foco é refinamento técnico.";
+    }
+
+    return null;
+
+}
+
+
+// ======================================================
+// LISTA HTML
+// ======================================================
+
+function listaHtml(
+    itens,
+    emoji
+) {
+
+    if (
+        !Array.isArray(itens) ||
+        !itens.length
+    ) {
+
+        return `
+            <p>
+                ${emoji}
+                Continue registrando suas
+                sessões para o Coach conhecer
+                melhor seu surf.
+            </p>
+        `;
+
+    }
+
+
+    return itens
+        .filter(Boolean)
+        .slice(0, 6)
+        .map(item => `
+            <p>
+                ${emoji} ${item}
+            </p>
+        `)
+        .join("");
+
+}
+
+
+// ======================================================
+// NORMALIZAR RESPOSTA DA IA
+// ======================================================
+
+function obterRespostaNormalizada(data) {
+
+    if (
+        !data ||
+        typeof data !== "object"
+    ) {
+
+        return {};
+
+    }
+
+
+    if (
+        data.analise &&
+        typeof data.analise === "object"
+    ) {
+
+        return {
+            ...data,
+            ...data.analise
+        };
+
+    }
+
+
+    if (
+        data.resultado &&
+        typeof data.resultado === "object"
+    ) {
+
+        return {
+            ...data,
+            ...data.resultado
+        };
+
+    }
+
+
+    return data;
+
+}
+
+
+// ======================================================
+// CHAMAR BACKEND
+// ======================================================
+
+async function pedirAnaliseIA(
+    payload
+) {
+
+    const resposta = await fetch(
+        `${BACKEND_URL}/coach/analisar`,
+        {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+
+            body: JSON.stringify(
+                payload
+            )
+
+        }
+    );
+
+
+    if (!resposta.ok) {
+
+        throw new Error(
+            `Coach IA HTTP ${resposta.status}`
+        );
+
+    }
+
+
+    const dados =
+        await resposta.json();
+
+
+    return obterRespostaNormalizada(
+        dados
+    );
+
+}
+// ======================================================
+// APLICAR RESPOSTA DA IA
+// ======================================================
+
+function aplicarRespostaIA(ai, contexto) {
+
+    const score = primeiroNumero(
+        ai.score,
+        ai.waveScore,
+        ai.wave_rise_score
+    );
+
+
+    const diagnostico =
+        ai.diagnostico ||
+        ai.diagnosis;
+
+
+    const descricaoScore =
+        ai.scoreDescricao ||
+        ai.score_descricao;
+
+
+    if (diagnostico) {
+
+        texto(
+            el.diagnostico,
+            diagnostico
+        );
+
+    }
+
+
+    if (score !== null) {
+
+        texto(
+            el.score,
+            limitar(score)
+        );
+
+    }
+
+
+    if (descricaoScore) {
+
+        texto(
+            el.scoreDescricao,
+            descricaoScore
+        );
+
+    }
+
+
+    // ==================================================
+    // PONTOS FORTES
+    // ==================================================
+
+    if (
+        Array.isArray(
+            ai.pontosFortes
+        )
+    ) {
+
+        el.pontosFortes.innerHTML =
+            listaHtml(
+                ai.pontosFortes,
+                "✅"
+            );
+
+    }
+
+
+    // ==================================================
+    // MELHORIAS
+    // ==================================================
+
+    if (
+        Array.isArray(
+            ai.melhorias
+        )
+    ) {
+
+        el.melhorias.innerHTML =
+            listaHtml(
+                ai.melhorias,
+                "🎯"
+            );
+
+    }
+
+
+    // ==================================================
+    // TÉCNICA
+    // ==================================================
+
+    const tecnica =
+        ai.tecnica ||
+        ai.habilidades ||
+        {};
+
+
+    atualizarBarra(
+
+        el.valorEquilibrio,
+
+        el.barraEquilibrio,
+
+        primeiroNumero(
+            tecnica.equilibrio,
+            ai.equilibrio
+        )
+
+    );
+
+
+    atualizarBarra(
+
+        el.valorPostura,
+
+        el.barraPostura,
+
+        primeiroNumero(
+            tecnica.postura,
+            ai.postura
+        )
+
+    );
+
+
+    atualizarBarra(
+
+        el.valorPernas,
+
+        el.barraPernas,
+
+        primeiroNumero(
+            tecnica.pernas,
+            ai.pernas
+        )
+
+    );
+
+
+    atualizarBarra(
+
+        el.valorBracos,
+
+        el.barraBracos,
+
+        primeiroNumero(
+            tecnica.bracos,
+            ai.bracos
+        )
+
+    );
+
+
+    atualizarBarra(
+
+        el.valorPrancha,
+
+        el.barraPrancha,
+
+        primeiroNumero(
+            tecnica.posicaoNaPrancha,
+            tecnica.prancha,
+            ai.prancha
+        )
+
+    );
+
+
+    // ==================================================
+    // MANOBRAS
+    // ==================================================
+
+    const manobras =
+        ai.manobras ||
+        {};
+
+
+    atualizarManobra(
+
+        el.bottomTurn,
+
+        el.barraBottomTurn,
+
+        primeiroNumero(
+            manobras.bottomTurn,
+            ai.bottomTurn
+        )
+
+    );
+
+
+    atualizarManobra(
+
+        el.cutback,
+
+        el.barraCutback,
+
+        primeiroNumero(
+            manobras.cutback,
+            ai.cutback
+        )
+
+    );
+
+
+    atualizarManobra(
+
+        el.aereo,
+
+        el.barraAereo,
+
+        primeiroNumero(
+            manobras.aereo,
+            ai.aereo
+        )
+
+    );
+
+
+    atualizarManobra(
+
+        el.carve,
+
+        el.barraCarve,
+
+        primeiroNumero(
+            manobras.carve,
+            ai.carve
+        )
+
+    );
+
+
+    // ==================================================
+    // PLANO DE EVOLUÇÃO
+    // ==================================================
+
+    const plano =
+        ai.plano ||
+        ai.planoEvolucao ||
+        {};
+
+
+    texto(
+        el.planoObjetivo,
+
+        plano.objetivo ||
+        contexto.perfil.objetivo ||
+        "Evoluir no surf"
+
+    );
+
+
+    texto(
+
+        el.planoPrazo,
+
+        plano.prazo ||
+        "Próximas 4 semanas"
+
+    );
+
+
+    texto(
+
+        el.planoFrequencia,
+
+        plano.frequencia ||
+        "2 a 3 sessões por semana"
+
+    );
+
+
+    texto(
+
+        el.planoFase,
+
+        plano.fase ||
+        "Construção da consistência"
+
+    );
+
+
+    texto(
+
+        el.planoMeta,
+
+        plano.meta ||
+        "Aumentar a qualidade das sessões."
+
+    );
+
+
+    texto(
+
+        el.planoTreino,
+
+        plano.treino ||
+        "Trabalhar técnica e consistência."
+
+    );
+
+
+    const progresso =
+        limitar(
+
+            primeiroNumero(
+                plano.progresso,
+                ai.progressoPlano
+            ) ?? 0
+
+        );
+
+
+    texto(
+
+        el.planoProgresso,
+
+        `${progresso}% concluído`
+
+    );
+
+
+    if (el.barraPlano) {
+
+        el.barraPlano.style.width =
+            `${progresso}%`;
+
+    }
+
+
+    // ==================================================
+    // MISSÃO
+    // ==================================================
+
+    const missao =
+        ai.missao ||
+        {};
+
+
+    texto(
+
+        el.missao,
+
+        typeof missao === "string"
+            ? missao
+            : missao.titulo ||
+              "Próxima missão"
+
+    );
+
+
+    texto(
+
+        el.descricaoMissao,
+
+        typeof missao === "string"
+
+            ? "Siga essa missão na próxima sessão."
+
+            : missao.descricao ||
+              "Trabalhe esse objetivo na próxima sessão."
+
+    );
+
+
+    const progressoMissao =
+        limitar(
+
+            primeiroNumero(
+
+                typeof missao === "object"
+                    ? missao.progresso
+                    : null,
+
+                ai.progressoMissao
+
+            ) ?? 0
+
+        );
+
+
+    if (el.barraMissao) {
+
+        el.barraMissao.style.width =
+            `${progressoMissao}%`;
+
     }
 
 
     texto(
-        elementos.scoreDescricao,
-        descricao
+
+        el.progressoMissao,
+
+        `${progressoMissao}% concluído`
+
     );
+
+
+    // ==================================================
+    // TREINO
+    // ==================================================
+
+    texto(
+
+        el.treino,
+
+        ai.treino ||
+        ai.treinoRecomendado ||
+        "Treino personalizado em construção."
+
+    );
+
+
+    // ==================================================
+    // PRÓXIMO OBJETIVO
+    // ==================================================
+
+    texto(
+
+        el.proximoObjetivo,
+
+        ai.proximoObjetivo
+            ? `🎯 ${ai.proximoObjetivo}`
+            : "🎯 Continue registrando suas sessões."
+
+    );
+
+
+    // ==================================================
+    // RELATÓRIO
+    // ==================================================
+
+    if (ai.relatorio) {
+
+        el.relatorio.innerHTML = `
+
+            <div class="relatorioResumo">
+
+                <p>
+                    ${ai.relatorio}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+
+    // Se a IA não retornou score,
+    // usamos o score calculado localmente.
+
+    if (
+        score === null &&
+        contexto.score > 0
+    ) {
+
+        texto(
+            el.score,
+            contexto.score
+        );
+
+    }
+
+
+    console.log(
+        "🤖 Resposta do Coach IA:",
+        ai
+    );
+
 }
 
 
 // ======================================================
-// DIAGNÓSTICO
+// MODO LOCAL DE SEGURANÇA
 // ======================================================
 
-function gerarDiagnostico(
-    estatisticas,
-    perfil,
-    score,
-    analises
-) {
+function aplicarModoLocal(contexto) {
 
-    if (
-        estatisticas.sessoes === 0
-    ) {
+    const {
+        est,
+        perfil,
+        score,
+        analises,
+        xp,
+        nivel
+    } = contexto;
+
+
+    // -----------------------------------------------
+    // SEM SESSÕES
+    // -----------------------------------------------
+
+    if (!est.sessoes) {
 
         texto(
-            elementos.diagnostico,
+
+            el.diagnostico,
+
             "Ainda preciso das suas primeiras sessões para conhecer seu surf."
+
         );
 
+
+        texto(
+            el.score,
+            "--"
+        );
+
+
+        texto(
+
+            el.scoreDescricao,
+
+            "Registre sua primeira sessão para começar."
+
+        );
+
+
         return;
+
     }
 
 
@@ -574,186 +1209,183 @@ function gerarDiagnostico(
         "evoluir no surf";
 
 
+    // -----------------------------------------------
+    // DIAGNÓSTICO
+    // -----------------------------------------------
+
     let diagnostico;
 
 
     if (score >= 80) {
 
         diagnostico =
+
             `Seu histórico mostra uma evolução consistente. ` +
             `Você já possui uma boa base para ${objetivo}. ` +
             `O próximo passo é buscar mais precisão, velocidade e consistência técnica.`;
 
-    } else if (score >= 60) {
-
-        diagnostico =
-            `Você está construindo uma boa evolução. ` +
-            `Seu histórico indica que o próximo passo é transformar experiência em consistência técnica.`;
-
-    } else {
-
-        diagnostico =
-            `Você está na fase de construção da sua evolução. ` +
-            `O foco agora deve ser ganhar experiência, confiança e consistência nas sessões.`;
     }
 
+    else if (score >= 60) {
 
-    if (analises.length > 0) {
+        diagnostico =
 
-        diagnostico +=
-            " Suas análises visuais também poderão complementar esse acompanhamento.";
+            "Você está construindo uma boa evolução. " +
+            "Seu histórico indica que o próximo passo é transformar experiência em consistência técnica.";
+
+    }
+
+    else {
+
+        diagnostico =
+
+            "Você está na fase de construção da sua evolução. " +
+            "O foco agora deve ser ganhar experiência, confiança e consistência nas sessões.";
+
     }
 
 
     texto(
-        elementos.diagnostico,
+        el.diagnostico,
         diagnostico
     );
-}
 
 
-// ======================================================
-// PONTOS FORTES
-// ======================================================
+    // -----------------------------------------------
+    // SCORE
+    // -----------------------------------------------
 
-function gerarPontosFortes(
-    estatisticas,
-    score,
-    analises
-) {
-
-    const pontos = [];
+    texto(
+        el.score,
+        score
+    );
 
 
-    if (estatisticas.sessoes >= 5) {
+    texto(
 
-        pontos.push(
+        el.scoreDescricao,
+
+        score < 40
+
+            ? "Você está começando sua jornada. Continue surfando!"
+
+            : score < 60
+
+                ? "Boa evolução. Agora vamos buscar mais consistência."
+
+                : score < 75
+
+                    ? "Você está evoluindo bem. O próximo foco é técnica."
+
+                    : score < 90
+
+                        ? "Excelente desempenho. Seu surf está ficando consistente."
+
+                        : "Nível avançado. Agora o foco é refinamento técnico."
+
+    );
+
+
+    // -----------------------------------------------
+    // PONTOS FORTES
+    // -----------------------------------------------
+
+    const fortes = [];
+
+
+    if (est.sessoes >= 5) {
+
+        fortes.push(
             "Boa frequência de sessões."
         );
+
     }
 
 
-    if (estatisticas.ondas >= 30) {
+    if (est.ondas >= 30) {
 
-        pontos.push(
+        fortes.push(
             "Boa experiência acumulada em ondas."
         );
+
     }
 
 
-    if (estatisticas.tempoMinutos >= 300) {
+    if (est.tempoMinutos >= 300) {
 
-        pontos.push(
+        fortes.push(
             "Boa quantidade de tempo no mar."
         );
+
     }
 
 
-    if (estatisticas.mediaNota >= 8) {
+    if (est.mediaNota >= 8) {
 
-        pontos.push(
+        fortes.push(
             "Boas avaliações nas sessões."
         );
+
     }
 
 
     if (score >= 70) {
 
-        pontos.push(
+        fortes.push(
             "Boa consistência geral no histórico."
         );
+
     }
 
 
-    analises.forEach(analise => {
+    el.pontosFortes.innerHTML =
+        listaHtml(
 
-        if (
-            !analise ||
-            !Array.isArray(
-                analise.pontosFortes
-            )
-        ) {
-            return;
-        }
+            fortes.length
+                ? fortes
+                : [
+                    "Você já começou a construir seu histórico no WaveRise."
+                ],
 
+            "✅"
 
-        analise.pontosFortes
-            .slice(0, 3)
-            .forEach(ponto => {
-
-                if (
-                    ponto &&
-                    !pontos.includes(ponto)
-                ) {
-
-                    pontos.push(ponto);
-                }
-
-            });
-    });
-
-
-    if (
-        pontos.length === 0
-    ) {
-
-        pontos.push(
-            "Você já começou a construir seu histórico no WaveRise."
         );
-    }
 
 
-    if (elementos.pontosFortes) {
-
-        elementos.pontosFortes.innerHTML =
-            pontos
-                .slice(0, 6)
-                .map(
-                    item =>
-                        `<p>✅ ${item}</p>`
-                )
-                .join("");
-    }
-}
-
-
-// ======================================================
-// MELHORIAS
-// ======================================================
-
-function gerarMelhorias(
-    estatisticas,
-    score,
-    analises
-) {
+    // -----------------------------------------------
+    // MELHORIAS
+    // -----------------------------------------------
 
     const melhorias = [];
 
 
-    if (estatisticas.sessoes < 5) {
+    if (est.sessoes < 5) {
 
         melhorias.push(
             "Aumentar a frequência das sessões."
         );
+
     }
 
 
-    if (estatisticas.ondas < 30) {
+    if (est.ondas < 30) {
 
         melhorias.push(
             "Buscar mais tempo de prática e aumentar o número de ondas."
         );
+
     }
 
 
     if (
-        estatisticas.mediaNota > 0 &&
-        estatisticas.mediaNota < 7
+        est.mediaNota > 0 &&
+        est.mediaNota < 7
     ) {
 
         melhorias.push(
             "Trabalhar os fundamentos antes de buscar manobras mais complexas."
         );
+
     }
 
 
@@ -762,1105 +1394,557 @@ function gerarMelhorias(
         melhorias.push(
             "Buscar mais consistência na execução."
         );
+
     }
 
 
-    analises.forEach(analise => {
+    el.melhorias.innerHTML =
+        listaHtml(
 
-        if (
-            !analise ||
-            !Array.isArray(
-                analise.melhorias
-            )
-        ) {
-            return;
-        }
+            melhorias.length
+                ? melhorias
+                : [
+                    "Continue registrando suas sessões para identificar novos pontos de evolução."
+                ],
 
+            "🎯"
 
-        analise.melhorias
-            .slice(0, 3)
-            .forEach(melhoria => {
-
-                if (
-                    melhoria &&
-                    !melhorias.includes(melhoria)
-                ) {
-
-                    melhorias.push(melhoria);
-                }
-
-            });
-    });
-
-
-    if (
-        melhorias.length === 0
-    ) {
-
-        melhorias.push(
-            "Continue registrando suas sessões para identificar novos pontos de evolução."
-        );
-    }
-
-
-    if (elementos.melhorias) {
-
-        elementos.melhorias.innerHTML =
-            melhorias
-                .slice(0, 6)
-                .map(
-                    item =>
-                        `<p>🎯 ${item}</p>`
-                )
-                .join("");
-    }
-}
-
-
-// ======================================================
-// HABILIDADES
-// ======================================================
-
-function atualizarHabilidade(
-    valorElemento,
-    barraElemento,
-    valor
-) {
-
-    const valorFinal =
-        limitar(valor);
-
-
-    texto(
-        valorElemento,
-        `${valorFinal}%`
-    );
-
-
-    if (barraElemento) {
-
-        barraElemento.style.width =
-            `${valorFinal}%`;
-    }
-}
-
-
-// ======================================================
-// MANOBRA
-// ======================================================
-
-function atualizarManobra(
-    valorElemento,
-    barraElemento,
-    valor
-) {
-
-    if (
-        valor === null ||
-        valor === undefined
-    ) {
-
-        texto(
-            valorElemento,
-            "--"
         );
 
-        if (barraElemento) {
-            barraElemento.style.width = "0%";
-        }
 
-        return;
-    }
+    // -----------------------------------------------
+    // PLANO
+    // -----------------------------------------------
 
+    const prazo =
 
-    const valorFinal =
-        limitar(valor);
-
-
-    texto(
-        valorElemento,
-        `${valorFinal}%`
-    );
-
-
-    if (barraElemento) {
-
-        barraElemento.style.width =
-            `${valorFinal}%`;
-    }
-}
-
-
-// ======================================================
-// DESEMPENHO TÉCNICO
-// ======================================================
-
-function gerarDesempenho(
-    estatisticas,
-    score,
-    analises
-) {
-
-    let equilibrio = null;
-    let postura = null;
-    let pernas = null;
-    let bracos = null;
-    let prancha = null;
-
-
-    analises.forEach(analise => {
-
-        if (
-            !analise ||
-            !analise.tecnica
-        ) {
-            return;
-        }
-
-
-        const tecnica =
-            analise.tecnica;
-
-
-        function extrairNumero(valor) {
-
-            if (
-                typeof valor === "number"
-            ) {
-
-                return valor;
-            }
-
-
-            if (
-                typeof valor === "string"
-            ) {
-
-                const encontrado =
-                    valor.match(
-                        /(\d+(?:\.\d+)?)/
-                    );
-
-
-                if (encontrado) {
-
-                    return Number(
-                        encontrado[1]
-                    );
-                }
-            }
-
-
-            return null;
-        }
-
-
-        equilibrio =
-            equilibrio ??
-            extrairNumero(
-                tecnica.equilibrio
-            );
-
-
-        postura =
-            postura ??
-            extrairNumero(
-                tecnica.postura
-            );
-
-
-        pernas =
-            pernas ??
-            extrairNumero(
-                tecnica.pernas
-            );
-
-
-        bracos =
-            bracos ??
-            extrairNumero(
-                tecnica.bracos
-            );
-
-
-        prancha =
-            prancha ??
-            extrairNumero(
-                tecnica.posicaoNaPrancha
-            );
-
-    });
-
-
-    atualizarHabilidade(
-        elementos.valorEquilibrio,
-        elementos.barraEquilibrio,
-        equilibrio
-    );
-
-
-    atualizarHabilidade(
-        elementos.valorPostura,
-        elementos.barraPostura,
-        postura
-    );
-
-
-    atualizarHabilidade(
-        elementos.valorPernas,
-        elementos.barraPernas,
-        pernas
-    );
-
-
-    atualizarHabilidade(
-        elementos.valorBracos,
-        elementos.barraBracos,
-        bracos
-    );
-
-
-    atualizarHabilidade(
-        elementos.valorPrancha,
-        elementos.barraPrancha,
-        prancha
-    );
-
-
-    // ==================================================
-    // MANOBRAS
-    // ==================================================
-
-    let bottomTurn = null;
-    let cutback = null;
-    let aereo = null;
-    let carve = null;
-
-
-    analises.forEach(analise => {
-
-        if (!analise) {
-            return;
-        }
-
-
-        const manobra =
-            String(
-                analise.manobra || ""
-            ).toLowerCase();
-
-
-        const nota =
-            numero(
-                analise.nota,
-                0
-            );
-
-
-        if (!nota) {
-            return;
-        }
-
-
-        if (
-            manobra.includes("bottom")
-        ) {
-
-            bottomTurn =
-                Math.max(
-                    bottomTurn || 0,
-                    nota
-                );
-        }
-
-
-        if (
-            manobra.includes("cutback")
-        ) {
-
-            cutback =
-                Math.max(
-                    cutback || 0,
-                    nota
-                );
-        }
-
-
-        if (
-            manobra.includes("aéreo") ||
-            manobra.includes("aereo")
-        ) {
-
-            aereo =
-                Math.max(
-                    aereo || 0,
-                    nota
-                );
-        }
-
-
-        if (
-            manobra.includes("carve")
-        ) {
-
-            carve =
-                Math.max(
-                    carve || 0,
-                    nota
-                );
-        }
-
-    });
-
-
-    atualizarManobra(
-        elementos.bottomTurn,
-        elementos.barraBottomTurn,
-        bottomTurn
-    );
-
-
-    atualizarManobra(
-        elementos.cutback,
-        elementos.barraCutback,
-        cutback
-    );
-
-
-    atualizarManobra(
-        elementos.aereo,
-        elementos.barraAereo,
-        aereo
-    );
-
-
-    atualizarManobra(
-        elementos.carve,
-        elementos.barraCarve,
-        carve
-    );
-}
-
-
-// ======================================================
-// PLANO DE EVOLUÇÃO
-// ======================================================
-
-function gerarPlanoEvolucao(
-    estatisticas,
-    perfil,
-    score,
-    nivel
-) {
-
-    const objetivo =
-        perfil.objetivo ||
-        "Evoluir no surf";
-
-
-    let prazo;
-    let frequencia;
-    let fase;
-    let meta;
-    let treino;
-
-
-    if (
-        estatisticas.sessoes === 0
-    ) {
-
-        prazo =
-            "Próximos 30 dias";
-
-        frequencia =
-            "Registrar pelo menos 2 sessões";
-
-        fase =
-            "Fase 1 — Construção da base";
-
-        meta =
-            "Começar seu histórico e identificar seu nível atual.";
-
-        treino =
-            "Foco em equilíbrio, mobilidade, remada e pop-up.";
-
-    } else if (
         score < 40
-    ) {
+            ? "Próximas 4 semanas"
+            : score < 70
+                ? "Próximas 6 semanas"
+                : "Próximas 8 semanas";
 
-        prazo =
-            "Próximas 4 semanas";
 
-        frequencia =
-            "2 sessões por semana";
+    const frequencia =
 
-        fase =
-            "Fase 1 — Fundamentos";
+        score < 40
+            ? "2 sessões por semana"
+            : score < 70
+                ? "2 a 3 sessões por semana"
+                : "3 sessões por semana";
 
-        meta =
-            "Ganhar confiança, equilíbrio e consistência.";
 
-        treino =
-            "Pop-up, postura, flexão dos joelhos, equilíbrio e remada.";
+    const fase =
 
-    } else if (
-        score < 60
-    ) {
+        score < 40
+            ? "Fase 1 — Fundamentos"
+            : score < 70
+                ? "Fase 2 — Consistência"
+                : "Fase 3 — Técnica";
 
-        prazo =
-            "Próximas 6 semanas";
 
-        frequencia =
-            "2 a 3 sessões por semana";
+    const meta =
 
-        fase =
-            "Fase 2 — Consistência";
+        score < 40
 
-        meta =
-            "Aumentar o número de ondas bem executadas.";
+            ? "Ganhar confiança, equilíbrio e consistência."
 
-        treino =
-            "Transferência de peso, linha da onda, velocidade e Bottom Turn.";
+            : score < 70
 
-    } else if (
-        score < 80
-    ) {
+                ? "Aumentar o número de ondas bem executadas."
 
-        prazo =
-            "Próximas 8 semanas";
+                : "Aumentar a qualidade das manobras e a consistência.";
 
-        frequencia =
-            "3 sessões por semana";
 
-        fase =
-            "Fase 3 — Técnica";
+    const treino =
 
-        meta =
-            "Aumentar a qualidade das manobras e a consistência.";
+        score < 50
 
-        treino =
-            "Bottom Turn, Cutback, geração de velocidade e transições.";
+            ? "15 min de mobilidade + 20 pop-ups + exercícios de equilíbrio."
 
-    } else {
+            : score < 70
 
-        prazo =
-            "Próximas 8 semanas";
+                ? "Treine pop-up explosivo, equilíbrio e transferência de peso."
 
-        frequencia =
-            "3 a 4 sessões por semana";
-
-        fase =
-            "Fase 4 — Performance";
-
-        meta =
-            "Refinar técnica, velocidade e combinação de manobras.";
-
-        treino =
-            "Velocidade, linhas críticas, rotação e conexão entre manobras.";
-    }
+                : "Trabalhe Bottom Turn, geração de velocidade e transição entre compressão e extensão.";
 
 
     texto(
-        elementos.planoObjetivo,
+        el.planoObjetivo,
         objetivo
     );
 
 
     texto(
-        elementos.planoPrazo,
+        el.planoPrazo,
         prazo
     );
 
 
     texto(
-        elementos.planoFrequencia,
+        el.planoFrequencia,
         frequencia
     );
 
 
     texto(
-        elementos.planoFase,
+        el.planoFase,
         fase
     );
 
 
     texto(
-        elementos.planoMeta,
+        el.planoMeta,
         meta
     );
 
 
     texto(
-        elementos.planoTreino,
+        el.planoTreino,
         treino
     );
 
 
-    const progresso =
-        estatisticas.sessoes === 0
-            ? 0
-            : limitar(
-                estatisticas.sessoes /
-                12 *
-                100
-            );
+    const progressoPlano =
+        limitar(
+            est.sessoes / 12 * 100
+        );
 
 
     texto(
-        elementos.planoProgresso,
-        `${progresso}% concluído`
+
+        el.planoProgresso,
+
+        `${progressoPlano}% concluído`
+
     );
 
 
-    if (elementos.barraPlano) {
+    if (el.barraPlano) {
 
-        elementos.barraPlano.style.width =
-            `${progresso}%`;
+        el.barraPlano.style.width =
+            `${progressoPlano}%`;
+
     }
-}
 
 
-// ======================================================
-// MISSÃO
-// ======================================================
-
-function gerarMissao(
-    estatisticas,
-    score
-) {
+    // -----------------------------------------------
+    // MISSÃO
+    // -----------------------------------------------
 
     let missao;
+
     let descricao;
-    let progresso = 0;
+
+    let progressoMissao = 0;
 
 
-    if (
-        estatisticas.sessoes === 0
-    ) {
-
-        missao =
-            "Registrar sua primeira sessão";
-
-        descricao =
-            "Entre no mar e registre sua sessão no Diário.";
-
-    } else if (
-        estatisticas.ondas < 15
-    ) {
+    if (est.ondas < 15) {
 
         missao =
             "Surfar 15 ondas";
 
+
         descricao =
             "Concentre-se em pegar ondas com boa posição e equilíbrio.";
 
-        progresso =
+
+        progressoMissao =
             limitar(
-                estatisticas.ondas /
-                15 *
-                100
+                est.ondas / 15 * 100
             );
 
-    } else if (
-        score < 60
-    ) {
+    }
+
+    else if (score < 60) {
 
         missao =
             "Treinar fundamentos";
 
+
         descricao =
             "Faça uma sessão focando postura, joelhos e distribuição de peso.";
 
-        progresso = 40;
 
-    } else if (
-        score < 80
-    ) {
+        progressoMissao = 40;
+
+    }
+
+    else if (score < 80) {
 
         missao =
             "Aprimorar o Bottom Turn";
 
+
         descricao =
             "Trabalhe compressão, transferência de peso e rotação do tronco.";
 
-        progresso = 60;
 
-    } else {
+        progressoMissao = 60;
+
+    }
+
+    else {
 
         missao =
             "Buscar mais velocidade";
 
+
         descricao =
             "Trabalhe linha, compressão e extensão para gerar velocidade.";
 
-        progresso = 75;
+
+        progressoMissao = 75;
+
     }
 
 
     texto(
-        elementos.missao,
+        el.missao,
         missao
     );
 
 
     texto(
-        elementos.descricaoMissao,
+        el.descricaoMissao,
         descricao
     );
 
 
-    if (elementos.barraMissao) {
+    if (el.barraMissao) {
 
-        elementos.barraMissao.style.width =
-            `${progresso}%`;
+        el.barraMissao.style.width =
+            `${progressoMissao}%`;
+
     }
 
 
     texto(
-        elementos.progressoMissao,
-        `${Math.round(progresso)}% concluído`
+
+        el.progressoMissao,
+
+        `${Math.round(progressoMissao)}% concluído`
+
     );
-}
 
 
-// ======================================================
-// TREINO
-// ======================================================
-
-function gerarTreino(
-    estatisticas,
-    score
-) {
-
-    let treino;
-
-
-    if (
-        estatisticas.sessoes === 0
-    ) {
-
-        treino =
-            "Comece com equilíbrio, mobilidade, remada e pop-up.";
-
-    } else if (
-        score < 50
-    ) {
-
-        treino =
-            "15 min de mobilidade + 20 pop-ups + exercícios de equilíbrio.";
-
-    } else if (
-        score < 70
-    ) {
-
-        treino =
-            "Treine pop-up explosivo, equilíbrio e transferência de peso.";
-
-    } else if (
-        score < 85
-    ) {
-
-        treino =
-            "Trabalhe Bottom Turn, geração de velocidade e transição entre compressão e extensão.";
-
-    } else {
-
-        treino =
-            "Trabalhe velocidade, rotação do tronco e conexão entre manobras.";
-    }
-
+    // -----------------------------------------------
+    // TREINO
+    // -----------------------------------------------
 
     texto(
-        elementos.treino,
+        el.treino,
         treino
     );
-}
 
 
-// ======================================================
-// PRÓXIMO OBJETIVO
-// ======================================================
+    // -----------------------------------------------
+    // PRÓXIMO OBJETIVO
+    // -----------------------------------------------
 
-function gerarProximoObjetivo(
-    estatisticas,
-    score
-) {
+    const proximo =
 
-    let objetivo;
+        est.sessoes < 3
 
+            ? "Registrar 3 sessões de surf."
 
-    if (
-        estatisticas.sessoes < 3
-    ) {
+            : est.ondas < 50
 
-        objetivo =
-            "Registrar 3 sessões de surf.";
+                ? "Chegar a 50 ondas registradas."
 
-    } else if (
-        estatisticas.ondas < 50
-    ) {
+                : score < 70
 
-        objetivo =
-            "Chegar a 50 ondas registradas.";
+                    ? "Aumentar sua consistência técnica."
 
-    } else if (
-        score < 70
-    ) {
+                    : score < 85
 
-        objetivo =
-            "Aumentar sua consistência técnica.";
+                        ? "Aprimorar Bottom Turn e Cutback."
 
-    } else if (
-        score < 85
-    ) {
-
-        objetivo =
-            "Aprimorar Bottom Turn e Cutback.";
-
-    } else {
-
-        objetivo =
-            "Desenvolver manobras avançadas.";
-    }
+                        : "Desenvolver manobras avançadas.";
 
 
     texto(
-        elementos.proximoObjetivo,
-        `🎯 ${objetivo}`
+
+        el.proximoObjetivo,
+
+        `🎯 ${proximo}`
+
     );
-}
 
 
-// ======================================================
-// ESTATÍSTICAS
-// ======================================================
-
-function atualizarEstatisticas(
-    estatisticas,
-    xp,
-    nivel
-) {
+    // -----------------------------------------------
+    // ESTATÍSTICAS
+    // -----------------------------------------------
 
     texto(
-        elementos.nivel,
+        el.nivel,
         nivel
     );
 
 
     texto(
-        elementos.xp,
+        el.xp,
         xp
     );
 
 
     texto(
-        elementos.ondas,
-        estatisticas.ondas
+        el.ondas,
+        est.ondas
     );
-
-
-    const horas =
-        estatisticas.tempoMinutos / 60;
 
 
     texto(
-        elementos.tempo,
-        `${horas.toFixed(1)}h`
+
+        el.tempo,
+
+        `${(
+            est.tempoMinutos / 60
+        ).toFixed(1)}h`
+
     );
-}
 
 
-// ======================================================
-// RELATÓRIO
-// ======================================================
-
-function gerarRelatorio(
-    estatisticas,
-    score,
-    nivel,
-    analises
-) {
-
-    if (
-        estatisticas.sessoes === 0
-    ) {
-
-        if (elementos.relatorio) {
-
-            elementos.relatorio.innerHTML = `
-
-                <div class="relatorioResumo">
-
-                    <p>
-                        🏄 Registre sua primeira sessão
-                        para desbloquear seu relatório.
-                    </p>
-
-                    <p>
-                        📊 O WaveRise vai analisar seu
-                        histórico conforme você evoluir.
-                    </p>
-
-                </div>
-
-            `;
-        }
-
-        return;
-    }
-
-
-    const media =
-        estatisticas.mediaNota > 0
-            ? estatisticas.mediaNota.toFixed(1)
-            : "--";
-
-
-    let praiaPrincipal =
-        "Nenhuma registrada";
-
+    // -----------------------------------------------
+    // RELATÓRIO
+    // -----------------------------------------------
 
     const praias =
+
         Object.entries(
-            estatisticas.praias
-        );
-
-
-    if (
-        praias.length > 0
-    ) {
-
-        praias.sort(
+            est.praias
+        )
+        .sort(
             (a, b) => b[1] - a[1]
         );
 
-        praiaPrincipal =
-            praias[0][0];
-    }
+
+    const praiaPrincipal =
+
+        praias.length
+            ? praias[0][0]
+            : "Nenhuma registrada";
 
 
-    if (elementos.relatorio) {
+    const media =
 
-        elementos.relatorio.innerHTML = `
+        est.mediaNota > 0
+            ? est.mediaNota.toFixed(1)
+            : "--";
 
-            <div class="relatorioResumo">
 
-                <p>
-                    🏄 <strong>
-                        ${estatisticas.sessoes}
-                    </strong>
-                    sessões registradas
-                </p>
+    el.relatorio.innerHTML = `
 
-                <p>
-                    🌊 <strong>
-                        ${estatisticas.ondas}
-                    </strong>
-                    ondas surfadas
-                </p>
+        <div class="relatorioResumo">
 
-                <p>
-                    ⭐ Média das sessões:
-                    <strong>
-                        ${media}
-                    </strong>
-                </p>
+            <p>
+                🏄
+                <strong>
+                    ${est.sessoes}
+                </strong>
+                sessões registradas
+            </p>
 
-                <p>
-                    🔥 WaveRise Score:
-                    <strong>
-                        ${score}/100
-                    </strong>
-                </p>
+            <p>
+                🌊
+                <strong>
+                    ${est.ondas}
+                </strong>
+                ondas surfadas
+            </p>
 
-                <p>
-                    📈 Nível:
-                    <strong>
-                        ${nivel}
-                    </strong>
-                </p>
+            <p>
+                ⭐ Média das sessões:
+                <strong>
+                    ${media}
+                </strong>
+            </p>
 
-                <p>
-                    📍 Praia mais registrada:
-                    <strong>
-                        ${praiaPrincipal}
-                    </strong>
-                </p>
+            <p>
+                🔥 WaveRise Score:
+                <strong>
+                    ${score}/100
+                </strong>
+            </p>
 
-                <p>
-                    🤖 Análises visuais:
-                    <strong>
-                        ${analises.length}
-                    </strong>
-                </p>
+            <p>
+                📈 Nível:
+                <strong>
+                    ${nivel}
+                </strong>
+            </p>
 
-            </div>
-        `;
-    }
+            <p>
+                📍 Praia mais registrada:
+                <strong>
+                    ${praiaPrincipal}
+                </strong>
+            </p>
+
+            <p>
+                🤖 Análises visuais:
+                <strong>
+                    ${analises.length}
+                </strong>
+            </p>
+
+        </div>
+
+    `;
+
+
+    console.warn(
+        "⚠️ Coach IA indisponível. Modo local ativado."
+    );
+
 }
 
 
 // ======================================================
-// INICIALIZAÇÃO
+// INICIAR COACH
 // ======================================================
 
-function iniciarCoachPro() {
+async function iniciarCoachPro() {
 
     console.log(
         "🚀 Carregando Coach IA Pro..."
     );
 
 
+    const historico =
+        carregarHistorico();
+
+
+    const perfil =
+        carregarPerfil();
+
+
+    const analises =
+        carregarAnalises();
+
+
+    const est =
+        calcularEstatisticas(
+            historico
+        );
+
+
+    const xp =
+        calcularXP(est);
+
+
+    const nivel =
+        calcularNivel(xp);
+
+
+    const score =
+        calcularScore(est);
+
+
+    const contexto = {
+
+        historico,
+
+        perfil,
+
+        analises,
+
+        est,
+
+        xp,
+
+        nivel,
+
+        score
+
+    };
+
+
+    // Mostrar estatísticas imediatamente
+
+    texto(
+        el.nivel,
+        nivel
+    );
+
+
+    texto(
+        el.xp,
+        xp
+    );
+
+
+    texto(
+        el.ondas,
+        est.ondas
+    );
+
+
+    texto(
+
+        el.tempo,
+
+        `${(
+            est.tempoMinutos / 60
+        ).toFixed(1)}h`
+
+    );
+
+
     try {
 
-        const historico =
-            carregarHistorico();
+        const ai =
+            await pedirAnaliseIA({
 
+                tipo: "coach-pro",
 
-        const perfil =
-            carregarPerfil();
+                usuario: perfil,
 
+                historico,
 
-        const analises =
-            carregarAnalisesVisuais();
+                analises,
 
+                estatisticas: est,
 
-        const estatisticas =
-            calcularEstatisticas(
-                historico
-            );
+                scoreCalculado: score,
 
+                nivel,
 
-        const xp =
-            calcularXP(
-                estatisticas
-            );
-
-
-        const nivel =
-            calcularNivel(
                 xp
-            );
+
+            });
 
 
-        const score =
-            calcularScore(
-                estatisticas
-            );
-
-
-        console.log(
-            "📊 Estatísticas:",
-            estatisticas
+        aplicarRespostaIA(
+            ai,
+            contexto
         );
 
 
         console.log(
-            "👤 Perfil:",
-            perfil
-        );
-
-
-        console.log(
-            "🤖 Análises:",
-            analises
-        );
-
-
-        console.log(
-            "🔥 Score:",
-            score
-        );
-
-
-        atualizarScore(score);
-
-        gerarDiagnostico(
-            estatisticas,
-            perfil,
-            score,
-            analises
-        );
-
-        gerarPontosFortes(
-            estatisticas,
-            score,
-            analises
-        );
-
-        gerarMelhorias(
-            estatisticas,
-            score,
-            analises
-        );
-
-        gerarDesempenho(
-            estatisticas,
-            score,
-            analises
-        );
-
-        gerarPlanoEvolucao(
-            estatisticas,
-            perfil,
-            score,
-            nivel
-        );
-
-        gerarMissao(
-            estatisticas,
-            score
-        );
-
-        gerarTreino(
-            estatisticas,
-            score
-        );
-
-        gerarProximoObjetivo(
-            estatisticas,
-            score
-        );
-
-        atualizarEstatisticas(
-            estatisticas,
-            xp,
-            nivel
-        );
-
-        gerarRelatorio(
-            estatisticas,
-            score,
-            nivel,
-            analises
-        );
-
-
-        console.log(
-            "✅ Coach IA Pro carregado."
+            "✅ Coach IA Pro carregado pela IA."
         );
 
 
     } catch (erro) {
 
         console.error(
-            "❌ Erro no Coach IA Pro:",
+            "❌ Não foi possível consultar o Coach IA:",
             erro
         );
 
 
-        if (elementos.diagnostico) {
-
-            elementos.diagnostico.textContent =
-                "Não foi possível carregar o diagnóstico. Verifique o console do navegador.";
-        }
+        aplicarModoLocal(
+            contexto
+        );
 
     }
+
 }
 
 
 // ======================================================
-// INICIAR
+// INICIALIZAÇÃO
 // ======================================================
 
 if (

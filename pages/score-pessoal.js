@@ -1,22 +1,45 @@
 console.log("🔥 WaveRise Score — carregado");
 
+
 // =====================================================
 // ELEMENTOS
 // =====================================================
 
-const scoreNumero = document.getElementById("scoreNumero");
-const classificacao = document.getElementById("classificacao");
-const descricaoScore = document.getElementById("descricaoScore");
+const scoreNumero =
+    document.getElementById("scoreNumero");
 
-const valorSessoes = document.getElementById("valorSessoes");
-const valorOndas = document.getElementById("valorOndas");
-const valorMedia = document.getElementById("valorMedia");
-const valorXP = document.getElementById("valorXP");
+const classificacao =
+    document.getElementById("classificacao");
 
-const barraSessoes = document.getElementById("barraSessoes");
-const barraOndas = document.getElementById("barraOndas");
-const barraMedia = document.getElementById("barraMedia");
-const barraXP = document.getElementById("barraXP");
+const descricaoScore =
+    document.getElementById("descricaoScore");
+
+
+const valorSessoes =
+    document.getElementById("valorSessoes");
+
+const valorOndas =
+    document.getElementById("valorOndas");
+
+const valorMedia =
+    document.getElementById("valorMedia");
+
+const valorXP =
+    document.getElementById("valorXP");
+
+
+const barraSessoes =
+    document.getElementById("barraSessoes");
+
+const barraOndas =
+    document.getElementById("barraOndas");
+
+const barraMedia =
+    document.getElementById("barraMedia");
+
+const barraXP =
+    document.getElementById("barraXP");
+
 
 const tecnicaEquilibrio =
     document.getElementById("tecnicaEquilibrio");
@@ -36,11 +59,10 @@ const tecnicaPrancha =
 const tecnicaManobra =
     document.getElementById("tecnicaManobra");
 
+
 const pontosFortes =
     document.getElementById("pontosFortes");
 
-const pontosMelhoria =
-    document.getElementById("pontosMelhoria");
 
 const nivelAtual =
     document.getElementById("nivelAtual");
@@ -57,9 +79,6 @@ const proximaMeta =
 const barraNivel =
     document.getElementById("barraNivel");
 
-const coachMensagem =
-    document.getElementById("coachMensagem");
-
 
 // =====================================================
 // CARREGAR HISTÓRICO
@@ -69,9 +88,12 @@ let historico = [];
 
 try {
 
-    historico = JSON.parse(
-        localStorage.getItem("historicoSurfWaveRise")
-    ) || [];
+    historico =
+        JSON.parse(
+            localStorage.getItem(
+                "historicoSurfWaveRise"
+            )
+        ) || [];
 
 } catch (erro) {
 
@@ -83,13 +105,16 @@ try {
     historico = [];
 }
 
+
 if (!Array.isArray(historico)) {
+
     historico = [];
+
 }
 
 
 // =====================================================
-// CARREGAR ANÁLISES DO COACH
+// CARREGAR ANÁLISES
 // =====================================================
 
 function carregarAnalises() {
@@ -97,22 +122,32 @@ function carregarAnalises() {
     const analises = [];
 
     const chaves = [
+
         "analiseFotoWaveRise",
+
         "analiseVideoWaveRise",
+
         "ultimaAnaliseFoto",
+
         "ultimaAnaliseVideo"
+
     ];
+
 
     chaves.forEach((chave) => {
 
         try {
 
-            const dados = JSON.parse(
-                localStorage.getItem(chave)
-            );
+            const dados =
+                JSON.parse(
+                    localStorage.getItem(chave)
+                );
+
 
             if (dados) {
+
                 analises.push(dados);
+
             }
 
         } catch (erro) {
@@ -125,25 +160,38 @@ function carregarAnalises() {
 
     });
 
+
     // Histórico de análises
 
     try {
 
-        const historicoAnalises = JSON.parse(
-            localStorage.getItem(
-                "historicoAnalisesWaveRise"
+        const historicoAnalises =
+            JSON.parse(
+                localStorage.getItem(
+                    "historicoAnalisesWaveRise"
+                )
+            );
+
+
+        if (
+            Array.isArray(
+                historicoAnalises
             )
-        );
+        ) {
 
-        if (Array.isArray(historicoAnalises)) {
+            historicoAnalises.forEach(
+                (analise) => {
 
-            historicoAnalises.forEach((analise) => {
+                    if (analise) {
 
-                if (analise) {
-                    analises.push(analise);
+                        analises.push(
+                            analise
+                        );
+
+                    }
+
                 }
-
-            });
+            );
 
         }
 
@@ -155,17 +203,22 @@ function carregarAnalises() {
 
     }
 
+
     return analises;
+
 }
 
-const analises = carregarAnalises();
+
+const analises =
+    carregarAnalises();
 
 
 // =====================================================
 // DADOS DAS SESSÕES
 // =====================================================
 
-let totalSessoes = historico.length;
+let totalSessoes =
+    historico.length;
 
 let totalOndas = 0;
 
@@ -173,24 +226,30 @@ let somaNotas = 0;
 
 let totalXP = 0;
 
+
 historico.forEach((sessao) => {
 
-    totalOndas += Number(
-        sessao.ondas || 0
-    );
+    totalOndas +=
+        Number(
+            sessao.ondas || 0
+        );
 
-    somaNotas += Number(
-        sessao.nota || 0
-    );
+
+    somaNotas +=
+        Number(
+            sessao.nota || 0
+        );
+
 
     if (
         sessao.xp !== undefined &&
         sessao.xp !== null
     ) {
 
-        totalXP += Number(
-            sessao.xp || 0
-        );
+        totalXP +=
+            Number(
+                sessao.xp || 0
+            );
 
     } else {
 
@@ -215,8 +274,6 @@ const mediaNota =
 // SCORE
 // =====================================================
 //
-// O Score considera:
-//
 // 35% — desempenho das sessões
 // 25% — quantidade de ondas
 // 20% — consistência
@@ -230,11 +287,13 @@ const desempenhoSessoes =
         (mediaNota / 10) * 100
     );
 
+
 const desempenhoOndas =
     Math.min(
         100,
         (totalOndas / 50) * 100
     );
+
 
 const consistencia =
     Math.min(
@@ -251,11 +310,14 @@ let scoreTecnico = 0;
 
 let quantidadeTecnica = 0;
 
+
 analises.forEach((analise) => {
 
-    const nota = Number(
-        analise.nota
-    );
+    const nota =
+        Number(
+            analise.nota
+        );
+
 
     if (
         !Number.isNaN(nota) &&
@@ -263,13 +325,18 @@ analises.forEach((analise) => {
     ) {
 
         scoreTecnico +=
-            Math.min(10, nota) * 10;
+            Math.min(
+                10,
+                nota
+            ) * 10;
+
 
         quantidadeTecnica++;
 
     }
 
 });
+
 
 if (quantidadeTecnica > 0) {
 
@@ -290,6 +357,7 @@ if (quantidadeTecnica > 0) {
 
 let score;
 
+
 if (totalSessoes === 0) {
 
     score = 0;
@@ -304,12 +372,17 @@ if (totalSessoes === 0) {
 
 }
 
-score = Math.round(
-    Math.min(
-        100,
-        Math.max(0, score)
-    )
-);
+
+score =
+    Math.round(
+        Math.min(
+            100,
+            Math.max(
+                0,
+                score
+            )
+        )
+    );
 
 
 // =====================================================
@@ -317,39 +390,46 @@ score = Math.round(
 // =====================================================
 
 let tituloScore = "";
+
 let descricao = "";
+
 
 if (score >= 90) {
 
-    tituloScore = "Elite";
+    tituloScore =
+        "Elite";
 
     descricao =
         "Seu desempenho está em um nível excepcional. Continue buscando consistência e evolução técnica.";
 
 } else if (score >= 80) {
 
-    tituloScore = "Avançado";
+    tituloScore =
+        "Avançado";
 
     descricao =
         "Você já apresenta um desempenho muito consistente. O próximo passo é aperfeiçoar sua técnica.";
 
 } else if (score >= 65) {
 
-    tituloScore = "Intermediário";
+    tituloScore =
+        "Intermediário";
 
     descricao =
         "Você está construindo uma boa base. Foque em consistência e evolução técnica.";
 
 } else if (score >= 40) {
 
-    tituloScore = "Em evolução";
+    tituloScore =
+        "Em evolução";
 
     descricao =
         "Seu surf está evoluindo. Registre mais sessões para aumentar sua consistência.";
 
 } else {
 
-    tituloScore = "Começando";
+    tituloScore =
+        "Começando";
 
     descricao =
         "Continue registrando suas sessões para construir seu WaveRise Score.";
@@ -362,17 +442,26 @@ if (score >= 90) {
 // =====================================================
 
 if (scoreNumero) {
-    scoreNumero.textContent = score;
+
+    scoreNumero.textContent =
+        score;
+
 }
+
 
 if (classificacao) {
+
     classificacao.textContent =
         tituloScore;
+
 }
 
+
 if (descricaoScore) {
+
     descricaoScore.textContent =
         descricao;
+
 }
 
 
@@ -381,25 +470,36 @@ if (descricaoScore) {
 // =====================================================
 
 if (valorSessoes) {
+
     valorSessoes.textContent =
         totalSessoes;
+
 }
+
 
 if (valorOndas) {
+
     valorOndas.textContent =
         totalOndas;
+
 }
 
+
 if (valorMedia) {
+
     valorMedia.textContent =
         mediaNota > 0
             ? mediaNota.toFixed(1)
             : "0";
+
 }
 
+
 if (valorXP) {
+
     valorXP.textContent =
         totalXP;
+
 }
 
 
@@ -407,28 +507,43 @@ if (valorXP) {
 // BARRAS
 // =====================================================
 
-function atualizarBarra(elemento, valor) {
+function atualizarBarra(
+    elemento,
+    valor
+) {
 
     if (!elemento) return;
 
+
     elemento.style.width =
-        `${Math.min(100, Math.max(0, valor))}%`;
+        `${Math.min(
+            100,
+            Math.max(
+                0,
+                valor
+            )
+        )}%`;
+
 }
+
 
 atualizarBarra(
     barraSessoes,
     consistencia
 );
 
+
 atualizarBarra(
     barraOndas,
     desempenhoOndas
 );
 
+
 atualizarBarra(
     barraMedia,
     desempenhoSessoes
 );
+
 
 atualizarBarra(
     barraXP,
@@ -449,37 +564,49 @@ let xpInicio = 0;
 
 let xpFim = 200;
 
+
 if (totalXP >= 5000) {
 
     nivel = 6;
+
     xpInicio = 5000;
+
     xpFim = 5000;
 
 } else if (totalXP >= 3000) {
 
     nivel = 5;
+
     xpInicio = 3000;
+
     xpFim = 5000;
 
 } else if (totalXP >= 1500) {
 
     nivel = 4;
+
     xpInicio = 1500;
+
     xpFim = 3000;
 
 } else if (totalXP >= 500) {
 
     nivel = 3;
+
     xpInicio = 500;
+
     xpFim = 1500;
 
 } else if (totalXP >= 200) {
 
     nivel = 2;
+
     xpInicio = 200;
+
     xpFim = 500;
 
 }
+
 
 if (nivelAtual) {
 
@@ -488,6 +615,7 @@ if (nivelAtual) {
 
 }
 
+
 if (xpNivel) {
 
     xpNivel.textContent =
@@ -495,12 +623,14 @@ if (xpNivel) {
 
 }
 
+
 if (xpAtual) {
 
     xpAtual.textContent =
         `${totalXP} XP`;
 
 }
+
 
 if (proximaMeta) {
 
@@ -525,6 +655,7 @@ if (proximaMeta) {
 
 let progressoNivel = 0;
 
+
 if (nivel >= 6) {
 
     progressoNivel = 100;
@@ -539,11 +670,16 @@ if (nivel >= 6) {
 
 }
 
+
 progressoNivel =
     Math.min(
         100,
-        Math.max(0, progressoNivel)
+        Math.max(
+            0,
+            progressoNivel
+        )
     );
+
 
 if (barraNivel) {
 
@@ -559,7 +695,9 @@ if (barraNivel) {
 
 function encontrarTecnica(nome) {
 
-    for (const analise of analises) {
+    for (
+        const analise of analises
+    ) {
 
         if (
             analise.tecnica &&
@@ -572,7 +710,9 @@ function encontrarTecnica(nome) {
 
     }
 
+
     return null;
+
 }
 
 
@@ -583,17 +723,20 @@ function mostrarTecnica(
 
     if (!elemento) return;
 
+
     if (
         valor === null ||
         valor === undefined ||
         valor === ""
     ) {
 
-        elemento.textContent = "--";
+        elemento.textContent =
+            "--";
 
         return;
 
     }
+
 
     elemento.textContent =
         String(valor);
@@ -603,27 +746,41 @@ function mostrarTecnica(
 
 mostrarTecnica(
     tecnicaEquilibrio,
-    encontrarTecnica("equilibrio")
+    encontrarTecnica(
+        "equilibrio"
+    )
 );
+
 
 mostrarTecnica(
     tecnicaPostura,
-    encontrarTecnica("postura")
+    encontrarTecnica(
+        "postura"
+    )
 );
+
 
 mostrarTecnica(
     tecnicaPernas,
-    encontrarTecnica("pernas")
+    encontrarTecnica(
+        "pernas"
+    )
 );
+
 
 mostrarTecnica(
     tecnicaBracos,
-    encontrarTecnica("bracos")
+    encontrarTecnica(
+        "bracos"
+    )
 );
+
 
 mostrarTecnica(
     tecnicaPrancha,
-    encontrarTecnica("posicaoNaPrancha")
+    encontrarTecnica(
+        "posicaoNaPrancha"
+    )
 );
 
 
@@ -633,13 +790,16 @@ mostrarTecnica(
 
 let ultimaManobra = null;
 
+
 for (
     let i = analises.length - 1;
     i >= 0;
     i--
 ) {
 
-    if (analises[i].manobra) {
+    if (
+        analises[i].manobra
+    ) {
 
         ultimaManobra =
             analises[i].manobra;
@@ -649,6 +809,7 @@ for (
     }
 
 }
+
 
 mostrarTecnica(
     tecnicaManobra,
@@ -666,31 +827,44 @@ function coletarLista(
 
     const lista = [];
 
-    analises.forEach((analise) => {
 
-        if (
-            Array.isArray(
-                analise[propriedade]
-            )
-        ) {
+    analises.forEach(
+        (analise) => {
 
-            analise[propriedade]
-                .forEach((item) => {
+            if (
+                Array.isArray(
+                    analise[
+                        propriedade
+                    ]
+                )
+            ) {
 
-                    if (
-                        item &&
-                        !lista.includes(item)
-                    ) {
+                analise[
+                    propriedade
+                ].forEach(
+                    (item) => {
 
-                        lista.push(item);
+                        if (
+                            item &&
+                            !lista.includes(
+                                item
+                            )
+                        ) {
+
+                            lista.push(
+                                item
+                            );
+
+                        }
 
                     }
+                );
 
-                });
+            }
 
         }
+    );
 
-    });
 
     return lista;
 
@@ -698,10 +872,9 @@ function coletarLista(
 
 
 const fortes =
-    coletarLista("pontosFortes");
-
-const melhorias =
-    coletarLista("melhorias");
+    coletarLista(
+        "pontosFortes"
+    );
 
 
 function renderizarLista(
@@ -712,7 +885,9 @@ function renderizarLista(
 
     if (!elemento) return;
 
+
     elemento.innerHTML = "";
+
 
     if (!lista.length) {
 
@@ -726,22 +901,32 @@ function renderizarLista(
 
     }
 
+
     lista
         .slice(0, 5)
-        .forEach((item) => {
+        .forEach(
+            (item) => {
 
-            const div =
-                document.createElement("div");
+                const div =
+                    document.createElement(
+                        "div"
+                    );
 
-            div.className =
-                "listaItem";
 
-            div.textContent =
-                item;
+                div.className =
+                    "listaItem";
 
-            elemento.appendChild(div);
 
-        });
+                div.textContent =
+                    item;
+
+
+                elemento.appendChild(
+                    div
+                );
+
+            }
+        );
 
 }
 
@@ -749,65 +934,66 @@ function renderizarLista(
 renderizarLista(
     pontosFortes,
     fortes,
-    "Faça uma análise com o Coach IA para descobrir seus pontos fortes."
+    "Registre mais sessões ou faça uma análise técnica para descobrir seus pontos fortes."
 );
-
-renderizarLista(
-    pontosMelhoria,
-    melhorias,
-    "Faça uma análise com o Coach IA para descobrir seus próximos focos."
-);
-
-
-// =====================================================
-// MENSAGEM DO COACH
-// =====================================================
-
-if (coachMensagem) {
-
-    if (totalSessoes === 0) {
-
-        coachMensagem.textContent =
-            "Registre sua primeira sessão para começar a construir seu Score.";
-
-    } else if (score >= 80) {
-
-        coachMensagem.textContent =
-            "Seu desempenho está muito forte. Agora o foco é transformar qualidade em consistência.";
-
-    } else if (score >= 60) {
-
-        coachMensagem.textContent =
-            "Você está no caminho certo. Continue registrando suas sessões e trabalhando sua técnica.";
-
-    } else if (score >= 40) {
-
-        coachMensagem.textContent =
-            "Sua evolução já começou. A consistência será a chave para aumentar seu Score.";
-
-    } else {
-
-        coachMensagem.textContent =
-            "Cada sessão conta. Continue surfando e registrando sua evolução.";
-
-    }
-
-}
 
 
 // =====================================================
 // DEBUG
 // =====================================================
 
-console.log("=================================");
-console.log("🌊 WAVERISE SCORE");
-console.log("=================================");
-console.log("Sessões:", totalSessoes);
-console.log("Ondas:", totalOndas);
-console.log("Média:", mediaNota.toFixed(1));
-console.log("XP:", totalXP);
-console.log("Análises IA:", analises.length);
-console.log("Score técnico:", scoreTecnico.toFixed(1));
-console.log("WAVERISE SCORE:", score);
-console.log("Nível:", nivel);
-console.log("=================================");
+console.log(
+    "================================="
+);
+
+console.log(
+    "🌊 WAVERISE SCORE"
+);
+
+console.log(
+    "================================="
+);
+
+console.log(
+    "Sessões:",
+    totalSessoes
+);
+
+console.log(
+    "Ondas:",
+    totalOndas
+);
+
+console.log(
+    "Média:",
+    mediaNota.toFixed(1)
+);
+
+console.log(
+    "XP:",
+    totalXP
+);
+
+console.log(
+    "Análises IA:",
+    analises.length
+);
+
+console.log(
+    "Score técnico:",
+    scoreTecnico.toFixed(1)
+);
+
+console.log(
+    "WAVERISE SCORE:",
+    score
+);
+
+console.log(
+    "Nível:",
+    nivel
+);
+
+console.log(
+    "================================="
+);

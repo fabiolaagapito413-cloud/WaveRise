@@ -188,28 +188,14 @@ const BACKEND_URL =
 // ======================================================
 
 const paginasPro = [
-
     "analise-foto.html",
-
     "analise-video.html",
-
-    "coach-pro.html",
-
     "prancha-ideal.html",
-
     "melhor-horario.html",
-
-    null,
-
     "plano-evolucao.html",
-
     "comparar-praias.html",
-
-    "score-pessoal.html",
-
-    null
+    "score-pessoal.html"
 ];
-
 
 // ======================================================
 // VERIFICAR SE PRO ESTÁ ATIVO

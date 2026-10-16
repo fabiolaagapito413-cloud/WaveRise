@@ -2,18 +2,26 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>WaveRise Score</title>
 
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="score-pessoal.css">
+
 </head>
+
 
 <body>
 
     <div class="scorePagina">
+
 
         <!-- ============================= -->
         <!-- TOPO -->
@@ -21,14 +29,27 @@
 
         <header class="scoreTopo">
 
-            <button class="voltar" onclick="history.back()">
+            <button
+                class="voltar"
+                onclick="history.back()"
+            >
                 ←
             </button>
 
             <div>
-                <span class="eyebrow">WAVERISE</span>
-                <h1>Meu Score</h1>
-                <p>Seu desempenho no surf</p>
+
+                <span class="eyebrow">
+                    WAVERISE
+                </span>
+
+                <h1>
+                    Meu Score
+                </h1>
+
+                <p>
+                    Seu desempenho no surf
+                </p>
+
             </div>
 
         </header>
@@ -42,13 +63,19 @@
 
             <div class="scoreCirculo">
 
-                <div class="scoreNumero" id="scoreNumero">
+                <div
+                    class="scoreNumero"
+                    id="scoreNumero"
+                >
                     0
                 </div>
 
-                <span>de 100</span>
+                <span>
+                    de 100
+                </span>
 
             </div>
+
 
             <div class="scoreInfo">
 
@@ -61,7 +88,8 @@
                 </h2>
 
                 <p id="descricaoScore">
-                    Registre suas sessões para descobrir seu WaveRise Score.
+                    Registre suas sessões para descobrir
+                    seu WaveRise Score.
                 </p>
 
             </div>
@@ -76,12 +104,23 @@
         <section class="card scoreCard">
 
             <div class="tituloSecao">
-                <span>📊</span>
+
+                <span>
+                    📊
+                </span>
 
                 <div>
-                    <h2>Seu desempenho</h2>
-                    <p>Como você está evoluindo</p>
+
+                    <h2>
+                        Seu desempenho
+                    </h2>
+
+                    <p>
+                        Como você está evoluindo
+                    </p>
+
                 </div>
+
             </div>
 
 
@@ -93,12 +132,21 @@
                 <div class="indicador">
 
                     <div class="indicadorTopo">
-                        <span>🏄 Sessões</span>
-                        <strong id="valorSessoes">0</strong>
+
+                        <span>
+                            🏄 Sessões
+                        </span>
+
+                        <strong id="valorSessoes">
+                            0
+                        </strong>
+
                     </div>
 
                     <div class="barra">
+
                         <div id="barraSessoes"></div>
+
                     </div>
 
                 </div>
@@ -109,12 +157,21 @@
                 <div class="indicador">
 
                     <div class="indicadorTopo">
-                        <span>🌊 Ondas</span>
-                        <strong id="valorOndas">0</strong>
+
+                        <span>
+                            🌊 Ondas
+                        </span>
+
+                        <strong id="valorOndas">
+                            0
+                        </strong>
+
                     </div>
 
                     <div class="barra">
+
                         <div id="barraOndas"></div>
+
                     </div>
 
                 </div>
@@ -125,12 +182,21 @@
                 <div class="indicador">
 
                     <div class="indicadorTopo">
-                        <span>⭐ Média</span>
-                        <strong id="valorMedia">0</strong>
+
+                        <span>
+                            ⭐ Média
+                        </span>
+
+                        <strong id="valorMedia">
+                            0
+                        </strong>
+
                     </div>
 
                     <div class="barra">
+
                         <div id="barraMedia"></div>
+
                     </div>
 
                 </div>
@@ -141,15 +207,25 @@
                 <div class="indicador">
 
                     <div class="indicadorTopo">
-                        <span>🔥 XP</span>
-                        <strong id="valorXP">0</strong>
+
+                        <span>
+                            🔥 XP
+                        </span>
+
+                        <strong id="valorXP">
+                            0
+                        </strong>
+
                     </div>
 
                     <div class="barra">
+
                         <div id="barraXP"></div>
+
                     </div>
 
                 </div>
+
 
             </div>
 
@@ -164,11 +240,20 @@
 
             <div class="tituloSecao">
 
-                <span>🤖</span>
+                <span>
+                    🤖
+                </span>
 
                 <div>
-                    <h2>Análise técnica</h2>
-                    <p>Baseada nas análises do Coach IA</p>
+
+                    <h2>
+                        Análise técnica
+                    </h2>
+
+                    <p>
+                        Baseada nas análises do Coach IA
+                    </p>
+
                 </div>
 
             </div>
@@ -179,11 +264,20 @@
 
                 <div class="tecnicaItem">
 
-                    <span>⚖️</span>
+                    <span>
+                        ⚖️
+                    </span>
 
                     <div>
-                        <p>Equilíbrio</p>
-                        <strong id="tecnicaEquilibrio">--</strong>
+
+                        <p>
+                            Equilíbrio
+                        </p>
+
+                        <strong id="tecnicaEquilibrio">
+                            --
+                        </strong>
+
                     </div>
 
                 </div>
@@ -191,11 +285,20 @@
 
                 <div class="tecnicaItem">
 
-                    <span>🧍</span>
+                    <span>
+                        🧍
+                    </span>
 
                     <div>
-                        <p>Postura</p>
-                        <strong id="tecnicaPostura">--</strong>
+
+                        <p>
+                            Postura
+                        </p>
+
+                        <strong id="tecnicaPostura">
+                            --
+                        </strong>
+
                     </div>
 
                 </div>
@@ -203,11 +306,20 @@
 
                 <div class="tecnicaItem">
 
-                    <span>🦵</span>
+                    <span>
+                        🦵
+                    </span>
 
                     <div>
-                        <p>Pernas</p>
-                        <strong id="tecnicaPernas">--</strong>
+
+                        <p>
+                            Pernas
+                        </p>
+
+                        <strong id="tecnicaPernas">
+                            --
+                        </strong>
+
                     </div>
 
                 </div>
@@ -215,11 +327,20 @@
 
                 <div class="tecnicaItem">
 
-                    <span>💪</span>
+                    <span>
+                        💪
+                    </span>
 
                     <div>
-                        <p>Braços</p>
-                        <strong id="tecnicaBracos">--</strong>
+
+                        <p>
+                            Braços
+                        </p>
+
+                        <strong id="tecnicaBracos">
+                            --
+                        </strong>
+
                     </div>
 
                 </div>
@@ -227,11 +348,20 @@
 
                 <div class="tecnicaItem">
 
-                    <span>🏄</span>
+                    <span>
+                        🏄
+                    </span>
 
                     <div>
-                        <p>Posição na prancha</p>
-                        <strong id="tecnicaPrancha">--</strong>
+
+                        <p>
+                            Posição na prancha
+                        </p>
+
+                        <strong id="tecnicaPrancha">
+                            --
+                        </strong>
+
                     </div>
 
                 </div>
@@ -239,14 +369,24 @@
 
                 <div class="tecnicaItem">
 
-                    <span>🎯</span>
+                    <span>
+                        🎯
+                    </span>
 
                     <div>
-                        <p>Manobra</p>
-                        <strong id="tecnicaManobra">--</strong>
+
+                        <p>
+                            Manobra
+                        </p>
+
+                        <strong id="tecnicaManobra">
+                            --
+                        </strong>
+
                     </div>
 
                 </div>
+
 
             </div>
 
@@ -261,47 +401,33 @@
 
             <div class="tituloSecao">
 
-                <span>🔥</span>
+                <span>
+                    🔥
+                </span>
 
                 <div>
-                    <h2>Pontos fortes</h2>
-                    <p>Onde você está se destacando</p>
+
+                    <h2>
+                        Pontos fortes
+                    </h2>
+
+                    <p>
+                        Onde você está se destacando
+                    </p>
+
                 </div>
 
             </div>
 
-            <div id="pontosFortes" class="listaAnalise">
+
+            <div
+                id="pontosFortes"
+                class="listaAnalise"
+            >
 
                 <div class="estadoVazio">
-                    Registre uma sessão ou faça uma análise com o Coach IA.
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ============================= -->
-        <!-- MELHORIAS -->
-        <!-- ============================= -->
-
-        <section class="card scoreCard">
-
-            <div class="tituloSecao">
-
-                <span>🎯</span>
-
-                <div>
-                    <h2>Próximos focos</h2>
-                    <p>O que pode levar seu surf para outro nível</p>
-                </div>
-
-            </div>
-
-            <div id="pontosMelhoria" class="listaAnalise">
-
-                <div class="estadoVazio">
-                    Continue registrando suas sessões para receber recomendações.
+                    Registre uma sessão ou faça uma análise
+                    com o Coach IA.
                 </div>
 
             </div>
@@ -329,8 +455,13 @@
 
                 </div>
 
+
                 <div class="nivelXP">
-                    <strong id="xpNivel">0 XP</strong>
+
+                    <strong id="xpNivel">
+                        0 XP
+                    </strong>
+
                 </div>
 
             </div>
@@ -339,8 +470,11 @@
             <div class="progressoNivel">
 
                 <div class="barraNivel">
+
                     <div id="barraNivel"></div>
+
                 </div>
+
 
                 <div class="nivelMeta">
 
@@ -360,44 +494,15 @@
 
 
         <!-- ============================= -->
-        <!-- COACH -->
-        <!-- ============================= -->
-
-        <section class="coachCard">
-
-            <div class="coachIcon">
-                🤖
-            </div>
-
-            <div class="coachTexto">
-
-                <span>COACH WAVERISE</span>
-
-                <h2 id="coachMensagem">
-                    Continue surfando para construir seu score.
-                </h2>
-
-                <p>
-                    Quanto mais você registra suas sessões,
-                    mais preciso fica seu acompanhamento.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- ============================= -->
-        <!-- BOTÕES -->
+        <!-- BOTÃO -->
         <!-- ============================= -->
 
         <div class="acoesScore">
 
-            <a href="coach-pro.html" class="botaoPrincipal">
-                🤖 Ver análise do Coach
-            </a>
-
-            <a href="diario.html" class="botaoSecundario">
+            <a
+                href="diario.html"
+                class="botaoSecundario"
+            >
                 📝 Registrar sessão
             </a>
 
@@ -411,31 +516,61 @@
         <nav class="menu">
 
             <a href="../index.html">
+
                 🏠
-                <span>Início</span>
+
+                <span>
+                    Início
+                </span>
+
             </a>
+
 
             <a href="diario.html">
+
                 🌊
-                <span>Diário</span>
+
+                <span>
+                    Diário
+                </span>
+
             </a>
+
 
             <a href="coach-pro.html">
+
                 🤖
-                <span>Coach</span>
+
+                <span>
+                    Coach
+                </span>
+
             </a>
+
 
             <a href="evolucao.html">
+
                 📈
-                <span>Evolução</span>
+
+                <span>
+                    Evolução
+                </span>
+
             </a>
 
+
             <a href="perfil.html">
+
                 👤
-                <span>Perfil</span>
+
+                <span>
+                    Perfil
+                </span>
+
             </a>
 
         </nav>
+
 
     </div>
 
@@ -444,7 +579,11 @@
     <!-- JAVASCRIPT -->
     <!-- ============================= -->
 
-    <script type="module" src="score-pessoal.js"></script>
+    <script
+        type="module"
+        src="score-pessoal.js"
+    ></script>
+
 
 </body>
 

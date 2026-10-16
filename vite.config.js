@@ -24,6 +24,7 @@ export default defineConfig({
 
                 perfil: resolve("pages/perfil.html"),
                 editarPerfil: resolve("pages/editar-perfil.html"),
+                privacidade: resolve("pages/privacidade.html"),
 
                 // ==============================
                 // SURF
